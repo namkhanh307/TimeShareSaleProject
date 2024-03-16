@@ -1,0 +1,89 @@
+﻿@model TimeShareProject.Models.User
+
+@{
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>View Profile - 4REST HOME</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../assets/css/templatemo-villa-agency.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="profile">
+                    <h1>View Profile</h1>
+                    <!-- Personal Information -->
+                    <div class="profile-section">
+                        <h2>Personal Information</h2>
+                        <p><strong>Name:</strong> @Model.Name</p>
+                        <p><strong>Date of Birth:</strong> @(Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToShortDateString() : "N/A")</p>
+                        <p><strong>Sex:</strong> @(Model.Sex.HasValue && Model.Sex.Value ? "Male" : "Female")</p>
+                        <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
+                        <p><strong>Email:</strong> @Model.Email</p>
+                        <p><strong>Address:</strong> @Model.Address</p>
+                        <a href="@Url.Action("EditPersonalInfo", "User", new { id = Model.Id })" class="btn btn-primary">Edit</a>
+                    </div>
+                    <!-- Identity Card -->
+                    <div class="profile-section">
+                        <h2>Identity Card</h2>
+                        <p><strong>ID Front Image:</strong> <img src="~/img/@Model.IdfrontImage" alt="ID Front Image" width="100px" height="250px" /></p>
+                        <p><strong>ID Back Image:</strong> <img src="~/img/@Model.IdbackImage" alt="ID Back Image" width="100px" height="250px" /></p>
+                        <a href="@Url.Action("EditIdentityCard", "User", new { id = Model.Id })" class="btn btn-primary">Edit</a>
+                    </div>
+                    <!-- Bank Information -->
+                    <div class="profile-section">
+                        <h2>Bank Information</h2>
+                        <p><strong>Bank Account Number:</strong> @Model.BankAccountNumber</p>
+                        <p><strong>Bank Account Holder:</strong> @Model.BankAccountHolder</p>
+                        <p><strong>Bank Name:</strong> @Model.BankName</p>
+                        <a href="@Url.Action("EditBankInfo", "User", new { id = Model.Id })" class="btn btn-primary">Edit</a>
+                    </div>
+                    <!-- Account -->
+                    <div class="profile-section">
+                        <h2>Account</h2>
+                        <p><strong>Username:</strong> *********</p>
+                        <p><strong>Password:</strong> ****</p> <!-- For security reasons, don't display the password -->
+                        <a href="@Url.Action("EditAccount", "User", new { id = Model.Id })" class="btn btn-primary color-black">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@using TimeShareProject.Models;
+@model TimeShareProject.Models.Property;
+@{
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+}
+
+
+<h1>@Model.Name</h1>
+<h1>@Model.InsideImage</h1>
+<h1>@Model.Occupancy</h1>
+<h1>@Model.Bathroom</h1>
+<h1>@Model.UnitPrice</h1>
+<h1>@Model.Beds</h1>
+<h1>@Model.FrontImage</h1>
+<form asp-action="SelectRoom" asp-controller="Reservations">
+    <input type="hidden" name="propertyId" value="@Model.Id" />
+    <input type="hidden" name="projectId" value="@Model.ProjectId" />
+    <input type="hidden" name="bedSelect" value="@Model.Beds" />
+
+    <div class="block col-md-4">
+        <select id="blockSelect" name="blockSelect">
+            @foreach (var block in Common.GetAvailableBlocks(Model.Id))
+            {
+                <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        @{
+            if (@Model.SaleDate <= DateTime.Today)
+            {
+                <input type="hidden" name="saleStatus" value="Buy now" />
+                <button type="submit" id="filterButton" class="btn btn-primary">Buy now</button>
+
+            }
+            else
+            {
+                <input type="hidden" name="saleStatus" value="Reserve" />
+                <button type="submit" id="filterButton" class="btn btn-primary">Reserve</button>
+
+            }
+        }
+    </div>
+</form>

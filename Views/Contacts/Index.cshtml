@@ -1,0 +1,93 @@
+﻿@model IEnumerable<TimeShareProject.Models.Contact>
+
+@{
+    ViewData["Title"] = "Contacts";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Contact List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+                <td>
+                    @* <input type="checkbox" id="status_@item.Id" @(item.Status ? "checked" : "") />
+ *@
+               
+                <select class="status-select" id="status_@item.Id">
+                    @if (item.Status)
+                    {
+                        <option value="true" selected>Contacted</option>
+                        <option value="false">Not Contacted</option>
+                    }
+                    else
+                    {
+                        <option value="true">Contacted</option>
+                        <option value="false" selected>Not Contacted</option>
+                    }
+                </select>
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="updateStatus('@item.Id')">Update Status</button>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function updateStatus(id) {
+            var status = document.getElementById("status_" + id).checked;
+            var data = { id: id, status: status };
+
+            $.ajax({
+                type: "POST",
+                url: "/Contacts/UpdateContactStatus",
+                data: data,
+                success: function (response) {
+                    alert("Status updated successfully");
+                    // Optionally, you can update the status display in the table without refreshing the page
+                },
+                error: function () {
+                    alert("Error updating status");
+                }
+            });
+        }
+    </script>
+}

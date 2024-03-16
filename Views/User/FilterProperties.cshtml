@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Swp4RestWeb.Models.Property>
+
+@{
+    ViewData["Title"] = "Property";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="propertyContainer" class="row flex-nowrap overflow-auto">
+    @if (Model.Any())
+    {
+
+        @foreach (var p in Model)
+        {
+            if (p.SaleStatus.Value)
+            {
+                <div class="col-md-3 mb-3">
+                    <form asp-action="SelectRoom" asp-controller="Reservations">
+                        <input type="hidden" name="blockSelect" value="@ViewBag.BlockSelect" />
+                        <input type="hidden" name="propertyId" value="@p.Id" />
+                        <input type="hidden" name="saleStatus" value="@ViewBag.SaleStatus" />
+                        <input type="hidden" name="projectId" value="@ViewBag.ProjectId" />
+                        <input type="hidden" name="bedSelect" value="@ViewBag.BedSelect" />
+                        <div class="card">
+                            <h5 class="card-title">@p.Name</h5>
+                            <p class="card-text">Beds: @p.Beds</p>
+                            <p class="card-text">Ocupancy: @p.Occupancy</p>
+                            <p class="card-text">Size: @p.Size</p>
+                            <img src="~/img/@p.InsideImage" height="150px" />
+                            <p>Block number: @ViewBag.BlockSelect</p>
+                            <p>@ViewBag.SaleStatus</p>
+
+                            <a href="@Url.Action("PropertyDetail", "Property", new { id = p.Id })" class="btn btn-primary">Detail</a>
+
+                            <button type="submit" name="select">Select Room</button>
+                        </div>
+                    </form>
+                </div>
+            }
+        }
+    }
+    else
+    {
+        <h2>There's no available properties</h2>
+    }
+</div>
+<div>
+    <form asp-action="GetProject" asp-controller="Projects">
+        <input type="hidden" name="ID" value="@ViewBag.ProjectId" />
+        <button type="submit" class="btn btn-primary">Back</button>
+    </form>
+</div>

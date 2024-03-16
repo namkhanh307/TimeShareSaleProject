@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TimeShareProject.Models.Rate>
+
+<div class="feedback-list">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var rate in Model)
+        {
+            <div class="feedback-item">
+                <div class="user-info">
+                    @if (rate.User != null && rate.User.Name != null)
+                    {
+                        <h5>@rate.User.Name</h5>
+                    }
+                    else
+                    {
+                        <h5>Unknown</h5> 
+                    }
+                    @if (rate.StarRate.HasValue)
+                    {
+                        <div class="rating">
+                            @for (int i = 0; i < rate.StarRate.Value; i++)
+                            {
+                                <span>&#9733;</span>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div>Not Rated</div>
+                    }
+                </div>
+                <p class="detail">@rate.DetailRate</p>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-center">No feedback available yet.</p>
+    }
+</div>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TimeShareProject.Models.Reservation>
+@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.RegisterDate)</th>
+                <th>@Html.DisplayNameFor(model => model.YearQuantity)</th>
+                <th>@Html.DisplayNameFor(model => model.Type)</th>
+                <th>@Html.DisplayNameFor(model => model.Block)</th>
+                <th>From date</th>
+                <th>End date</th>
+                <th>@Html.DisplayNameFor(model => model.Property)</th>
+                <th>@Html.DisplayNameFor(model => model.User)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.RegisterDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.YearQuantity)</td>
+                    <td>
+                        @if (item.Type.Value == 1)
+                        {
+                            <span>Reserve</span>
+                        }
+                        else
+                        {
+                            <span>Buy now</span>
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.BlockNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.StartDay)/@Html.DisplayFor(modelItem => item.Block.StartMonth)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.EndDay)/@Html.DisplayFor(modelItem => item.Block.EndMonth)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Property.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                        <a asp-action="TransactionDetail" asp-route-id="@item.Id">Transaction Detail</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No reservations found.</p>
+}

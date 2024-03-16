@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TimeShareProject.Models.Block>
+
+@{
+    ViewData["Title"] = "Edit Blocks";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Edit Blocks</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Block Number</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Proportion</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var block in Model)
+        {
+            <tr>
+                <td>@block.BlockNumber</td>
+                <td>@block.StartDay/@block.StartMonth</td>
+                <td>@block.EndDay/@block.EndMonth</td>
+                <td>
+                    <input type="text" id="proportion_@block.Id" value="@block.Proportion" />
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="updateProportion(@block.Id)">Update</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+        function updateProportion(id) {
+            var proportion = document.getElementById("proportion_" + id).value;
+            var data = { Id: id, Proportion: proportion };
+
+            $.ajax({
+                type: "POST",
+                url: "/Blocks/UpdateProportion",
+                data: data,
+                success: function (response) {
+                    alert("Proportion updated successfully");
+                },
+                error: function () {
+                    alert("Error updating proportion");
+                }
+            });
+        }
+    </script>
+}

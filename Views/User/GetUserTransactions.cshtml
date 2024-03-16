@@ -1,0 +1,86 @@
+﻿@model List<TimeShareProject.Models.Transaction>
+
+@{
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+}
+
+<h2>User Transactions</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Register Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Transaction Code</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model)
+            {
+                <tr>
+                    <td>@transaction.Date?.ToString("dd/MM/yyyy")</td>
+                    <td>@transaction.Amount</td>
+                    <td>@(transaction.Status == true ? "Paid" : "Not Paid")</td>
+                    <td>@transaction.TransactionCode</td>
+                    <td>
+                        @{
+                            string transactionType = "";
+                            switch (transaction.Type)
+                            {
+                                case -1:
+                                    transactionType = "Reserve";
+                                    break;
+                                case 0:
+                                    transactionType = "Deposit";
+                                    break;
+                                case 1:
+                                    transactionType = "First Payment";
+                                    break;
+                                case 2:
+                                    transactionType = "Second Payment";
+                                    break;
+                                case 3:
+                                    transactionType = "Third Payment";
+                                    break;
+                                default:
+                                    transactionType = "Unknown";
+                                    break;
+                            }
+                        }
+                        @transactionType
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No transactions found for this user.</p>
+}

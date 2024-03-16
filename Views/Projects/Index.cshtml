@@ -1,0 +1,29 @@
+﻿@model IEnumerable<TimeShareProject.Models.Project>
+
+@{
+    ViewData["Title"] = "Project";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>PROJECT DETAIL</h1>
+<div class="d-flex justify-content-between">
+    @foreach (var item in Model)
+    {
+        <div class="">
+            <div> <a class="" asp-action="Details" asp-route-id="@item.Id"><img height="150px" src="~/img/@item.Image1" alt="Image 1" /></a></div>
+            <div>@Html.DisplayFor(modelItem => item.Name)</div>
+            @if (item.Status == true)
+            {
+                <div>Active</div>
+            }
+            else
+            {
+                <div>Inactive</div>
+            }
+        </div>
+    }
+</div>
+
+<p>
+    <a class="text-dark" asp-action="Create">Create New</a>
+</p>
