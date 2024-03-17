@@ -332,10 +332,9 @@ namespace TimeShareProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Ensure that at least one property is selected
                 if (selectedProperties != null && selectedProperties.Any())
                 {
-                    // Process the selected properties and set the sale date
+                   
                     foreach (int propertyId in selectedProperties)
                     {
                         var property = _context.Properties.Find(propertyId);
@@ -345,56 +344,57 @@ namespace TimeShareProject.Controllers
                         }
                     }
 
-                    // Save changes to the database
+                  
                     _context.SaveChanges();
-                    return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
+                    return RedirectToAction("Index", "Properties"); 
                 }
                 else
                 {
-                    // Handle the case where no properties are selected
+                   
                     ModelState.AddModelError("", "Please select at least one property.");
                 }
             }
 
-            // If ModelState is not valid or no properties are selected, return to the form
-            return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
+            return RedirectToAction("Index", "Properties"); 
         }
 
+        public IActionResult FilterProperties()
+        {
+            
+            return View();
+        }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult FilterProperties(int projectId, int? blockSelect, int? bedSelect, string saleStatus)
         {
-            var query = _context.Properties
-                .Where(p => p.ProjectId == projectId);
+            var query = _context.Properties.AsQueryable();
 
-            foreach (var property in query)
+            query = query.Where(p => p.ProjectId == projectId);
+
+         
+            if (bedSelect.HasValue)
             {
+                query = query.Where(p => p.Beds == bedSelect.Value);
+            }
 
-                if (bedSelect != null)
+            // Filter by SaleStatus and BlockSelect if provided
+            if (!string.IsNullOrEmpty(saleStatus))
+            {
+                if (saleStatus == "Reserve")
                 {
-                    query = query.Where(property => property.Beds == bedSelect);
+                    query = query.Where(p => p.SaleDate > DateTime.Now);
+                }
+                else if (saleStatus == "Buy now")
+                {
+                    query = query.Where(p => p.SaleDate <= DateTime.Now);
                 }
 
-                if (!string.IsNullOrEmpty(saleStatus))
+                if (blockSelect.HasValue)
                 {
-                    bool isReserve = saleStatus == "Reserve";
-                    bool isBuyNow = saleStatus == "Buy now";
-
-                    if (blockSelect != null)
-                    {
-                        if (isReserve)
-                        {
-                            query = query.Where(property => property.SaleDate > DateTime.Now);
-                        }
-
-                        else if (isBuyNow)
-                        {
-                            query = query.Where(property => !_context.Reservations.Any(r => r.PropertyId == property.Id && r.Block.Id == blockSelect));
-                            query = query.Where(property => property.SaleDate < DateTime.Now);
-
-                        }
-                    }
+                    query = query.Where(p => !_context.Reservations.Any(r => r.PropertyId == p.Id && r.BlockId == blockSelect.Value));
                 }
             }
+
             var availableProperties = query.ToList();
 
             ViewBag.ProjectId = projectId;
@@ -404,5 +404,26 @@ namespace TimeShareProject.Controllers
 
             return View(availableProperties);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PropertiesDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var property = await _context.Properties
+                .Include(p => p.Project) 
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (property == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(PropertiesDetails), new { id = property.Id });
+        }
+    
     }
 }

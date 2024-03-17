@@ -47,6 +47,7 @@
                             <img src="~/img/@p.InsideImage" height="150px" />
                             <p>Block number: @ViewBag.BlockSelect</p>
                             <p>@ViewBag.SaleStatus</p>
+                            <a href="@Url.Action("PropertiesDetails", "Properties", new { id = p.Id })" class="btn btn-dark">Detail</a>
                             <button type="submit" name="select">Select Room</button>
                         </div>
                     </form>
@@ -62,6 +63,6 @@
 <div>
     <form asp-action="GetProject" asp-controller="Projects">
         <input type="hidden" name="ID" value="@ViewBag.ProjectId" />
-        <button type="submit" class="btn btn-primary">Back</button>
+        <button type="submit" class="btn btn-dark">Back</button>
     </form>
 </div>

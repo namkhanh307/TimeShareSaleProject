@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TimeShareProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+750c682a864832bc632c582821ee2951d75f9f9d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b0c792238630236935995ddb539951c3720c8ce")]
 [assembly: System.Reflection.AssemblyProductAttribute("TimeShareProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TimeShareProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -250,6 +250,7 @@ D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\bin\Debug\net8.0\runtim
 D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+<<<<<<< Updated upstream
 C:\Users\nobod\Documents\GitHub\TimeShareProject\obj\Debug\net8.0\TimeShareProject.csproj.AssemblyReference.cache
 C:\Users\nobod\Documents\GitHub\TimeShareProject\obj\Debug\net8.0\TimeShareProject.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\nobod\Documents\GitHub\TimeShareProject\obj\Debug\net8.0\TimeShareProject.AssemblyInfoInputs.cache
@@ -503,3 +504,6 @@ C:\Users\nobod\Documents\GitHub\TimeShareProject\obj\Debug\net8.0\scopedcss\proj
 C:\Users\nobod\Documents\GitHub\TimeShareProject\obj\Debug\net8.0\TimeShar.7D9CAB98.Up2Date
 C:\Users\nobod\Documents\GitHub\TimeShareProject\obj\Debug\net8.0\TimeShareProject.genruntimeconfig.cache
 C:\Users\nobod\Documents\GitHub\TimeShareProject\obj\Debug\net8.0\ref\TimeShareProject.dll
+=======
+D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\obj\Debug\net8.0\TimeShareProject.sourcelink.json
+>>>>>>> Stashed changes

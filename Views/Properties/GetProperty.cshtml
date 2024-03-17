@@ -53,13 +53,13 @@
             if (@Model.SaleDate <= DateTime.Today)
             {
                 <input type="hidden" name="saleStatus" value="Buy now" />
-                <button type="submit" id="filterButton" class="btn btn-primary">Buy now</button>
+                <button type="submit" id="filterButton" class="btn btn-dark">Buy now</button>
 
             }
             else
             {
                 <input type="hidden" name="saleStatus" value="Reserve" />
-                <button type="submit" id="filterButton" class="btn btn-primary">Reserve</button>
+                <button type="submit" id="filterButton" class="btn btn-dark">Reserve</button>
 
             }
         }
