@@ -48,7 +48,7 @@
                     <div class="profile-section">
                         <h2>Personal Information</h2>
                         <p><strong>Name:</strong> @Model.Name</p>
-                        <p><strong>Date of Birth:</strong> @(Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToShortDateString() : "N/A")</p>
+                        <p><strong>Date of Birth:</strong> @(Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("dd/MM/yyyy") : "N/A")</p>
                         <p><strong>Sex:</strong> @(Model.Sex.HasValue && Model.Sex.Value ? "Male" : "Female")</p>
                         <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
                         <p><strong>Email:</strong> @Model.Email</p>

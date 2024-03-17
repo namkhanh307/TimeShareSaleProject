@@ -1,0 +1,63 @@
+﻿@model List<TimeShareProject.Models.Reservation>
+
+@{
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+}
+<br />
+<h2>Your Transactions</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th>Register Date</th>
+                <th>Type</th>
+                <th>Block</th>
+                <th>Transaction detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                    <td>@Common.GetPropertyName(@reservation.PropertyId)</td>
+                    <td>@reservation.RegisterDate</td>
+                    <td>@(reservation.Type == 1 ? "Reserve" : "Buy now")</td>
+
+                    <td>@reservation.BlockId</td>
+                    <td>
+                        <a class="dropdown-item" href="@Url.Action("GetUserTransactions", "User", new{ reservation.Id})">Transaction detail</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You have not booked any property yet!</p>
+}

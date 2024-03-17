@@ -25,7 +25,7 @@
 
     Layout = $"~/Views/Shared/{layout}";
 }
-
+<br />
 <h2>User Transactions</h2>
 
 @if (Model != null && Model.Any())
@@ -38,13 +38,14 @@
                 <th>Status</th>
                 <th>Transaction Code</th>
                 <th>Type</th>
+                <th>Pay</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var transaction in Model)
             {
                 <tr>
-                    <td>@transaction.Date?.ToString("dd/MM/yyyy")</td>
+                    <td>@transaction.Date</td>
                     <td>@transaction.Amount</td>
                     <td>@(transaction.Status == true ? "Paid" : "Not Paid")</td>
                     <td>@transaction.TransactionCode</td>
@@ -75,6 +76,7 @@
                         }
                         @transactionType
                     </td>
+                    <td>Pay now</td>
                 </tr>
             }
         </tbody>

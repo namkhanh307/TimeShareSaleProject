@@ -20,9 +20,7 @@ namespace TimeShareProject.Controllers
             _context = context;
             _hostingEnvironment = hostingEnvironment;
         }
-
-
-    
+            
         public IActionResult GetProperty(int ID)
         {
             using TimeShareProjectContext context = new();

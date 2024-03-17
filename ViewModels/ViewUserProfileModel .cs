@@ -18,6 +18,7 @@ namespace TimeShareProject.ViewModels
         public bool Sex { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{dd/MM/yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
         [Required]

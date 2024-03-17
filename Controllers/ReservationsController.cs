@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TimeShareProject.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Transaction = TimeShareProject.Models.Transaction;
 
 namespace TimeShareProject.Controllers
@@ -20,6 +21,15 @@ namespace TimeShareProject.Controllers
         public ReservationsController(TimeShareProjectContext context)
         {
             _context = context;
+        }
+
+
+        public PartialViewResult FilterDuplicate()
+        {
+            var reservations = _context.Reservations.Include(r => r.Block).Include(r => r.Property).Include(r => r.User).ToList();
+
+            var distinctReservations = reservations.GroupBy(r => new { r.PropertyId, r.BlockId, r.Type }).Select(group => group.First());
+            return PartialView("_FilteredReservations", distinctReservations);
         }
 
         // GET: Reservations

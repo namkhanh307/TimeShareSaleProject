@@ -121,5 +121,12 @@ namespace TimeShareProject.Models
             projects = context.Projects.ToList();
             return projects;
         }
+
+        public static string? GetPropertyName(int? Id)
+        {
+            using TimeShareProjectContext context = new();
+            var propertyName = context.Properties.FirstOrDefault(p => p.Id == Id).Name;
+            return propertyName;
+        }
     }
 }

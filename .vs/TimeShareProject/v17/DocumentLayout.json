@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\views\\reservations\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\reservations\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\views\\reservations\\_filteredreservations.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\reservations\\_filteredreservations.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\controllers\\reservationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\reservationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReservationsController.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ReservationsController.cs",
+              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs",
+              "RelativeToolTip": "Controllers\\ReservationsController.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-17T06:01:41.402Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Reservations\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Reservations\\Index.cshtml",
+              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Reservations\\Index.cshtml",
+              "RelativeToolTip": "Views\\Reservations\\Index.cshtml",
+              "ViewState": "AQIAADkAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-17T06:01:38.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_FilteredReservations.cshtml",
+              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Reservations\\_FilteredReservations.cshtml",
+              "RelativeDocumentMoniker": "Views\\Reservations\\_FilteredReservations.cshtml",
+              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Reservations\\_FilteredReservations.cshtml",
+              "RelativeToolTip": "Views\\Reservations\\_FilteredReservations.cshtml",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-17T06:01:35.033Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeShareProject", "TimeShareProject.csproj", "{BA6806C2-0B86-461A-8554-1F43C6ECABEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA6806C2-0B86-461A-8554-1F43C6ECABEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA6806C2-0B86-461A-8554-1F43C6ECABEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA6806C2-0B86-461A-8554-1F43C6ECABEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA6806C2-0B86-461A-8554-1F43C6ECABEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {983FF1EB-CD96-4DFF-A795-31803243BB85}
+	EndGlobalSection
+EndGlobal

@@ -17,7 +17,7 @@ namespace TimeShareProject.Controllers
         {
             _dbContext = dbContext;
             _hostingEnvironment = hostingEnvironment;
-            
+
         }
 
         public IActionResult UserProfile()
@@ -199,7 +199,7 @@ namespace TimeShareProject.Controllers
             account.Password = model.NewPassword;
             _dbContext.Update(account);
             await _dbContext.SaveChangesAsync();
-           
+
 
             return RedirectToAction(nameof(UserProfile));
         }
@@ -257,9 +257,9 @@ namespace TimeShareProject.Controllers
             }
             return User.Identity.Name + "/" + fileName;
         }
-        public ActionResult GetUserTransactions()
+        public ActionResult GetUserTransactions(int Id)
         {
-         
+
             string username = User.Identity.Name;
 
             var user = _dbContext.Users
@@ -272,17 +272,36 @@ namespace TimeShareProject.Controllers
                 return NotFound(); // User not found
             }
 
-           
+
             List<Transaction> userTransactions = new List<Transaction>();
 
             foreach (var reservation in user.Reservations)
             {
-                userTransactions.AddRange(reservation.Transactions);
+                if (reservation.Id == Id)
+                {
+                    userTransactions.AddRange(reservation.Transactions);
+                }
             }
 
             return View(userTransactions);
         }
 
+        public IActionResult GetUserReservation()
+        {
+            string username = User.Identity.Name;
+
+            var user = _dbContext.Users
+                                 .Include(u => u.Reservations)
+                                 .ThenInclude(r => r.Transactions)
+                                 .FirstOrDefault(u => u.Account.Username == username);
+            int userId = user.Id;
+
+            var userReservations = _dbContext.Reservations
+                .Where(r => r.UserId == userId)
+                .ToList();
+
+            return View(userReservations);
+        }
 
     }
 }
