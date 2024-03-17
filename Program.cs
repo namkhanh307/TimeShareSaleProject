@@ -1,3 +1,4 @@
+using ECommerceMVC.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TimeShareProject.Models;
+using TimeShareProject.Services;
+using TimeShareWebProject.Services;
 
 namespace TimeShareProject
 {
@@ -14,8 +17,21 @@ namespace TimeShareProject
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            builder.Services.AddSingleton<IVnPayService, VnPayService>();
+
+
+            builder.Services.AddSingleton(x => new PaypalClient(
+                builder.Configuration["PaypalOPtions:AppId"],
+                builder.Configuration["PaypalOPtions:AppSecret"],
+                builder.Configuration["PaypalOPtionsMode"]
+                )
+            );
+
+
             // Configure services
             ConfigureServices(builder.Services, builder.Configuration);
+
 
             // Build the application
             var app = builder.Build();
@@ -52,8 +68,8 @@ namespace TimeShareProject
            options.LoginPath = "/Login/Login";
            options.LogoutPath = "/Login/Logout";
            options.AccessDeniedPath = "/Home/AccessDenied";
-           options.ExpireTimeSpan = TimeSpan.FromSeconds(6*60);
-           
+           options.ExpireTimeSpan = TimeSpan.FromSeconds(6 * 60);
+
            options.Events.OnRedirectToLogin = context =>
            {
                // Redirect the user to the home page after the cookie expires

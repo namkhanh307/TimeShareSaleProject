@@ -1,29 +1,10 @@
 ﻿@model TimeShareProject.Models.Property
+
 @{
-    var layout = "_Layout.cshtml";
-
-    if (User.Identity.IsAuthenticated)
-    {
-        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
-
-        switch (userRole)
-        {
-            case "1": // Admin
-                layout = "_AdminLayout.cshtml";
-                break;
-            case "2": // Staff
-                layout = "_AdminLayout.cshtml";
-                break;
-            case "3": // User
-                layout = "_Layout.cshtml";
-                break;
-            default:
-                break;
-        }
-    }
-
-    Layout = $"~/Views/Shared/{layout}";
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <h1>Details</h1>
 
 <div>
@@ -143,7 +124,6 @@
     </dl>
 </div>
 <div>
-    <div>
-        @Html.ActionLink("Back", "FilterProperties", "Properties", new { blockSelect = ViewBag.BlockSelect, propertyId = Model.Id, projectId = Model.ProjectId, bedSelect = ViewBag.BedSelect }, new { @class = "btn btn-default" })
-    </div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

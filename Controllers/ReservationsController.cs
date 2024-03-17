@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
+using ECommerceMVC.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,22 +15,84 @@ using Transaction = TimeShareProject.Models.Transaction;
 
 namespace TimeShareProject.Controllers
 {
+
+    public class PaypalOrderRequest
+    {
+        public decimal Amount { get; set; }
+        public string Type { get; set; }
+        public string TransactionId { get; set; }
+    }
+
     public class ReservationsController : Controller
     {
         private readonly TimeShareProjectContext _context;
+        private readonly PaypalClient _paypalClient;
 
-        public ReservationsController(TimeShareProjectContext context)
+        public ReservationsController(TimeShareProjectContext context, PaypalClient paypalClient)
         {
             _context = context;
+            _paypalClient = paypalClient;
         }
 
+        [Authorize]
+        [HttpPost("/Reservations/create-paypal-order")]
+        public async Task<IActionResult> CreatePaypalOrder([FromBody] PaypalOrderRequest request, CancellationToken cancellationToken)
+        {
+            var tien = request.Amount / 23000;
+            var tongTien = tien.ToString(); // Convert amount to string if necessary
+            var donViTienTe = "USD"; // Assuming currency is always USD, adjust if needed
+            var maDonHangThamChieu = request.TransactionId; // Use the provided transaction ID
+
+            try
+            {
+                var response = await _paypalClient.CreateOrder(tongTien, donViTienTe, maDonHangThamChieu);
+                var transaction = await _context.Transactions.FindAsync(Convert.ToInt32(request.TransactionId));
+                try
+                {
+                    transaction.Status = true;
+                    _context.Update(transaction);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Error occurred while updating the property.");
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var error = new { ex.GetBaseException().Message };
+                return BadRequest(error);
+            }
+        }
+
+        [Authorize]
+        [HttpPost("/Reservations/capture-paypal-order")]
+
+        public async Task<IActionResult> CapturePaypalOrder(string orderID, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var response = await _paypalClient.CaptureOrder(orderID);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var error = new { ex.GetBaseException().Message };
+                return BadRequest(error);
+            }
+        }
 
         public PartialViewResult FilterDuplicate()
         {
             var reservations = _context.Reservations.Include(r => r.Block).Include(r => r.Property).Include(r => r.User).ToList();
 
-            var distinctReservations = reservations.GroupBy(r => new { r.PropertyId, r.BlockId, r.Type }).Select(group => group.First());
-            return PartialView("_FilteredReservations", distinctReservations);
+            var duplicateReservations = reservations
+                .Where(r => r.Type == 1) // Filter only reservations with type "Reserve"
+                .GroupBy(r => new { r.PropertyId, r.BlockId }) // Group by property ID and block ID
+                .Where(g => g.Count() > 1) // Filter groups with more than one reservation
+                .SelectMany(g => g); // Flatten the groups back into individual reservations
+            return PartialView("_FilteredReservations", duplicateReservations);
         }
 
         // GET: Reservations
@@ -67,7 +130,7 @@ namespace TimeShareProject.Controllers
 
             return View(reservation);
         }
-        
+
         public IActionResult SelectRoom(int blockSelect, int propertyId, string saleStatus, int projectId, int bedSelect)
         {
             if (!User.Identity.IsAuthenticated)
@@ -154,7 +217,7 @@ namespace TimeShareProject.Controllers
                         var newFirstTermTransaction = new Transaction()
                         {
                             Date = DateTime.Now,
-                            Amount = property.UnitPrice*3,
+                            Amount = property.UnitPrice * 3,
                             Status = false,
                             TransactionCode = null,
                             ReservationId = newReservation.Id,

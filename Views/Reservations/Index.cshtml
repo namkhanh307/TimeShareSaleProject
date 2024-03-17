@@ -6,38 +6,6 @@
 }
 
 <h1>Reservation</h1>
-
-@* <p>
-    <a asp-action="Create">Create New</a>
-</p> *@
-
-@* <table>
-    <thead>
-        <tr>
-            <th>Reservation ID</th>
-            <th>Year Quantity</th>
-            <th>Block number</th>
-            <th>User Name</th>
-            <th>Property Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var reservation in Model)
-        {
-            <tr>
-                <td>@reservation.Id</td>
-                <td>@reservation.YearQuantity</td>
-                <td>@reservation.Block.BlockNumber</td>
-                <td>@reservation.User.Name</td>
-                <td>@reservation.Property.Name</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@reservation.Id">Details</a>      
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
- *@
 <div>
     <form id="searchForm" asp-action="Search" asp-controller="Reservations" method="get">
         <input type="text" name="searchTerm" placeholder="Enter search term">
@@ -84,10 +52,11 @@
         </div>
     </form>
 </div>
-
-<div class="form-group">
-    <a href="@Url.Action("FilterDuplicate", "Reservations")" class="btn btn-primary" stype="color: white">Filter Duplicate</a>
-</div>
+<form id="filterDuplicateForm" asp-action="FilterDuplicate" asp-controller="Reservations">
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Filter Duplicate Reservation</button>
+    </div>
+</form>
 
 
 <div id="filteredReservationsContainer">
@@ -121,6 +90,24 @@
 
             $.ajax({
                 url: '@Url.Action("Search", "Reservations")',
+                type: 'GET',
+                data: formData,
+                success: function (result) {
+                    $('#filteredReservationsContainer').html(result);
+                },
+                error: function () {
+                    // Handle errors if necessary
+                }
+            });
+        });
+
+        $('#filterDuplicateForm').submit(function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            var formData = $(this).serialize(); // Serialize form data
+
+            $.ajax({
+                url: '@Url.Action("FilterDuplicate", "Reservations")',
                 type: 'GET',
                 data: formData,
                 success: function (result) {

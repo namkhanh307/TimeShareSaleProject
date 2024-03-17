@@ -25,6 +25,7 @@
 
     Layout = $"~/Views/Shared/{layout}";
 }
+
 <br />
 <h2>User Transactions</h2>
 
@@ -36,7 +37,6 @@
                 <th>Register Date</th>
                 <th>Amount</th>
                 <th>Status</th>
-                <th>Transaction Code</th>
                 <th>Type</th>
                 <th>Pay</th>
             </tr>
@@ -48,7 +48,6 @@
                     <td>@transaction.Date</td>
                     <td>@transaction.Amount</td>
                     <td>@(transaction.Status == true ? "Paid" : "Not Paid")</td>
-                    <td>@transaction.TransactionCode</td>
                     <td>
                         @{
                             string transactionType = "";
@@ -76,7 +75,14 @@
                         }
                         @transactionType
                     </td>
-                    <td>Pay now</td>
+                    @if (transaction.Status == true)
+                    {
+                        <td>You have paid this field!</td>
+                    }
+                    else
+                    {
+                        <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
+                    }
                 </tr>
             }
         </tbody>
@@ -85,4 +91,58 @@
 else
 {
     <p>No transactions found for this user.</p>
+}
+
+@section Scripts {
+    <script src="https://www.paypal.com/sdk/js?client-id=AcK_cVj4laQY2VN5ZHxfaXRgs-VNDVmx9ifLV-3llbR-pQPzy48YjTgzzbZ7C35PgV6GfP9uNWjLXZ9d"></script>
+    <script>
+        $(document).ready(function () {
+            function renderPayPalButton(containerId, amount, type, transactionId) {
+                paypal.Buttons({
+                    style: {
+                        disableMaxWidth: true
+                    },
+                    createOrder() {
+                        // Include transaction details in the request body
+                        const transactionDetails = {
+                            amount: amount,
+                            type: type,
+                            transactionId: transactionId
+                        };
+
+                        return fetch("/Reservations/create-paypal-order", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(transactionDetails) // Send transaction details as JSON
+                        }).then((response) => {
+                            if (!response.ok) {
+                                return response.json().then((err) => {
+                                    throw err;
+                                });
+                            }
+                            return response.json();
+                        })
+                            .then((order) => order.id)
+                            .catch(err => {
+                                alert(err.message);
+                            });
+                    },
+                    onApprove: (data, actions) => {
+                        // The rest of the onApprove function remains the same
+                    }
+                }).render('#' + containerId);
+            }
+
+            // Loop through transactions and render PayPal button for each with transaction details
+        @foreach (var transaction in Model)
+        {
+            <text>
+                    renderPayPalButton('paypal-button-container-@transaction.Id', @transaction.Amount, '@transaction.Type', '@transaction.Id');
+            </text>
+        }
+            });
+    </script>
+
 }
