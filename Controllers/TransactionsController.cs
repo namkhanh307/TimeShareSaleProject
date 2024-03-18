@@ -11,9 +11,9 @@ namespace TimeShareProject.Controllers
 {
     public class TransactionsController : Controller
     {
-        private readonly TimeShareProjectContext _context;
+        private readonly _4restContext _context;
 
-        public TransactionsController(TimeShareProjectContext context)
+        public TransactionsController(_4restContext context)
         {
             _context = context;
         }

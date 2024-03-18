@@ -12,10 +12,10 @@ namespace TimeShareProject.Controllers
 {
     public class PropertiesController : Controller
     {
-        private readonly TimeShareProjectContext _context;
+        private readonly _4restContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public PropertiesController(TimeShareProjectContext context, IWebHostEnvironment hostingEnvironment)
+        public PropertiesController(_4restContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;
@@ -23,7 +23,7 @@ namespace TimeShareProject.Controllers
             
         public IActionResult GetProperty(int ID)
         {
-            using TimeShareProjectContext context = new();
+            using _4restContext context = new();
             var property = context.Properties.FirstOrDefault(m => m.Id == ID);
             if (property == null)
             {
@@ -361,6 +361,7 @@ namespace TimeShareProject.Controllers
         }
 
         [HttpPost]
+
         public IActionResult FilterProperties(int projectId, int? blockSelect, int? bedSelect, string saleStatus)
         {
             var query = _context.Properties
@@ -404,5 +405,9 @@ namespace TimeShareProject.Controllers
 
             return View(availableProperties);
         }
+
+  
+
+
     }
 }

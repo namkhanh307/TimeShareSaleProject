@@ -39,14 +39,16 @@
                         <input type="hidden" name="saleStatus" value="@ViewBag.SaleStatus" />
                         <input type="hidden" name="projectId" value="@ViewBag.ProjectId" />
                         <input type="hidden" name="bedSelect" value="@ViewBag.BedSelect" />
-                        <div class="card">
-                            <h5 class="card-title">@p.Name</h5>
-                            <p class="card-text">Beds: @p.Beds</p>
-                            <p class="card-text">Ocupancy: @p.Occupancy</p>
-                            <p class="card-text">Size: @p.Size</p>
+                        <div class="card" style="height: 350px;">
+                            <div> <h5 class="card-title">@p.Name</h5></div>
+                            <div><p class="card-text">Beds: @p.Beds</p></div>
+                            <div><p class="card-text">Ocupancy: @p.Occupancy</p></div>
+                            <div><p class="card-text">Size: @p.Size</p></div>
                             <img src="~/img/@p.InsideImage" height="150px" />
                             <p>Block number: @ViewBag.BlockSelect</p>
                             <p>@ViewBag.SaleStatus</p>
+                  
+
                             <button type="submit" name="select">Select Room</button>
                         </div>
                     </form>

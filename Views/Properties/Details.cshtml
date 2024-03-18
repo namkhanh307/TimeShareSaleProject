@@ -124,6 +124,13 @@
     </dl>
 </div>
 <div>
+<<<<<<< Updated upstream
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
+=======
+    <div>
+        @Html.ActionLink("Back", "FilterProperties", "Properties", new { blockSelect = ViewBag.BlockSelect, propertyId = Model.Id, projectId = Model.ProjectId, bedSelect = ViewBag.BedSelect }, new { @class = "btn btn-default" })
+    </div>
+  
+>>>>>>> Stashed changes
 </div>

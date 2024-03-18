@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TimeShareProject.Models;
 
-public partial class TimeShareProjectContext : DbContext
+public partial class _4restContext : DbContext
 {
-    public TimeShareProjectContext()
+    public _4restContext()
     {
     }
 
-    public TimeShareProjectContext(DbContextOptions<TimeShareProjectContext> options)
+    public _4restContext(DbContextOptions<_4restContext> options)
         : base(options)
     {
     }
@@ -35,7 +35,7 @@ public partial class TimeShareProjectContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=tcp:swp4rest.database.windows.net,1433;Initial Catalog=TimeShareProject;Persist Security Info=False;User ID=swp4rest;Password=swpswp@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
+        => optionsBuilder.UseSqlServer("Server=tcp:swp4rest.database.windows.net,1433;Initial Catalog=4rest;Persist Security Info=False;User ID=swp4rest;Password=swpswp@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -74,7 +74,6 @@ public partial class TimeShareProjectContext : DbContext
         {
             entity.ToTable("Contact");
 
-            entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.Message).HasColumnName("message");
             entity.Property(e => e.Name).HasColumnName("name");
@@ -91,6 +90,7 @@ public partial class TimeShareProjectContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.AddressImage).HasColumnName("addressImage");
+            entity.Property(e => e.Area).HasColumnName("area");
             entity.Property(e => e.DetailDescription).HasColumnName("detailDescription");
             entity.Property(e => e.GeneralDescription).HasColumnName("generalDescription");
             entity.Property(e => e.Image1).HasColumnName("image1");
@@ -167,28 +167,25 @@ public partial class TimeShareProjectContext : DbContext
             entity.Property(e => e.BlockId).HasColumnName("blockID");
             entity.Property(e => e.PropertyId).HasColumnName("propertyID");
             entity.Property(e => e.RegisterDate)
-                  .HasColumnType("datetime")
-                  .HasColumnName("registerDate");
+                .HasColumnType("datetime")
+                .HasColumnName("registerDate");
             entity.Property(e => e.Type).HasColumnName("type");
             entity.Property(e => e.UserId).HasColumnName("userID");
             entity.Property(e => e.YearQuantity).HasColumnName("yearQuantity");
 
-            entity.HasOne(d => d.Block)
-                  .WithMany(p => p.Reservations)
-                  .HasForeignKey(d => d.BlockId)
-                  .OnDelete(DeleteBehavior.ClientSetNull)
-                  .HasConstraintName("FK_Reservation_Block");
+            entity.HasOne(d => d.Block).WithMany(p => p.Reservations)
+                .HasForeignKey(d => d.BlockId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Reservation_Block");
 
-            entity.HasOne(d => d.Property)
-                  .WithMany(p => p.Reservations)
-                  .HasForeignKey(d => d.PropertyId)
-                  .HasConstraintName("FK_VacationRegistration_Vacation");
+            entity.HasOne(d => d.Property).WithMany(p => p.Reservations)
+                .HasForeignKey(d => d.PropertyId)
+                .HasConstraintName("FK_VacationRegistration_Vacation");
 
-            entity.HasOne(d => d.User)
-                  .WithMany(p => p.Reservations)
-                  .HasForeignKey(d => d.UserId)
-                  .OnDelete(DeleteBehavior.ClientSetNull)
-                  .HasConstraintName("FK_VacationRegistration_User");
+            entity.HasOne(d => d.User).WithMany(p => p.Reservations)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_VacationRegistration_User");
         });
 
         modelBuilder.Entity<Transaction>(entity =>
@@ -198,19 +195,17 @@ public partial class TimeShareProjectContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.Date)
-                  .HasColumnType("datetime")
-                  .HasColumnName("date");
+                .HasColumnType("datetime")
+                .HasColumnName("date");
             entity.Property(e => e.ReservationId).HasColumnName("reservationID");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TransactionCode).HasColumnName("transactionCode");
             entity.Property(e => e.Type).HasColumnName("type");
 
-            entity.HasOne(d => d.Reservation)
-                  .WithMany(p => p.Transactions)
-                  .HasForeignKey(d => d.ReservationId)
-                  .HasConstraintName("FK_Transaction_Reservation");
+            entity.HasOne(d => d.Reservation).WithMany(p => p.Transactions)
+                .HasForeignKey(d => d.ReservationId)
+                .HasConstraintName("FK_Transaction_Reservation");
         });
-
 
         modelBuilder.Entity<User>(entity =>
         {

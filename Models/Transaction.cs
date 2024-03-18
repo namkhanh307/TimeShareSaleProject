@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace TimeShareProject.Models;
 
@@ -8,7 +7,6 @@ public partial class Transaction
 {
     public int Id { get; set; }
 
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy | HH:mm:ss}", ApplyFormatInEditMode = true)]
     public DateTime? Date { get; set; }
 
     public double? Amount { get; set; }

@@ -1,5 +1,6 @@
-﻿@using TimeShareProject.Models;
-@model TimeShareProject.Models.Property;
+﻿@using TimeShareProject.Models
+@model TimeShareProject.Models.Property
+
 @{
     var layout = "_Layout.cshtml";
 
@@ -10,14 +11,10 @@
         switch (userRole)
         {
             case "1": // Admin
-                layout = "_AdminLayout.cshtml";
-                break;
             case "2": // Staff
                 layout = "_AdminLayout.cshtml";
                 break;
             case "3": // User
-                layout = "_Layout.cshtml";
-                break;
             default:
                 break;
         }
@@ -26,42 +23,108 @@
     Layout = $"~/Views/Shared/{layout}";
 }
 
-
-<h1>@Model.Name</h1>
-<h1>@Model.InsideImage</h1>
-<h1>@Model.Occupancy</h1>
-<h1>@Model.Bathroom</h1>
-<h1>@Model.UnitPrice</h1>
-<h1>@Model.Beds</h1>
-<h1>@Model.FrontImage</h1>
-<form asp-action="SelectRoom" asp-controller="Reservations">
-    <input type="hidden" name="propertyId" value="@Model.Id" />
-    <input type="hidden" name="projectId" value="@Model.ProjectId" />
-    <input type="hidden" name="bedSelect" value="@Model.Beds" />
-
-    <div class="block col-md-4">
-        <select id="blockSelect" name="blockSelect">
-            @foreach (var block in Common.GetAvailableBlocks(Model.Id))
-            {
-                <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
-            }
-        </select>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <div id="image-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @{
+                        var isFirst = true;
+                        foreach (var propertyImage in new[] { Model.ViewImage, Model.FrontImage, Model.InsideImage, Model.SideImage })
+                        {
+                            if (!string.IsNullOrEmpty(propertyImage))
+                            {
+                                <div class="carousel-item @(isFirst ? "active" : "")">
+                                    <img src="@Url.Content("~/img/" + propertyImage)" class="d-block img-fluid mx-auto" alt="Property Image" style="max-width: 50%; margin-top: 20px; margin-bottom: 20px;">
+                                </div>
+                                isFirst = false;
+                            }
+                        }
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#image-carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#image-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        @{
-            if (@Model.SaleDate <= DateTime.Today)
-            {
-                <input type="hidden" name="saleStatus" value="Buy now" />
-                <button type="submit" id="filterButton" class="btn btn-primary">Buy now</button>
-
-            }
-            else
-            {
-                <input type="hidden" name="saleStatus" value="Reserve" />
-                <button type="submit" id="filterButton" class="btn btn-primary">Reserve</button>
-
-            }
-        }
+</div>
+<div class="border-top">
+<div class="container " style="justify-content: center; margin-left: 330px">
+    <div class="row mt-5">
+        <div class="col-md-4">
+           
+            <h5>Sale Status:</h5>
+            <p> @(Model.SaleStatus.HasValue ? (Model.SaleStatus.Value ? "For Sale" : "Not for Sale") : "Unknown")</p>
+            <h5>Sale Date:</h5>
+            <p> @(Model.SaleDate?.ToString("dd/MM/yyyy"))</p>
+            <h5>Unit Price:</h5>
+            <p> @(Model.UnitPrice?.ToString("C"))</p>
+            <h5>Beds:</h5>
+            <p> @Model.Beds</p>
+        </div>
+        <div class="col-md-4">
+            <h5>Occupancy:</h5>
+            <p> @Model.Occupancy</p>
+            <h5>Size:</h5>
+            <p> @Model.Size</p>
+            <h5>Bathroom:</h5>
+            <p> @Model.Bathroom</p>
+            <h5>Views:</h5>
+            <p> @Model.Views</p>
+            <h5>Unique Feature:</h5>
+            <p> @Model.UniqueFeature</p>
+        </div>
     </div>
-</form>
+</div>
+    <div class="border-top" style="border-block">
+        <div class="row mt-3">
+            <div class="col-md-6 offset-md-3">
+                <form asp-action="SelectRoom" asp-controller="Reservations">
+                    <input type="hidden" name="propertyId" value="@Model.Id" />
+                    <input type="hidden" name="projectId" value="@Model.ProjectId" />
+                    <input type="hidden" name="bedSelect" value="@Model.Beds" />
+                    <div class="form-group row" style="margin-left: 40px">
+                       @*  <label for="blockSelect" class="col-sm-3 col-form-label" style="font-weight: 140%">Select Block:</label> *@
+                        <label for="blockSelect" style="font-weight: 140%">Select Block:</label>
+                        <div class="col-sm-8">
+                            <select id="blockSelect" name="blockSelect" class="form-control">
+                                @foreach (var block in Common.GetAvailableBlocks(Model.Id))
+                                {
+                                    <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            @if (Model.SaleDate <= DateTime.Today)
+                            {
+                                <input type="hidden" name="saleStatus" value="Buy now" />
+                                <button type="submit" id="filterButton" class="btn btn-dark">Buy now</button>
+                            }
+                            else
+                            {
+                                <input type="hidden" name="saleStatus" value="Reserve" />
+                                <button type="submit" id="filterButton" class="btn btn-dark">Reserve</button>
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#image-carousel').on('click', function () {
+                $(this).carousel('next');
+            });
+        });
+    </script>
+}

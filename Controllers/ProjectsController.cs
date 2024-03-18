@@ -16,10 +16,10 @@ namespace TimeShareProject.Controllers
 {
     public class ProjectsController : Controller
     {
-        private readonly TimeShareProjectContext _context;
+        private readonly _4restContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public ProjectsController(TimeShareProjectContext context, IWebHostEnvironment hostingEnvironment)
+        public ProjectsController(_4restContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;
@@ -28,7 +28,7 @@ namespace TimeShareProject.Controllers
         
         public IActionResult GetProject(int ID)
         {
-            using TimeShareProjectContext context = new TimeShareProjectContext();
+            using _4restContext context = new _4restContext();
             List<int?> distinctBedTypes = @Common.GetDistinctBedTypes();
             ViewBag.DistinctBedTypes = distinctBedTypes;
             var items = context.Projects.FirstOrDefault(m => m.Id == ID);
@@ -262,8 +262,8 @@ namespace TimeShareProject.Controllers
                 }
                 else
                 {
-                   
-                    TimeShareProjectContext context = new TimeShareProjectContext();
+
+                    _4restContext context = new _4restContext();
                     Rate rate = new Rate
                     {
                         ProjectId = Id,

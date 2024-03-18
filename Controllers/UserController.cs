@@ -10,10 +10,10 @@ namespace TimeShareProject.Controllers
 {
     public class UserController : Controller
     {
-        private readonly TimeShareProjectContext _dbContext;
+        private readonly _4restContext _dbContext;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public UserController(TimeShareProjectContext dbContext, IWebHostEnvironment hostingEnvironment)
+        public UserController(_4restContext dbContext, IWebHostEnvironment hostingEnvironment)
         {
             _dbContext = dbContext;
             _hostingEnvironment = hostingEnvironment;

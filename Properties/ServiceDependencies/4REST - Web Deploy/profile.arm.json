@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "TimeShareProject20240313203840",
+      "defaultValue": "4REST",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace TimeShareProject.Models;
 
@@ -12,7 +11,6 @@ public partial class Property
 
     public bool? SaleStatus { get; set; }
 
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy | HH:mm:ss}", ApplyFormatInEditMode = true)]
     public DateTime? SaleDate { get; set; }
 
     public double? UnitPrice { get; set; }

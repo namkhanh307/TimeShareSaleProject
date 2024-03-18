@@ -13,7 +13,7 @@ namespace TimeShareProject.Controllers
         [HttpPost]
         public IActionResult SignUp(string username, string password, string name, string phone, bool sex, DateTime dateOfBirth, string email)
         {
-            TimeShareProjectContext _dbContext = new TimeShareProjectContext();
+            _4restContext _dbContext = new _4restContext();
 
             // Check if the username already exists
             var existingAccount = _dbContext.Accounts.FirstOrDefault(a => a.Username == username);

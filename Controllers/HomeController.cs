@@ -12,7 +12,7 @@ namespace TimeShareProject.Controllers
 
         public IActionResult Index()
         {
-            using TimeShareProjectContext context = new TimeShareProjectContext();
+            using _4restContext context = new _4restContext();
             var items = context.Projects.OrderBy(p => p.Name).ToList();
             return View(items);
         }
@@ -26,19 +26,19 @@ namespace TimeShareProject.Controllers
         {
             return View();
         }
-   
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ContactUs(Contact contact)
         {
-            using TimeShareProjectContext _context = new TimeShareProjectContext();
+            using _4restContext _context = new _4restContext();
             if (ModelState.IsValid)
             {
-               
 
 
-               
+
+
                 _context.Contacts.Add(contact);
                 _context.SaveChanges();
 

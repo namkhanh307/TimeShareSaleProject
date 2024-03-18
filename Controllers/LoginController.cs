@@ -8,9 +8,9 @@ namespace TimeShareProject.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly TimeShareProjectContext _dbContext;
+        private readonly _4restContext _dbContext;
 
-        public LoginController(TimeShareProjectContext dbContext)
+        public LoginController(_4restContext dbContext)
         {
             _dbContext = dbContext;
         }

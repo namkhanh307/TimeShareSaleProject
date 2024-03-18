@@ -25,10 +25,10 @@ namespace TimeShareProject.Controllers
 
     public class ReservationsController : Controller
     {
-        private readonly TimeShareProjectContext _context;
+        private readonly _4restContext _context;
         private readonly PaypalClient _paypalClient;
 
-        public ReservationsController(TimeShareProjectContext context, PaypalClient paypalClient)
+        public ReservationsController(_4restContext context, PaypalClient paypalClient)
         {
             _context = context;
             _paypalClient = paypalClient;
@@ -39,7 +39,7 @@ namespace TimeShareProject.Controllers
         public async Task<IActionResult> CreatePaypalOrder([FromBody] PaypalOrderRequest request, CancellationToken cancellationToken)
         {
             var tien = request.Amount / 23000;
-            var tongTien = tien.ToString(); // Convert amount to string if necessary
+            var tongTien = tien.ToString("#,##"); // Convert amount to string if necessary
             var donViTienTe = "USD"; // Assuming currency is always USD, adjust if needed
             var maDonHangThamChieu = request.TransactionId; // Use the provided transaction ID
 
@@ -388,7 +388,7 @@ namespace TimeShareProject.Controllers
         }
         public PartialViewResult FilterReservation(int? propertyId, int? blockId, int? type)
         {
-            using (TimeShareProjectContext context = new TimeShareProjectContext())
+            using (_4restContext context = new _4restContext())
             {
                 var query = context.Reservations.AsQueryable();
                 query = query.Include(r => r.Block).Include(r => r.Property).Include(r => r.User);

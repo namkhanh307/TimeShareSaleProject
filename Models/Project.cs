@@ -31,6 +31,8 @@ public partial class Project
 
     public int? Star { get; set; }
 
+    public int? Area { get; set; }
+
     public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
 
     public virtual ICollection<Rate> Rates { get; set; } = new List<Rate>();

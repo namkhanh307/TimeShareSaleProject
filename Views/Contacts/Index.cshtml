@@ -45,24 +45,21 @@
                     @Html.DisplayFor(modelItem => item.Message)
                 </td>
                 <td>
-                    @* <input type="checkbox" id="status_@item.Id" @(item.Status ? "checked" : "") />
- *@
-               
-                <select class="status-select" id="status_@item.Id">
-                    @if (item.Status)
-                    {
-                        <option value="true" selected>Contacted</option>
-                        <option value="false">Not Contacted</option>
-                    }
-                    else
-                    {
-                        <option value="true">Contacted</option>
-                        <option value="false" selected>Not Contacted</option>
-                    }
-                </select>
+                    <select class="status-select" id="status_@item.Id">
+                        @if (item.Status)
+                        {
+                            <option value="true" selected>Contacted</option>
+                            <option value="false">Not Contacted</option>
+                        }
+                        else
+                        {
+                            <option value="true">Contacted</option>
+                            <option value="false" selected>Not Contacted</option>
+                        }
+                    </select>
                 </td>
                 <td>
-                    <button class="btn btn-primary" onclick="updateStatus('@item.Id')">Update Status</button>
+                    <button class="btn btn-dark" onclick="updateStatus('@item.Id')">Update Status</button>
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
@@ -73,7 +70,8 @@
 @section Scripts {
     <script>
         function updateStatus(id) {
-            var status = document.getElementById("status_" + id).checked;
+            var statusSelect = document.getElementById("status_" + id);
+            var status = statusSelect.value === 'true';
             var data = { id: id, status: status };
 
             $.ajax({

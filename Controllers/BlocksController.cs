@@ -12,9 +12,9 @@ namespace TimeShareProject.Controllers
 {
     public class BlocksController : Controller
     {
-        private readonly TimeShareProjectContext _context;
+        private readonly _4restContext _context;
 
-        public BlocksController(TimeShareProjectContext context)
+        public BlocksController(_4restContext context)
         {
             _context = context;
         }
@@ -47,7 +47,7 @@ namespace TimeShareProject.Controllers
         public IActionResult AddBlock()
         {
             // Inside your controller action or service method
-            using (var context = new TimeShareProjectContext())
+            using (var context = new _4restContext())
             {
                 DateTime startDate = new DateTime(DateTime.Now.Year, 1, 1); // Start from January 1st of the current year
 

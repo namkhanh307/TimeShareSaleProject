@@ -17,243 +17,243 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TimeShareProject
 build_property.RootNamespace = TimeShareProject
-build_property.ProjectDir = C:\Users\nobod\Documents\GitHub\TimeShareProject\
+build_property.ProjectDir = D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\nobod\Documents\GitHub\TimeShareProject
+build_property.MSBuildProjectDirectory = D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Accounts/Create.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Accounts/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Accounts/Delete.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Accounts/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Accounts/Details.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Accounts/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Accounts/Edit.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Accounts/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Accounts/Index.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Accounts/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Blocks/Index.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Blocks/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvY2tzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Contacts/Delete.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Contacts/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Contacts/Index.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Contacts/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Home/ContactUs.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Home/ContactUs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0VXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Home/Index.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Login/Login.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Login/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Projects/Create.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Projects/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Projects/Delete.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Projects/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Projects/Details.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Projects/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Projects/Edit.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Projects/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Projects/GetProject.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Projects/GetProject.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdHNcR2V0UHJvamVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Projects/Index.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Projects/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Projects/_FeedbackPartial.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Projects/_FeedbackPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdHNcX0ZlZWRiYWNrUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/Create.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Properties/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/Delete.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Properties/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/Details.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Properties/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/Edit.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Properties/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/FilterProperties.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Properties/FilterProperties.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xGaWx0ZXJQcm9wZXJ0aWVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/GetProperty.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Properties/GetProperty.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xHZXRQcm9wZXJ0eS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/Index.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Properties/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/PropertiesDetails.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xQcm9wZXJ0aWVzRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Properties/_FilteredProperties.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Properties/_FilteredProperties.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGVydGllc1xfRmlsdGVyZWRQcm9wZXJ0aWVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Reservations/Create.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Reservations/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Reservations/Delete.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Reservations/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Reservations/Details.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Reservations/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Reservations/Edit.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Reservations/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Reservations/Index.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Reservations/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Reservations/SelectRoom.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Reservations/SelectRoom.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXFNlbGVjdFJvb20uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Reservations/TransactionDetail.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Reservations/TransactionDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXFRyYW5zYWN0aW9uRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Reservations/_FilteredReservations.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Reservations/_FilteredReservations.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXF9GaWx0ZXJlZFJlc2VydmF0aW9ucy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Shared/Error.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Shared/_AdminLayout.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Shared/_NewLayout.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Shared/_NewLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OZXdMYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/SignUp/SignUp.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/SignUp/SignUp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lnblVwXFNpZ25VcC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Transactions/Delete.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Transactions/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Transactions/Details.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Transactions/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Transactions/Edit.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Transactions/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Users/Create.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Users/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Users/Delete.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Users/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Users/Details.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Users/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Users/Edit.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Users/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Users/Index.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/User/EditAccount.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/User/EditAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0QWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/User/EditBankInfo.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/User/EditBankInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0QmFua0luZm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/User/EditIdentityCard.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/User/EditIdentityCard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0SWRlbnRpdHlDYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/User/EditPersonalInfo.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/User/EditPersonalInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0UGVyc29uYWxJbmZvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/User/GetUserReservation.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/User/GetUserReservation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxHZXRVc2VyUmVzZXJ2YXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/User/GetUserTransactions.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/User/GetUserTransactions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxHZXRVc2VyVHJhbnNhY3Rpb25zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/User/UserProfile.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/User/UserProfile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxVc2VyUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/_ViewImports.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/_ViewStart.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/nobod/Documents/GitHub/TimeShareProject/Views/Shared/_Layout.cshtml]
+[D:/sem5/SWP/New folder/TimeShareProject/TimeShareProject/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-jsvn2hmz8z
