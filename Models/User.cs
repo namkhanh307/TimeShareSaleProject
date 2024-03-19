@@ -35,6 +35,8 @@ public partial class User
 
     public virtual Account? Account { get; set; }
 
+    public virtual ICollection<New> News { get; set; } = new List<New>();
+
     public virtual ICollection<Rate> Rates { get; set; } = new List<Rate>();
 
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();

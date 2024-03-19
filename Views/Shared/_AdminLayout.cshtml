@@ -36,6 +36,11 @@
         .nav-item .more-dropdown-toggle .dropdown-menu .dropdown-item {
             font-weight: 600;
         }
+
+        .nav-item {
+            font-size: 10px;
+            margin-left:
+        }
     </style>
 </head>
 <body>
@@ -76,7 +81,15 @@
                                     <li><a class="dropdown-item" href="@Url.Action("Logout", "Login")">Logout</a></li>
                                 </ul>
                             </div>
+                           
                         </div>
+                        <i class="bi bi-bell-fill"></i>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" color="black" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+                            </svg>
+                        </div>
+                       
                     }
                     else
                     {
@@ -84,6 +97,7 @@
                             <a asp-controller="SignUp" asp-action="SignUp"><small class="me-3 text-dark"><i class="fa fa-user me-2"></i>Sign up</small></a>
                             <a asp-controller="Login" asp-action="Login"><small class="me-3 text-dark"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
                         </div>
+                    
                     }
                 </div>
             </div>
@@ -106,25 +120,26 @@
                             @if (User.IsInRole("1")) // Assuming "1" is the Admin Role
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewDashBoard">Dashboard</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="DashBoard" asp-action="Index">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">Manage Account</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">M.Account</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">M.Contact</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">Manage Contact</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">M.Project</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">Manage Project</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Properties" asp-action="Index">M.Property</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Properties" asp-action="Index">Manage Property</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Blocks" asp-action="Index">M.Block</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Blocks" asp-action="Index">Manage Block</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">Manage Reservation</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">M.Reservation</a>
                                 </li>
                                 <li>
                                 </li>
@@ -132,13 +147,13 @@
                             else
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewDashBoard">Dashboard</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="DashBoard" asp-action="Index">Dashboard</a>
                                 </li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Contacts" asp-action="Index">Manage Contact</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Projects" asp-action="Index">Manage Project</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Properties" asp-action="Index">Manage Property</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Blocks" asp-action="Index">Manage Block</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Reservations" asp-action="Index">Manage Reservation</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Contacts" asp-action="Index">M.Contact</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Projects" asp-action="Index">M.Project</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Properties" asp-action="Index">M.Property</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Blocks" asp-action="Index">M.Block</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Reservations" asp-action="Index">M.Reservation</a></li>
                                 <li></li>
 
                             }
@@ -163,6 +178,21 @@
     </div>
 
 
+    <footer>
+        <div class="container">
+            <div class="col-md-12">
+                <p style="line-height: 40px">
+                    Copyright © 2023 4Rest Co., Ltd. All rights reserved.
+                </p>
+                <p style="line-height: 40px">
+                    Address: Long Thạnh Mỹ,Thủ Đức City, Hồ Chí Minh City
+                </p>
+                <p style="line-height: 40px">Phone: +84-3223092003</p>
+                <p style="line-height: 40px">Mail:4REST.2TK@gmail.com</p>
+
+            </div>
+        </div>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 

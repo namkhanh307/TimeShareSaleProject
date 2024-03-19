@@ -21,6 +21,8 @@ public partial class _4restContext : DbContext
 
     public virtual DbSet<Contact> Contacts { get; set; }
 
+    public virtual DbSet<New> News { get; set; }
+
     public virtual DbSet<Project> Projects { get; set; }
 
     public virtual DbSet<Property> Properties { get; set; }
@@ -81,6 +83,24 @@ public partial class _4restContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("phone");
             entity.Property(e => e.Status).HasColumnName("status");
+        });
+
+        modelBuilder.Entity<New>(entity =>
+        {
+            entity.ToTable("New");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Content).HasColumnName("content");
+            entity.Property(e => e.Date)
+                .HasColumnType("datetime")
+                .HasColumnName("date");
+            entity.Property(e => e.Title).HasColumnName("title");
+            entity.Property(e => e.UserId).HasColumnName("userID");
+
+            entity.HasOne(d => d.User).WithMany(p => p.News)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_New_User");
         });
 
         modelBuilder.Entity<Project>(entity =>
@@ -197,6 +217,9 @@ public partial class _4restContext : DbContext
             entity.Property(e => e.Date)
                 .HasColumnType("datetime")
                 .HasColumnName("date");
+            entity.Property(e => e.DeadlineDate)
+                .HasColumnType("datetime")
+                .HasColumnName("deadlineDate");
             entity.Property(e => e.ReservationId).HasColumnName("reservationID");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TransactionCode).HasColumnName("transactionCode");

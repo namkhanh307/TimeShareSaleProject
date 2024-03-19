@@ -44,16 +44,7 @@
                 <p>Price: @formattedPrice</p>
             }
         }
-        <p>
-            Account Name: NGUYEN VIET NAM KHANH
-        </p>
-        <p>
-            Account No: 0919385156
-        </p>
-        <p>
-            Bank Name: MB Bank
-        </p>
-        <p>Reservation fee will be 500,000 VND! Please submit your transaction code of your banking below!</p>
+   
     </div>
     <div>
         <p>Please review the selected block and property details above. If everything looks correct, you can confirm your reservation.</p>
@@ -68,13 +59,6 @@
             <input type="hidden" name="blockSelect" value="@ViewBag.Block.Id" />
             <input type="hidden" name="propertyId" value="@ViewBag.Property.Id" />
             <input type="hidden" name="saleStatus" value="@ViewBag.SaleStatus" />
-            @{
-                if(ViewBag.SaleStatus == "Reserve")
-                {
-                    <label>Transaction Code</label>
-                    <input type="text" name="transactionCode" required/>
-                }
-            }
             <button type="submit" class="btn btn-primary">Confirm Reservation</button>
         </form>
         <form asp-action="FilterProperties" asp-controller="Properties">

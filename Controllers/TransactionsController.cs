@@ -159,5 +159,71 @@ namespace TimeShareProject.Controllers
         {
             return _context.Transactions.Any(e => e.Id == id);
         }
+        public IActionResult CreateTransaction(int id)
+        {
+            var reservation = Common.GetPropertyFromReservation(id);
+            try
+            {
+                using var transaction = _context.Database.BeginTransaction();
+                var newDepositTransaction = new Transaction()
+                {
+                    Date = DateTime.Now,
+                    Amount = reservation.Property.UnitPrice * reservation.Block.Proportion,
+                    Status = false,
+                    TransactionCode = null,
+                    ReservationId = id,
+                    Type = 0,
+                    DeadlineDate = Common.GetSaleDate(reservation.Property.Id).AddDays(1)
+
+                };
+                _context.Transactions.Add(newDepositTransaction);
+
+                var newFirstTermTransaction = new Transaction()
+                {
+                    Date = DateTime.Now,
+                    Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion,
+                    Status = false,
+                    TransactionCode = null,
+                    ReservationId = id,
+                    Type = 1,
+                    DeadlineDate = Common.GetSaleDate(reservation.Property.Id).AddDays(7)
+
+                };
+                _context.Transactions.Add(newFirstTermTransaction);
+
+                var newSecondTermTransaction = new Transaction()
+                {
+                    Date = DateTime.Now,
+                    Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion,
+                    Status = false,
+                    TransactionCode = null,
+                    ReservationId = id,
+                    Type = 2,
+                    DeadlineDate = Common.GetSaleDate(reservation.Property.Id).AddDays(365)
+                };
+                _context.Transactions.Add(newSecondTermTransaction);
+
+
+                var newThirdTermTransaction = new Transaction()
+                {
+                    Date = DateTime.Now,
+                    Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion ,
+                    Status = false,
+                    TransactionCode = null,
+                    ReservationId = id,
+                    Type = 3,
+                    DeadlineDate = Common.GetSaleDate(reservation.Property.Id).AddDays(730)
+                };
+                _context.Transactions.Add(newThirdTermTransaction);
+                _context.SaveChanges();
+                transaction.Commit();
+                TempData["Message"] = "Reservation confirmed successfully!";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while confirming the reservation.";
+            }
+            return RedirectToAction("Index", "Reservations");
+        }
     }
 }

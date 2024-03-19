@@ -362,8 +362,55 @@ namespace TimeShareProject.Controllers
 
         [HttpPost]
 
+        //public IActionResult FilterProperties(int projectId, int? blockSelect, int? bedSelect, string saleStatus)
+        //{
+        //    var query = _context.Properties
+        //        .Where(p => p.ProjectId == projectId);
+
+        //    foreach (var property in query)
+        //    {
+
+        //        if (bedSelect != null)
+        //        {
+        //            query = query.Where(property => property.Beds == bedSelect);
+        //        }
+
+        //        if (!string.IsNullOrEmpty(saleStatus))
+        //        {
+        //            bool isReserve = saleStatus == "Reserve";
+        //            bool isBuyNow = saleStatus == "Buy now";
+
+        //            if (blockSelect != null)
+        //            {
+        //                if (isReserve)
+        //                {
+        //                    query = query.Where(property => property.SaleDate > DateTime.Now);
+        //                }
+
+        //                else if (isBuyNow)
+        //                {
+        //                    query = query.Where(property => !_context.Reservations.Any(r => r.PropertyId == property.Id && r.Block.Id == blockSelect));
+        //                    query = query.Where(property => property.SaleDate < DateTime.Now);
+
+        //                }
+        //            }
+        //        }
+        //    }
+        //    var availableProperties = query.ToList();
+
+        //    ViewBag.ProjectId = projectId;
+        //    ViewBag.BlockSelect = blockSelect;
+        //    ViewBag.SaleStatus = saleStatus;
+        //    ViewBag.BedSelect = bedSelect;
+
+        //    return View(availableProperties);
+        //}
+
+        [HttpPost]
         public IActionResult FilterProperties(int projectId, int? blockSelect, int? bedSelect, string saleStatus)
         {
+            bool isReserve = saleStatus == "Reserve";
+            bool isBuyNow = saleStatus == "Buynow";
             var query = _context.Properties
                 .Where(p => p.ProjectId == projectId);
 
@@ -375,24 +422,21 @@ namespace TimeShareProject.Controllers
                     query = query.Where(property => property.Beds == bedSelect);
                 }
 
-                if (!string.IsNullOrEmpty(saleStatus))
+                if (isReserve)
                 {
-                    bool isReserve = saleStatus == "Reserve";
-                    bool isBuyNow = saleStatus == "Buy now";
+                    query = query.Where(property => property.SaleDate > DateTime.Now);
+                }
 
+                if (isBuyNow)
+                {
                     if (blockSelect != null)
                     {
-                        if (isReserve)
-                        {
-                            query = query.Where(property => property.SaleDate > DateTime.Now);
-                        }
-
-                        else if (isBuyNow)
-                        {
-                            query = query.Where(property => !_context.Reservations.Any(r => r.PropertyId == property.Id && r.Block.Id == blockSelect));
-                            query = query.Where(property => property.SaleDate < DateTime.Now);
-
-                        }
+                        query = query.Where(property => !_context.Reservations.Any(r => r.PropertyId == property.Id && r.Block.Id == blockSelect));
+                        query = query.Where(property => property.SaleDate < DateTime.Now);
+                    }
+                    else
+                    {
+                        query = query.Where(property => property.SaleDate < DateTime.Now);
                     }
                 }
             }
@@ -405,8 +449,6 @@ namespace TimeShareProject.Controllers
 
             return View(availableProperties);
         }
-
-  
 
 
     }

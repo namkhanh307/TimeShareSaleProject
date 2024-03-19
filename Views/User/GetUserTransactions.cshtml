@@ -27,7 +27,7 @@
 }
 
 <br />
-<h2>User Transactions</h2>
+<h2>Your Transactions</h2>
 
 @if (Model != null && Model.Any())
 {
@@ -37,8 +37,10 @@
                 <th>Register Date</th>
                 <th>Amount</th>
                 <th>Status</th>
+                <th>Transaction Code</th>
                 <th>Type</th>
                 <th>Pay</th>
+                <th>Deadline</th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +50,7 @@
                     <td>@transaction.Date</td>
                     <td>@transaction.Amount</td>
                     <td>@(transaction.Status == true ? "Paid" : "Not Paid")</td>
+                    <td>@transaction.TransactionCode</td>
                     <td>
                         @{
                             string transactionType = "";
@@ -83,6 +86,7 @@
                     {
                         <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
                     }
+                    <td>You should pay this field before @transaction.DeadlineDate</td>
                 </tr>
             }
         </tbody>
@@ -97,25 +101,19 @@ else
     <script src="https://www.paypal.com/sdk/js?client-id=AcK_cVj4laQY2VN5ZHxfaXRgs-VNDVmx9ifLV-3llbR-pQPzy48YjTgzzbZ7C35PgV6GfP9uNWjLXZ9d"></script>
     <script>
         $(document).ready(function () {
-            function renderPayPalButton(containerId, amount, type, transactionId) {
+            function renderPayPalButton(containerId, transaction) {
                 paypal.Buttons({
                     style: {
                         disableMaxWidth: true
                     },
                     createOrder() {
-                        // Include transaction details in the request body
-                        const transactionDetails = {
-                            amount: amount,
-                            type: type,
-                            transactionId: transactionId
-                        };
-
+                        // This function sets up the details of the transaction, including the amount and line item details.
                         return fetch("/Reservations/create-paypal-order", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
                             },
-                            body: JSON.stringify(transactionDetails) // Send transaction details as JSON
+                            body: JSON.stringify(transaction)
                         }).then((response) => {
                             if (!response.ok) {
                                 return response.json().then((err) => {
@@ -130,19 +128,29 @@ else
                             });
                     },
                     onApprove: (data, actions) => {
-                        // The rest of the onApprove function remains the same
+                        // This function captures the funds from the transaction.
+                        return fetch(`/Reservations/capture-paypal-order?orderId=${data.orderID}`, {
+                            method: "POST",
+                        }).then((response) => {
+                            if (!response.ok) {
+                                return response.json().then(err => { throw err; });
+                            }
+                            window.location.href = "/User/GetUserReservation";
+                        })
+                            .catch(err => {
+                                alert(err.message);
+                            });
                     }
                 }).render('#' + containerId);
             }
 
-            // Loop through transactions and render PayPal button for each with transaction details
+            // Loop through transactions and render PayPal button for each
         @foreach (var transaction in Model)
         {
             <text>
-                    renderPayPalButton('paypal-button-container-@transaction.Id', @transaction.Amount, '@transaction.Type', '@transaction.Id');
+                    renderPayPalButton('paypal-button-container-@transaction.Id', @Html.Raw(Json.Serialize(transaction)));
             </text>
         }
-            });
+                                        });
     </script>
-
 }

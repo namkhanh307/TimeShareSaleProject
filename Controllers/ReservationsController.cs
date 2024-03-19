@@ -16,12 +16,12 @@ using Transaction = TimeShareProject.Models.Transaction;
 namespace TimeShareProject.Controllers
 {
 
-    public class PaypalOrderRequest
-    {
-        public decimal Amount { get; set; }
-        public string Type { get; set; }
-        public string TransactionId { get; set; }
-    }
+    //public class PaypalOrderRequest
+    //{
+    //    public decimal Amount { get; set; }
+    //    public string Type { get; set; }
+    //    public string TransactionId { get; set; }
+    //}
 
     public class ReservationsController : Controller
     {
@@ -34,28 +34,46 @@ namespace TimeShareProject.Controllers
             _paypalClient = paypalClient;
         }
 
+        public PartialViewResult FilterDuplicate()
+        {
+            var reservations = _context.Reservations.Include(r => r.Block).Include(r => r.Property).Include(r => r.User).ToList();
+
+            var duplicateReservations = reservations
+                .Where(r => r.Type == 1) // Filter only reservations with type "Reserve"
+                .GroupBy(r => new { r.PropertyId, r.BlockId }) // Group by property ID and block ID
+                .Where(g => g.Count() > 1) // Filter groups with more than one reservation
+                .SelectMany(g => g); // Flatten the groups back into individual reservations
+
+            return PartialView("_FilteredReservations", duplicateReservations);
+        }
+        #region Paypal payment
+
+
         [Authorize]
         [HttpPost("/Reservations/create-paypal-order")]
-        public async Task<IActionResult> CreatePaypalOrder([FromBody] PaypalOrderRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreatePaypalOrder([FromBody] Transaction transaction, CancellationToken cancellationToken)
         {
-            var tien = request.Amount / 23000;
-            var tongTien = tien.ToString("#,##"); // Convert amount to string if necessary
-            var donViTienTe = "USD"; // Assuming currency is always USD, adjust if needed
-            var maDonHangThamChieu = request.TransactionId; // Use the provided transaction ID
-
+            double total = Math.Round((double)transaction.Amount / 23000, 2);
+            var totalString = total.ToString();
+            var currency = "USD";
+            var transactionCode = Common.GetTransactionCode(transaction.Id);
             try
             {
-                var response = await _paypalClient.CreateOrder(tongTien, donViTienTe, maDonHangThamChieu);
-                var transaction = await _context.Transactions.FindAsync(Convert.ToInt32(request.TransactionId));
-                try
+                var response = await _paypalClient.CreateOrder(totalString, currency, transactionCode);
+                if (response != null)
                 {
-                    transaction.Status = true;
-                    _context.Update(transaction);
-                    await _context.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Error occurred while updating the property.");
+                    var newTrasaction = await _context.Transactions.FindAsync(transaction.Id);
+                    try
+                    {
+                        newTrasaction.Status = true;
+                        newTrasaction.TransactionCode = transactionCode;
+                        _context.Update(newTrasaction);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "Error occurred while updating the transaction.");
+                    }
                 }
                 return Ok(response);
             }
@@ -82,19 +100,9 @@ namespace TimeShareProject.Controllers
                 return BadRequest(error);
             }
         }
+        #endregion
 
-        public PartialViewResult FilterDuplicate()
-        {
-            var reservations = _context.Reservations.Include(r => r.Block).Include(r => r.Property).Include(r => r.User).ToList();
-
-            var duplicateReservations = reservations
-                .Where(r => r.Type == 1) // Filter only reservations with type "Reserve"
-                .GroupBy(r => new { r.PropertyId, r.BlockId }) // Group by property ID and block ID
-                .Where(g => g.Count() > 1) // Filter groups with more than one reservation
-                .SelectMany(g => g); // Flatten the groups back into individual reservations
-            return PartialView("_FilteredReservations", duplicateReservations);
-        }
-
+       
         // GET: Reservations
         [Authorize(Roles = "1,2")]
         public async Task<IActionResult> Index()
@@ -109,6 +117,7 @@ namespace TimeShareProject.Controllers
         public async Task<IActionResult> TransactionDetail(int id)
         {
             var timeShareProjectContext = _context.Transactions.Include(t => t.Reservation).Where(m => m.ReservationId == id);
+            ViewBag.count = timeShareProjectContext.Count();
             return View(await timeShareProjectContext.ToListAsync());
         }
         public async Task<IActionResult> Details(int? id)
@@ -195,6 +204,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
+                            DeadlineDate = Common.GetSaleDate(propertyId)
+
                         };
                         _context.Transactions.Add(newReserveTransaction);
                         _context.SaveChanges();
@@ -211,6 +222,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
+                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(1)
+
                         };
                         _context.Transactions.Add(newDepositTransaction);
 
@@ -222,6 +235,9 @@ namespace TimeShareProject.Controllers
                             TransactionCode = null,
                             ReservationId = newReservation.Id,
                             Type = 1,
+                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(7)
+
+
                         };
                         _context.Transactions.Add(newFirstTermTransaction);
 
@@ -233,6 +249,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = null,
                             ReservationId = newReservation.Id,
                             Type = 2,
+                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(365)
+
                         };
                         _context.Transactions.Add(newSecondTermTransaction);
 
@@ -245,6 +263,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = null,
                             ReservationId = newReservation.Id,
                             Type = 3,
+                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(730)
+
                         };
                         _context.Transactions.Add(newThirdTermTransaction);
                         _context.SaveChanges();

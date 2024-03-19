@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json.Serialization;
 using TimeShareProject.Models;
 using TimeShareProject.Services;
 using TimeShareWebProject.Services;
@@ -16,7 +17,6 @@ namespace TimeShareProject
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
 
             builder.Services.AddSingleton<IVnPayService, VnPayService>();
 
@@ -55,7 +55,10 @@ namespace TimeShareProject
             services.AddDbContext<_4restContext>(options => options.UseSqlServer(connectionString));
 
             services.AddHttpContextAccessor();
-
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            });
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -68,7 +71,7 @@ namespace TimeShareProject
            options.LoginPath = "/Login/Login";
            options.LogoutPath = "/Login/Logout";
            options.AccessDeniedPath = "/Home/AccessDenied";
-           options.ExpireTimeSpan = TimeSpan.FromSeconds(6 * 60);
+           options.ExpireTimeSpan = TimeSpan.FromSeconds(6 * 60 * 60);
 
            options.Events.OnRedirectToLogin = context =>
            {

@@ -19,5 +19,7 @@ public partial class Transaction
 
     public int? Type { get; set; }
 
+    public DateTime? DeadlineDate { get; set; }
+
     public virtual Reservation? Reservation { get; set; }
 }

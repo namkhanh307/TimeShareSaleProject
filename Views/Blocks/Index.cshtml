@@ -5,8 +5,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit Blocks</h1>
-<a asp-action="AddBlock">Back to List</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +27,7 @@
                     <input type="text" id="proportion_@block.Id" value="@block.Proportion" />
                 </td>
                 <td>
-                    <button class="btn btn-primary" onclick="updateProportion(@block.Id)">Update</button>
+                    <button class="btn btn-dark" onclick="updateProportion(@block.Id)">Update</button>
                 </td>
             </tr>
         }

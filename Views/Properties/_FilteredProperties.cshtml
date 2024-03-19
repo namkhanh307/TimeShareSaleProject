@@ -4,184 +4,95 @@
     ViewData["Title"] = "Property";
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
+<p>
+    <a asp-action="Create" asp-controller="Properties">Create New</a>
+</p>
+
 @if (Model != null && Model.Any())
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SaleStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SaleDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UnitPrice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Beds)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Occupancy)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Size)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Bathroom)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Views)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UniqueFeature)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ViewImage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FrontImage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InsideImage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SideImage)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Project)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <form id="propertyForm" asp-action="SetSaleDate" asp-controller="Properties" method="post">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @if (item.SaleStatus.Value == true)
-                        {
-                            <div>On sale</div>
-                        }
-                        else
-                        {
-                            <div>Not for sale</div>
-                        }
-                    </td>
-                    <td>
-                        @if (item.Status.Value == true)
-                        {
-                            <div>Active</div>
-                        }
-                        else
-                        {
-                            <div>Inactive</div>
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SaleDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UnitPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Beds)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Occupancy)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Size)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Bathroom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Views)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UniqueFeature)
-                    </td>
-                    <td>
-                        <img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.ViewImage)" />
-                    </td>
-                    <td>
-                        <img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.FrontImage)" />
-                    </td>
-                    <td>
-                        <img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.InsideImage)" />
-                    </td>
-                    <td>
-                        <img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.SideImage)" />
-                    </td>
-
-                    <td>
-                        <div>@Common.GetProjectShortNameFromProperty(item)</div>
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                     
-            
-                        @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
-                    </td>
+                    <th>Select</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.SaleStatus)</th>
+                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                    <th>@Html.DisplayNameFor(model => model.SaleDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.UnitPrice)</th>
+                    <th>@Html.DisplayNameFor(model => model.Beds)</th>
+                    <th>@Html.DisplayNameFor(model => model.Occupancy)</th>
+                    <th>@Html.DisplayNameFor(model => model.Size)</th>
+                    <th>@Html.DisplayNameFor(model => model.Bathroom)</th>
+                    <th>@Html.DisplayNameFor(model => model.Views)</th>
+                    <th>@Html.DisplayNameFor(model => model.UniqueFeature)</th>
+                    <th>@Html.DisplayNameFor(model => model.ViewImage)</th>
+                    <th>@Html.DisplayNameFor(model => model.FrontImage)</th>
+                    @*           <th>@Html.DisplayNameFor(model => model.InsideImage)</th>
+                    <th>@Html.DisplayNameFor(model => model.SideImage)</th> *@
+                    <th>@Html.DisplayNameFor(model => model.Project)</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selectedProperties" value="@item.Id">
+                        </td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td style="font-size: 12px;">
+                            @if (item.SaleStatus.Value == true)
+                            {
+                                <div>On sale</div>
+                            }
+                            else
+                            {
+                                <div>Not for sale</div>
+                            }
+                        </td>
+                        <td style="font-size: 12px;">
+                            @if (item.Status.Value == true)
+                            {
+                                <div>Active</div>
+                            }
+                            else
+                            {
+                                <div>Inactive</div>
+                            }
+                        </td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.SaleDate)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.UnitPrice)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Beds)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Occupancy)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Size)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Bathroom)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Views)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.UniqueFeature)</td>
+                       <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.ViewImage)" /></td>
+                        <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.FrontImage)" /></td>
+                        @*                 <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.InsideImage)" /></td>
+                        <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.SideImage)" /></td> *@
+                        <td><div style="font-size: 12px;">@Common.GetProjectShortNameFromProperty(item)</div></td>
+                        <td>
+                           @*  <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a> *@
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <label for="saleDate">Sale Date:</label>
+        <input type="date" id="saleDate" name="saleDate" required>
+        <button type="submit">Set Sale Date</button>
+    </form>
 }
 else
 {
     <p>No reservations found.</p>
 }
-@{
-    // Retrieve filtered properties from ViewBag
-    var filteredProperties = ViewBag.FilteredProperties as List<Property>;
-}
 
-@if (filteredProperties != null && filteredProperties.Any())
-{
-    <label for="propertyId">Select Property:</label>
-    <select class="form-control" id="propertyId" name="propertyId">
-        <option value="">-- Select Property --</option>
-        @foreach (var property in filteredProperties)
-        {
-            <option value="@property.Id">@property.Name</option>
-        }
-    </select>
-}
-else
-{
-    <p>No properties found.</p>
-}
-<div>
-    <form id="propertyForm" asp-action="SetSaleDate" asp-controller="Properties" method="post">
-        <input type="checkbox" id="selectAll" onchange="selectAllProperties(this)">
-        <label for="selectAll">Select All</label>
-        <br />
-        <input type="checkbox" id="deselectAll" onchange="deselectAllProperties(this)">
-        <label for="deselectAll">Deselect All</label>
-        <br />
-        @foreach (var property in Model)
-        {
-            <input type="checkbox" id="property" name="selectedProperties" value="@property.Id">
-            <label for="property">@property.Name</label>
-            <br />
-        }
-        <label for="saleDate">Sale Date:</label>
-        <input type="date" id="saleDate" name="saleDate" required>
-        <button type="submit">Set Sale Date</button>
-    </form>
-</div>
 <script>
     function selectAllProperties(checkbox) {
         var checkboxes = document.querySelectorAll('input[name="selectedProperties"]');

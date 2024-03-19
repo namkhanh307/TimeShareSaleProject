@@ -62,14 +62,14 @@
                         <p><strong>ID Back Image:</strong> <img src="~/img/@Model.IdbackImage" alt="ID Back Image" width="100px" height="250px" /></p>
                         <a href="@Url.Action("EditIdentityCard", "User", new { id = Model.Id })" class="btn btn-primary">Edit</a>
                     </div>
-                    <!-- Bank Information -->
+                @*     <!-- Bank Information -->
                     <div class="profile-section">
                         <h2>Bank Information</h2>
                         <p><strong>Bank Account Number:</strong> @Model.BankAccountNumber</p>
                         <p><strong>Bank Account Holder:</strong> @Model.BankAccountHolder</p>
                         <p><strong>Bank Name:</strong> @Model.BankName</p>
                         <a href="@Url.Action("EditBankInfo", "User", new { id = Model.Id })" class="btn btn-primary">Edit</a>
-                    </div>
+                    </div> *@
                     <!-- Account -->
                     <div class="profile-section">
                         <h2>Account</h2>

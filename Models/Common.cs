@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace TimeShareProject.Models
 {
@@ -62,6 +63,18 @@ namespace TimeShareProject.Models
             int reservationCount = context.Reservations.Count(r => r.PropertyId == propertyId && r.BlockId == blockId);
             return reservationCount;
         }
+        public static DateTime GetSaleDate(int id)
+        {
+            using _4restContext context = new();
+            var property = context.Properties.FirstOrDefault(p => p.Id == id);
+            return (DateTime)property.SaleDate;
+        }
+        public static Reservation GetPropertyFromReservation(int id)
+        {
+            using _4restContext context = new();
+            var reservation = context.Reservations.Include(p => p.Block).Include(p => p.User).Include(p => p.Property).FirstOrDefault(p => p.Id == id);
+            return reservation;
+        }
         public static List<Block> GetAvailableBlocks(int propertyId)
         {
             using (_4restContext context = new _4restContext())
@@ -69,24 +82,30 @@ namespace TimeShareProject.Models
                 List<Block> availableBlocks = new List<Block>();
 
                 var reservations = context.Reservations
-                    .Where(r => r.PropertyId == propertyId)
-                    .Select(r => r.BlockId) // Select only the BlockIds
-                    .Distinct() // Remove duplicate BlockIds
-                    .ToList();
-
-                if (reservations.Any())
+                    .Where(r => r.PropertyId == propertyId).ToList();
+                var blocks = context.Blocks.ToList();
+                if (reservations.Count > 0)
                 {
-                    // Fetch blocks which are not reserved
-                    availableBlocks = context.Blocks
-                        .Where(b => !reservations.Contains(b.Id))
-                        .ToList();
+                    foreach (var reservation in reservations)
+                    {
+                        int blockId = reservation.BlockId;
+                        int? type = reservation.Type;
+                        foreach (var block in blocks)
+                        {
+                            if ((type == 1) || (block.Id != blockId && type == 2))
+                            {
+                                availableBlocks.Add(block);
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    // If no reservations, all blocks are available
-                    availableBlocks = context.Blocks.ToList();
+                    foreach (var block in blocks)
+                    {
+                        availableBlocks.Add(block);
+                    }
                 }
-
                 return availableBlocks;
             }
         }
@@ -121,5 +140,61 @@ namespace TimeShareProject.Models
             var propertyName = context.Properties.FirstOrDefault(p => p.Id == Id).Name;
             return propertyName;
         }
+
+        public static string? GetTransactionCode(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+
+            using (var context = new _4restContext())
+            {
+                var transaction = context.Transactions
+                    .Include(t => t.Reservation)
+                        .ThenInclude(r => r.Block)
+                    .Include(t => t.Reservation)
+                        .ThenInclude(r => r.Property)
+                    .Include(t => t.Reservation)
+                        .ThenInclude(r => r.User)
+                            .ThenInclude(u => u.Account)
+                    .FirstOrDefault(t => t.Id == id);
+
+                if (transaction == null || transaction.Reservation == null)
+                {
+                    return null;
+                }
+
+                var user = transaction.Reservation.User;
+                var userName = user?.Account?.Username ?? "UnknownUser";
+                var propertyName = transaction.Reservation.Property?.Name ?? "UnknownProperty";
+                var blockId = transaction.Reservation.Block?.Id ?? 0;
+
+                var type = "";
+                switch (transaction.Type)
+                {
+                    case -1:
+                        type = "Reserve";
+                        break;
+                    case 0:
+                        type = "Deposit";
+                        break;
+                    case 1:
+                        type = "FirstPayment";
+                        break;
+                    case 2:
+                        type = "SecondPayment";
+                        break;
+                    case 3:
+                        type = "ThirdPayment";
+                        break;
+                    default:
+                        type = "Unknown";
+                        break;
+                }
+                return $"{userName}_{propertyName}_{blockId}_{type}";
+            }
+        }
+
     }
 }

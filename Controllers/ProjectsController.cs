@@ -76,20 +76,21 @@ namespace TimeShareProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Project model, IFormFile AddressImage, IFormFile Image1, IFormFile Image2, IFormFile Image3)
+        public IActionResult Create(Project model,  IFormFile Image1, IFormFile Image2, IFormFile Image3)
         {
             var newProject = new Project
             {
                 Name = model.Name,
                 ShortName = model.ShortName,
                 Address = model.Address,
+                Area = model.Area,
                 TotalUnit = model.TotalUnit,
                 GeneralDescription = model.GeneralDescription,
                 DetailDescription = model.DetailDescription,
                 Status = model.Status,
                 Star = model.Star
             };
-            newProject.AddressImage = SaveProjectImage(newProject, AddressImage).Result;
+       
             newProject.Image1 = SaveProjectImage(newProject, Image1).Result;
             newProject.Image2 = SaveProjectImage(newProject, Image2).Result;
             newProject.Image3 = SaveProjectImage(newProject, Image3).Result;
@@ -144,7 +145,7 @@ namespace TimeShareProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Project project, IFormFile AddressImage, IFormFile Image1, IFormFile Image2, IFormFile Image3)
+        public async Task<IActionResult> Edit(int id, Project project,  IFormFile Image1, IFormFile Image2, IFormFile Image3)
         {
             var existingProject = await _context.Projects.FindAsync(id);
             try
@@ -152,16 +153,14 @@ namespace TimeShareProject.Controllers
                 existingProject.ShortName = project.ShortName;
                 existingProject.Name = project.Name;
                 existingProject.Address = project.Address;
+                existingProject.Area = project.Area;
                 existingProject.TotalUnit = project.TotalUnit;
                 existingProject.GeneralDescription = project.GeneralDescription;
                 existingProject.DetailDescription = project.DetailDescription;
                 existingProject.Status = project.Status;
                 existingProject.Star = project.Star;
 
-                if (AddressImage != null)
-                {
-                    existingProject.AddressImage = await SaveProjectImage(project, AddressImage);
-                }
+           
                 if (Image1 != null)
                 {
                     existingProject.Image1 = await SaveProjectImage(project, Image1);

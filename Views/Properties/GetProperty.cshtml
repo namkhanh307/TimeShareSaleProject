@@ -55,42 +55,43 @@
     </div>
 </div>
 <div class="border-top">
-<div class="container " style="justify-content: center; margin-left: 330px">
-    <div class="row mt-5">
-        <div class="col-md-4">
-           
-            <h5>Sale Status:</h5>
-            <p> @(Model.SaleStatus.HasValue ? (Model.SaleStatus.Value ? "For Sale" : "Not for Sale") : "Unknown")</p>
-            <h5>Sale Date:</h5>
-            <p> @(Model.SaleDate?.ToString("dd/MM/yyyy"))</p>
-            <h5>Unit Price:</h5>
-            <p> @(Model.UnitPrice?.ToString("C"))</p>
-            <h5>Beds:</h5>
-            <p> @Model.Beds</p>
-        </div>
-        <div class="col-md-4">
-            <h5>Occupancy:</h5>
-            <p> @Model.Occupancy</p>
-            <h5>Size:</h5>
-            <p> @Model.Size</p>
-            <h5>Bathroom:</h5>
-            <p> @Model.Bathroom</p>
-            <h5>Views:</h5>
-            <p> @Model.Views</p>
-            <h5>Unique Feature:</h5>
-            <p> @Model.UniqueFeature</p>
+    <div class="container " style="justify-content: center; margin-left: 330px">
+        <div class="row mt-5">
+            <div class="col-md-4">
+
+                <h5>Sale Status:</h5>
+                <p> @(Model.SaleStatus.HasValue ? (Model.SaleStatus.Value ? "For Sale" : "Not for Sale") : "Unknown")</p>
+                <h5>Sale Date:</h5>
+                <p> @(Model.SaleDate?.ToString("dd/MM/yyyy"))</p>
+                <h5>Unit Price:</h5>
+                <p> @(Model.UnitPrice?.ToString("C"))</p>
+                <h5>Beds:</h5>
+                <p> @Model.Beds</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Occupancy:</h5>
+                <p> @Model.Occupancy</p>
+                <h5>Size:</h5>
+                <p> @Model.Size</p>
+                <h5>Bathroom:</h5>
+                <p> @Model.Bathroom</p>
+                <h5>Views:</h5>
+                <p> @Model.Views</p>
+                <h5>Unique Feature:</h5>
+                <p> @Model.UniqueFeature</p>
+            </div>
         </div>
     </div>
-</div>
     <div class="border-top" style="border-block">
         <div class="row mt-3">
             <div class="col-md-6 offset-md-3">
+
                 <form asp-action="SelectRoom" asp-controller="Reservations">
                     <input type="hidden" name="propertyId" value="@Model.Id" />
                     <input type="hidden" name="projectId" value="@Model.ProjectId" />
                     <input type="hidden" name="bedSelect" value="@Model.Beds" />
                     <div class="form-group row" style="margin-left: 40px">
-                       @*  <label for="blockSelect" class="col-sm-3 col-form-label" style="font-weight: 140%">Select Block:</label> *@
+                        @*  <label for="blockSelect" class="col-sm-3 col-form-label" style="font-weight: 140%">Select Block:</label> *@
                         <label for="blockSelect" style="font-weight: 140%">Select Block:</label>
                         <div class="col-sm-8">
                             <select id="blockSelect" name="blockSelect" class="form-control">
