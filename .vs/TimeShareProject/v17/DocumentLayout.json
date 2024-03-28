@@ -3,36 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\views\\signup\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\signup\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\controllers\\signupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\signupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\views\\reservations\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\reservations\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\controllers\\reservationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\reservationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\nobod\\Documents\\Zalo Received Files\\SignUp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +21,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,106 +29,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Login\\Login.cshtml",
-              "RelativeDocumentMoniker": "Views\\Login\\Login.cshtml",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Login\\Login.cshtml",
-              "RelativeToolTip": "Views\\Login\\Login.cshtml",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAIwBgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-28T13:53:00.513Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAADMAAAAAAAAAAAAAAEoAAAAAAAAA",
+              "Title": "SignUp.cshtml",
+              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\Zalo Received Files\\SignUp.cshtml",
+              "RelativeDocumentMoniker": "..\\..\\Zalo Received Files\\SignUp.cshtml",
+              "ToolTip": "C:\\Users\\nobod\\Documents\\Zalo Received Files\\SignUp.cshtml",
+              "RelativeToolTip": "..\\..\\Zalo Received Files\\SignUp.cshtml",
+              "ViewState": "AQIAAFIAAAAAAAAAAAAUwIEAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-28T13:51:30.07Z",
+              "WhenOpened": "2024-03-28T15:07:08.947Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T13:51:24.748Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "SignUp.cshtml",
               "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\SignUp\\SignUp.cshtml",
               "RelativeDocumentMoniker": "Views\\SignUp\\SignUp.cshtml",
               "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\SignUp\\SignUp.cshtml",
               "RelativeToolTip": "Views\\SignUp\\SignUp.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAcwBkAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-28T13:43:06.742Z",
+              "WhenOpened": "2024-03-28T15:06:35.084Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SignUpController.cs",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\SignUpController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SignUpController.cs",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\SignUpController.cs",
-              "RelativeToolTip": "Controllers\\SignUpController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T13:41:16.728Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T13:41:14.601Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Reservations\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Reservations\\Index.cshtml",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Reservations\\Index.cshtml",
-              "RelativeToolTip": "Views\\Reservations\\Index.cshtml",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAkwG0AAAAfAAAA",
+              "DocumentIndex": 1,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Login\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Login\\Login.cshtml",
+              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Login\\Login.cshtml",
+              "RelativeToolTip": "Views\\Login\\Login.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-17T11:00:47.185Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ReservationsController.cs",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ReservationsController.cs",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs",
-              "RelativeToolTip": "Controllers\\ReservationsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T11:00:18.522Z",
+              "WhenOpened": "2024-03-28T14:57:56.588Z",
               "EditorCaption": ""
             }
           ]

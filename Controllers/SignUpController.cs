@@ -19,12 +19,17 @@ namespace TimeShareProject.Controllers
             var existingAccount = _dbContext.Accounts.FirstOrDefault(a => a.Username == username);
             if (existingAccount != null)
             {
-                TempData["error"] = "Username already exists.";
+                TempData["errorExistUsername"] = "Username already exists!";
+                return RedirectToAction("SignUp");
+            }
+            if(username.Contains(" "))
+            {
+                TempData["errorSpace"] = "User name can not contain space!";
                 return RedirectToAction("SignUp");
             }
             if(dateOfBirth >= DateTime.Today)
             {
-                TempData["errorBirthday"] = "Birthday can not exceed today";
+                TempData["errorBirthday"] = "Birthday can not exceed today!";
                 return RedirectToAction("SignUp");
             }
             // Create and save the account

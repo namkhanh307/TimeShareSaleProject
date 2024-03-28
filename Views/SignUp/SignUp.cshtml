@@ -1,4 +1,5 @@
 ﻿@{
+
     Layout = null;
 }
 
@@ -8,7 +9,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sign up</title>
+    <title>Sign Up</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="~vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="~vendors/css/vendor.bundle.base.css">
@@ -20,13 +21,36 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="~/images/img/Logo.png" />
-
+    <link rel="icon" type="image/png" href="~/images/img/Logo.png" sizes="196*196">
     <style>
         .login-bg {
             background: url("~/images/auth/Login_bg.jpg");
             background-size: cover;
         }
+
+        .card-title.text-center.mb-3,
+        .card-title.text-center.mb-1 {
+            color: white; /* Chuyển sang màu trắng */
+            font-family: Arial, sans-serif; /* Chọn một font chữ */
+            /* Thêm các thuộc tính khác cho kiểu chữ của bạn nếu cần thiết */
+        }
+
+            /* Định dạng cho liên kết trong phần tử h5 */
+            .card-title.text-center.mb-3 a,
+            .card-title.text-center.mb-1 a {
+                text-decoration: none; /* Loại bỏ gạch chân */
+                color: white; /* Màu chữ mặc định cho liên kết */
+            }
+
+                /* Định dạng cho liên kết khi rê chuột qua */
+                .card-title.text-center.mb-3 a:hover,
+                .card-title.text-center.mb-1 a:hover {
+                    color: #9dccff; /* Màu chữ khi rê chuột qua */
+                }
+
+                .card-title.text-center.mb-3 a.active {
+                    font-size: 13px; /* Thiết lập kích thước chữ mong muốn */
+                }
     </style>
 </head>
 <body>
@@ -36,12 +60,12 @@
                 <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg" style="background-image:url(../../images/img/4REST.png)">
                     <div class="card col-lg-4 mx-auto">
                         <div class="card-body px-5 py-5">
-                            <h3 class="card-title text-left mb-3">Register</h3>
+
+                            <h1 class="card-title text-left mb-3">Register</h1>
                             <form method="post" action="@Url.Action("SignUp", "SignUp")">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input type="text" class="form-control p_input" name="username" pattern="(?=.*[A-Z]).{7,}" title="Username must contain at least one uppercase letter and be at least 7 characters long" required>
-
+                                    <input type="text" class="form-control p_input" name="username" required>
                                 </div>
                                 <div class="form-group">
                                     <span>
@@ -50,11 +74,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                              <input type="email" class="form-control p_input" name="email" pattern="[^&#64; \t\r\n]+&#64;[^&#64; \t\r\n]+\.[^&#64; \t\r\n]+" title="Email must contain an character and a domain" required>
+                                    <input type="email" class="form-control p_input" name="email" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control p_input" name="password" pattern=".{6,}" title="Password must be at least 6 characters long" required>
+                                    <input type="password" class="form-control p_input" name="password" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Full Name</label>
@@ -71,15 +95,14 @@
                                     <label for="birthday">Date of birth:</label>
                                     <input type="date" id="birthday" name="dateOfBirth" class="form-control p_input" required>
                                 </div>
-                                <div class="form-group">
-                                    <span>
-                                        @TempData["errorBirthday"]
-                                    </span>
-                                </div>
+                                <br />
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-block enter-btn">Sign up</button>
                                 </div>
-                                <a class="nav-link text-blue" asp-area="" asp-controller="Login" asp-action="Login">Login</a></p>
+                                <h5 class="card-title text-center mb-3">  <a class="active" asp-area="" asp-controller="Home" asp-action="Index">Back to 4REST</a> </h5>
+                                <h5 class="card-title text-center mb-1">
+                                    <a class="nav-link text-blue" asp-area="" asp-controller="Login" asp-action="Login">Do you have an account?</a></p>
+                                </h5>
                             </form>
                         </div>
                     </div>
