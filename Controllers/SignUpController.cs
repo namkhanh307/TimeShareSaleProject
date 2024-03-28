@@ -22,7 +22,11 @@ namespace TimeShareProject.Controllers
                 TempData["error"] = "Username already exists.";
                 return RedirectToAction("SignUp");
             }
-
+            if(dateOfBirth >= DateTime.Today)
+            {
+                TempData["errorBirthday"] = "Birthday can not exceed today";
+                return RedirectToAction("SignUp");
+            }
             // Create and save the account
             Account account = new Account { Username = username, Password = password, Role = 3 };
             _dbContext.Accounts.Add(account);

@@ -1,5 +1,4 @@
 ﻿@{
-
     Layout = null;
 }
 
@@ -9,7 +8,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>Sign up</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="~vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="~vendors/css/vendor.bundle.base.css">
@@ -21,7 +20,8 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="~/images/favicon.png" />
+    <link rel="shortcut icon" href="~/images/img/Logo.png" />
+
     <style>
         .login-bg {
             background: url("~/images/auth/Login_bg.jpg");
@@ -70,6 +70,11 @@
                                 <div class="form-group">
                                     <label for="birthday">Date of birth:</label>
                                     <input type="date" id="birthday" name="dateOfBirth" class="form-control p_input" required>
+                                </div>
+                                <div class="form-group">
+                                    <span>
+                                        @TempData["errorBirthday"]
+                                    </span>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-block enter-btn">Sign up</button>
