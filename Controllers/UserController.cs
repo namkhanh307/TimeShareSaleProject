@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 using TimeShareProject.Models;
 using TimeShareProject.ViewModels;
-using System.Security.Principal;
 
 namespace TimeShareProject.Controllers
 {
@@ -18,6 +16,15 @@ namespace TimeShareProject.Controllers
             _dbContext = dbContext;
             _hostingEnvironment = hostingEnvironment;
 
+        }
+
+        public async Task<IActionResult> Index(int? id)
+        {
+            if (id != null)
+            {
+                return View(await _dbContext.Users.Include(u => u.Account).Where(u => u.Account.Role == 3 && u.Id == id).ToListAsync());
+            }
+            return View(await _dbContext.Users.Include(u => u.Account).Where(u => u.Account.Role == 3).ToListAsync());
         }
 
         public IActionResult UserProfile()
@@ -105,72 +112,7 @@ namespace TimeShareProject.Controllers
         }
 
 
-        public async Task<IActionResult> EditBankInfo(int? id)
-        {
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _dbContext.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            ViewData["AccountId"] = new SelectList(_dbContext.Accounts, "Id", "Id", user.AccountId);
-            return View(user);
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditBankInfo(int id, [Bind("Id,BankAccountNumber,BankAccountHolder,BankName")] User updatedUser)
-        {
-            int a = updatedUser.Id;
-            int b = a;
-            if (id != updatedUser.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    // Retrieve the existing user data from the database
-                    var existingUser = await _dbContext.Users.FindAsync(id);
-                    if (existingUser == null)
-                    {
-                        return NotFound();
-                    }
-
-                    // Update only the fields that are modified in the updatedUser
-                    existingUser.BankAccountNumber = updatedUser.BankAccountNumber;
-                    existingUser.BankAccountHolder = updatedUser.BankAccountHolder;
-                    existingUser.BankName = updatedUser.BankName;
-
-                    // Update the user
-                    _dbContext.Update(existingUser);
-                    await _dbContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserExists(updatedUser.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(UserProfile));
-            }
-            ViewData["AccountId"] = new SelectList(_dbContext.Accounts, "Id", "Id", updatedUser.AccountId);
-            return View(updatedUser);
-        }
-
+    
 
 
         public IActionResult EditAccount()
@@ -296,13 +238,12 @@ namespace TimeShareProject.Controllers
                                  .FirstOrDefault(u => u.Account.Username == username);
             int userId = user.Id;
 
-            var userReservations = _dbContext.Reservations
+            var userReservations = _dbContext.Reservations.Include(r => r.Property)
                 .Where(r => r.UserId == userId)
                 .ToList();
 
             return View(userReservations);
         }
-
     }
 }
 

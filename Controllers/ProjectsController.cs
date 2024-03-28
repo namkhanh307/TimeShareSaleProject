@@ -84,11 +84,12 @@ namespace TimeShareProject.Controllers
                 ShortName = model.ShortName,
                 Address = model.Address,
                 Area = model.Area,
-                TotalUnit = model.TotalUnit,
+                TotalUnit = 0,
                 GeneralDescription = model.GeneralDescription,
                 DetailDescription = model.DetailDescription,
                 Status = model.Status,
-                Star = model.Star
+
+            Star = 5
             };
        
             newProject.Image1 = SaveProjectImage(newProject, Image1).Result;
@@ -154,7 +155,7 @@ namespace TimeShareProject.Controllers
                 existingProject.Name = project.Name;
                 existingProject.Address = project.Address;
                 existingProject.Area = project.Area;
-                existingProject.TotalUnit = project.TotalUnit;
+       
                 existingProject.GeneralDescription = project.GeneralDescription;
                 existingProject.DetailDescription = project.DetailDescription;
                 existingProject.Status = project.Status;
@@ -212,6 +213,16 @@ namespace TimeShareProject.Controllers
             var project = await _context.Projects.FindAsync(id);
             if (project != null)
             {
+                var propertiesToDelete = await _context.Properties
+          .Where(p => p.ProjectId == id)
+          .ToListAsync();
+                _context.Properties.RemoveRange(propertiesToDelete);
+                var rateToDelete = await _context.Rates
+            .Where(r => r.ProjectId == id)
+            .ToListAsync();
+                _context.Rates.RemoveRange(rateToDelete);
+
+               
                 _context.Projects.Remove(project);
             }
 
@@ -282,7 +293,8 @@ namespace TimeShareProject.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
-            
+
+
 
     }
 }

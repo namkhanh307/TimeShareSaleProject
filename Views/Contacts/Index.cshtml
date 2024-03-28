@@ -45,28 +45,33 @@
                     @Html.DisplayFor(modelItem => item.Message)
                 </td>
                 <td>
-                    <select class="status-select" id="status_@item.Id">
+                    <select class="status-select" id="status_@item.Id" @if (item.Status)
+                    {
+                        <text>disabled</text>
+                    }>
                         @if (item.Status)
                         {
-                            <option value="true" selected>Contacted</option>
-                            <option value="false">Not Contacted</option>
+                    <option value="true" selected>Contacted</option>
                         }
                         else
                         {
-                            <option value="true">Contacted</option>
-                            <option value="false" selected>Not Contacted</option>
+                                     <option value="false">Not Contacted</option>
+                    <option value="true">Contacted</option>
+                   
                         }
-                    </select>
+        </select>
                 </td>
                 <td>
                     <button class="btn btn-dark" onclick="updateStatus('@item.Id')">Update Status</button>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+          
+                    <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
+    
 @section Scripts {
     <script>
         function updateStatus(id) {
@@ -80,6 +85,8 @@
                 data: data,
                 success: function (response) {
                     alert("Status updated successfully");
+                    // Disable the select element after successful update
+                    statusSelect.disabled = true;
                     // Optionally, you can update the status display in the table without refreshing the page
                 },
                 error: function () {

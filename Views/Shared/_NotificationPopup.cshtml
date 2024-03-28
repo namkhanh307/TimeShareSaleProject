@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TimeShareProject.Models.New>
+
+<div class="notification-body">
+    @foreach (var item in Model)
+    {
+        int? reservedTransactionId = Common.GetReservationId(item.TransactionId);
+        bool? status = Common.GetTransactionStatus(item.TransactionId);
+ 
+
+        <div class="news-item" style="border: 1px solid #ddde; background-color:#EFEFEF; margin-bottom: 10px;padding: 20px">
+            <a href="@Url.Action("GetUserTransactions", "User", new { ID = reservedTransactionId })">
+                <h3>@item.Title</h3>
+                <p>@item.Content @item.Date?.ToString("dd MMM yyyy")</p>
+            </a>
+            @if (status == true)
+            {
+                <div>
+                    <ul style="color:red"> Your transaction has been paid</ul>
+                    <button type="button" class="btn btn-dark" onclick="deleteNews('@item.Id')">Delete</button>
+                </div>
+            }
+            else if (status == false && Common.GetTransactionDeadline(item.TransactionId) < DateTime.Today)
+            {
+                <p style="color:red"> Your reservation is cancel</p>
+                <button type="button" class="btn btn-dark" onclick="deleteNews('@item.Id')">Delete</button>
+
+            }
+            else if (status == false)
+            {
+                <p style="color:blue"> Waiting for paying</p>
+            }
+            else
+            {
+                <p style="color:red"> Your reservation is cancel</p>
+            }
+        </div>
+    }
+</div>
+    <script>
+    function deleteNews(newsId) {
+        $.ajax({
+            url: '@Url.Action("DeleteNews", "News")',
+            type: 'POST',
+            data: { newsId: newsId },
+            success: function (response) {
+               
+                $("#notification-popup .notification-body").load('@Url.Action("NotificationPopup", "News")');
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                
+            }
+        });
+    }
+</script>
+

@@ -1,24 +1,48 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - 4REST HOME</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-
-    <!-- Bootstrap core CSS
-
-
-    <!-- Bootstrap core CSS-->
+    @*    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> *@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/fontawesome.css">
     <link rel="stylesheet" href="~/css/templatemo-villa-agency.css">
     <link rel="stylesheet" href="~/css/owl.css">
     <link rel="stylesheet" href="~/css/animate.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+<style>
+    .notification-popup {
+        margin-top: 40px;
+        width: 500px;
+        background: #FFF;
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 10px 0 0 10px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: none;
+        overflow-y: auto;
+    }
+
+    .notification-header {
+        padding: 10px;
+        background: #DF5906;
+        color: #FFF;
+        border-top-left-radius: 10px;
+    }
+
+    .notification-body {
+        overflow-y: auto;
+    }
+</style>
+
 <body>
 
     <!-- ***** Preloader Start ***** -->
@@ -52,23 +76,23 @@
                                     <i class="fas fa-user fa-fw" style="color:black"></i>
                                     @User.Identity.Name
                                 </a>
+
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                     <li><a class="dropdown-item" href="@Url.Action("UserProfile", "User")"><i class="fas fa-user fa-fw"></i> Profile</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("GetUserReservation", "User")">Your Transactions</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("Logout", "Login")">Logout</a></li>
-                                    
+
 
                                 </ul>
+
                                 <a>
-                                    <i class="fas fa-bell" style="color:black; margin-left: 20px"></i>
+                                    <i id="bell-icon" class="fas fa-bell" style="color:black; margin-left: 20px; cursor: pointer;"></i>
                                 </a>
                             </div>
-                           
-                          
-                            
-                        
-                          
+
+
                         </div>
+
                     }
                     else
                     {
@@ -81,6 +105,9 @@
             </div>
         </div>
     </div>
+
+
+
 
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
@@ -109,13 +136,24 @@
         </div>
     </header>
 
+
+    <div id="notification-popup" class="notification-popup">
+        <div class="notification-header">
+            <h2 style="margin-left: 20px; color: white">News for you</h2>
+
+        </div>
+        <div class="notification-body" style="margin-left:10px">
+           
+        </div>
+    </div>
     <!-- ***** Header Area End ***** -->
     <div class="container">
         <main role="main" class="pb-3">
+
             @RenderBody()
         </main>
     </div>
- 
+
     <footer>
         <div class="container">
             <div class="col-md-12">
@@ -131,29 +169,41 @@
             </div>
         </div>
     </footer>
+
     <script>
-        // JavaScript to toggle dropdown menu visibility
-        var dropdownToggle = document.querySelector('.dropdown-toggle');
-        var dropdownMenu = document.querySelector('#userDropdownMenu');
 
-        dropdownToggle.addEventListener('click', function () {
-            dropdownMenu.classList.toggle('show');
-        });
+        $(document).ready(function () {
+            $("#bell-icon").click(function () {
+                // Toggle the display of the notification popup
+                $("#notification-popup").toggle();
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function (event) {
-            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.classList.remove('show');
-            }
+                // Load the partial view if the popup is being shown
+                if ($("#notification-popup").is(':visible')) {
+                    $("#notification-popup .notification-body").load('/News/NotificationPopup');
+                }
+            });
+
+        
+            $(document).click(function (event) {
+                if (!$(event.target).closest('#notification-popup, #bell-icon').length) {
+                    $('#notification-popup').hide();
+                }
+            });
         });
+     
     </script>
-    <!-- Scripts -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+        
+
+ <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
     <script src="~/js/isotope.min.js"></script>
     <script src="~/js/owl-carousel.js"></script>
     <script src="~/js/counter.js"></script>
     <script src="~/js/custom.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    @*  <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
 </body>
 </html>

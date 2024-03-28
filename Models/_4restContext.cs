@@ -95,11 +95,16 @@ public partial class _4restContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.Title).HasColumnName("title");
+            entity.Property(e => e.TransactionId).HasColumnName("transactionID");
+            entity.Property(e => e.Type).HasColumnName("type");
             entity.Property(e => e.UserId).HasColumnName("userID");
+
+            entity.HasOne(d => d.Transaction).WithMany(p => p.News)
+                .HasForeignKey(d => d.TransactionId)
+                .HasConstraintName("FK_New_Transaction");
 
             entity.HasOne(d => d.User).WithMany(p => p.News)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_New_User");
         });
 
@@ -185,10 +190,12 @@ public partial class _4restContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.BlockId).HasColumnName("blockID");
+            entity.Property(e => e.Order).HasColumnName("order");
             entity.Property(e => e.PropertyId).HasColumnName("propertyID");
             entity.Property(e => e.RegisterDate)
                 .HasColumnType("datetime")
                 .HasColumnName("registerDate");
+            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Type).HasColumnName("type");
             entity.Property(e => e.UserId).HasColumnName("userID");
             entity.Property(e => e.YearQuantity).HasColumnName("yearQuantity");
@@ -200,12 +207,12 @@ public partial class _4restContext : DbContext
 
             entity.HasOne(d => d.Property).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.PropertyId)
-                .HasConstraintName("FK_VacationRegistration_Vacation");
+                .HasConstraintName("FK_Reservation_Property");
 
             entity.HasOne(d => d.User).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_VacationRegistration_User");
+                .HasConstraintName("FK_Reservation_User");
         });
 
         modelBuilder.Entity<Transaction>(entity =>
@@ -221,6 +228,9 @@ public partial class _4restContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("deadlineDate");
             entity.Property(e => e.ReservationId).HasColumnName("reservationID");
+            entity.Property(e => e.ResolveDate)
+                .HasColumnType("datetime")
+                .HasColumnName("resolveDate");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TransactionCode).HasColumnName("transactionCode");
             entity.Property(e => e.Type).HasColumnName("type");
@@ -237,9 +247,6 @@ public partial class _4restContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.AccountId).HasColumnName("accountID");
             entity.Property(e => e.Address).HasColumnName("address");
-            entity.Property(e => e.BankAccountHolder).HasColumnName("bankAccountHolder");
-            entity.Property(e => e.BankAccountNumber).HasColumnName("bankAccountNumber");
-            entity.Property(e => e.BankName).HasColumnName("bankName");
             entity.Property(e => e.DateOfBirth)
                 .HasColumnType("datetime")
                 .HasColumnName("dateOfBirth");

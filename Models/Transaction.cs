@@ -21,5 +21,9 @@ public partial class Transaction
 
     public DateTime? DeadlineDate { get; set; }
 
+    public DateTime? ResolveDate { get; set; }
+
+    public virtual ICollection<New> News { get; set; } = new List<New>();
+
     public virtual Reservation? Reservation { get; set; }
 }

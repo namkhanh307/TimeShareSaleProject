@@ -132,6 +132,7 @@ namespace ECommerceMVC.Helpers
         public List<PurchaseUnit> purchase_units { get; set; }
         public Payer payer { get; set; }
         public List<Link> links { get; set; }
+        public object?[]? TransactionId { get; internal set; }
     }
 
     public sealed class PurchaseUnit

@@ -27,12 +27,6 @@ public partial class User
 
     public bool? Status { get; set; }
 
-    public string? BankAccountNumber { get; set; }
-
-    public string? BankAccountHolder { get; set; }
-
-    public string? BankName { get; set; }
-
     public virtual Account? Account { get; set; }
 
     public virtual ICollection<New> News { get; set; } = new List<New>();

@@ -38,20 +38,29 @@
                 <th>Type</th>
                 <th>Block</th>
                 <th>Transaction detail</th>
+                <th>Your order</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var reservation in Model)
             {
                 <tr>
-                    <td>@Common.GetPropertyName(@reservation.PropertyId)</td>
+                    <td><a asp-action="GetProperty" asp-controller="Properties" asp-route-id="@reservation.Property.Id">@Common.GetPropertyName(@reservation.PropertyId)</a></td>
                     <td>@reservation.RegisterDate</td>
                     <td>@(reservation.Type == 1 ? "Reserve" : "Buy now")</td>
 
                     <td>@reservation.BlockId</td>
+                    <td>@reservation.Order</td>
                     <td>
                         <a class="btn btn-dark" href="@Url.Action("GetUserTransactions", "User", new{ reservation.Id})">Transaction Detail</a>
+                        @if (reservation.Property.SaleDate > DateTime.Today || (reservation.Property.SaleDate <= DateTime.Today && Common.CheckDeposit(reservation.Id)))
+                        {
+                            <a class="btn btn-dark" asp-action="CancelReservation" asp-controller="Reservations" asp-route-id="@reservation.Id">
+                                Cancel Reservation
+                            </a>
+                        }
                     </td>
+                  
                 </tr>
             }
         </tbody>

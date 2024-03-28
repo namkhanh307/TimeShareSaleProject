@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<TimeShareProject.Models.Reservation>
+
 @{
-    Layout = "~/Views/Shared/_NewLayout.cshtml";
+    ViewData["Title"] = "FilterDuplicate";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<h1>Duplicate Reservations</h1>
+
 @if (Model != null && Model.Any())
 {
-    <table class="table">
+    <table class="table" style="padding:unset">
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.RegisterDate)</th>
@@ -15,8 +20,8 @@
                 <th>End date</th>
                 <th>@Html.DisplayNameFor(model => model.Property)</th>
                 <th>@Html.DisplayNameFor(model => model.User)</th>
-                <th></th>
-                <th></th>
+                <th>Manage</th>
+                <th>Order</th>
             </tr>
         </thead>
         <tbody>
@@ -39,13 +44,10 @@
                     <td>@Html.DisplayFor(modelItem => item.Block.StartDay)/@Html.DisplayFor(modelItem => item.Block.StartMonth)</td>
                     <td>@Html.DisplayFor(modelItem => item.Block.EndDay)/@Html.DisplayFor(modelItem => item.Block.EndMonth)</td>
                     <td>@Html.DisplayFor(modelItem => item.Property.Name)</td>
-                    <td><a asp-action="Index" asp-controller="User" asp-route-id="@item.UserId">@Html.DisplayFor(modelItem => item.User.Name)</a></td>
+                    <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
                     <td>
-                        @*                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
                         <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         <a asp-action="TransactionDetail" asp-route-id="@item.Id" class="btn btn-dark">Transaction Detail</a>
-                        <a class="btn btn-dark" href="@Url.Action("ViewAllDuplicates", "Reservations", new { propertyId = item.PropertyId, blockId = item.BlockId })">View All Duplicates</a>
                         <select class="status-select" id="status_@item.Id">
                             @if (item.Status == 1)
                             {
@@ -84,10 +86,10 @@
                                 <option value="" selected>Unknown</option>
                             }
                         </select>
+                        <a class="btn btn-dark" onclick="updateStatus('@item.Id')">Update Status</a>
+
                     </td>
-                    <td>
-                        <button class="btn btn-dark" onclick="updateStatus('@item.Id')">Update Status</button>
-                    </td>
+                    <td>@item.Order</td>
                 </tr>
             }
         </tbody>
@@ -119,3 +121,4 @@ else
         }
     </script>
 }
+

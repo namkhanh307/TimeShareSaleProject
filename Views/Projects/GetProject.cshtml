@@ -9,7 +9,7 @@
     if (User.Identity.IsAuthenticated)
     {
         var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
-
+     
         switch (userRole)
         {
             case "1": // Admin
@@ -130,7 +130,7 @@
                                                 <h5 class="card-title">@p.Name</h5>
                                                 <p class="card-text">Beds: @p.Beds</p>
                                                 <p>Unit Price: @String.Format("{0: #,##VND}", p.UnitPrice)/1 block</p>
-         
+
                                             </div>
                                         </form>
                                     </div>

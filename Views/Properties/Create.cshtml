@@ -15,17 +15,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="SaleStatus" class="control-label"></label>
                 <select asp-for="SaleStatus" class="form-control">
                     <option value="true">On sale</option>
                     <option value="false">Not for sale</option>
                 </select>
                 <span asp-validation-for="SaleStatus" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
                 <select asp-for="Status" class="form-control">
@@ -36,12 +36,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="SaleDate" class="control-label"></label>
-                <input asp-for="SaleDate" class="form-control" />
+                <input asp-for="SaleDate" class="form-control" required />
                 <span asp-validation-for="SaleDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UnitPrice" class="control-label"></label>
-                <input asp-for="UnitPrice" class="form-control" />
+                <input asp-for="UnitPrice" class="form-control" required />
                 <span asp-validation-for="UnitPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -51,51 +51,51 @@
 
             <div class="form-group">
                 <label asp-for="Beds" class="control-label"></label>
-                <input asp-for="Beds" class="form-control" />
+                <input asp-for="Beds" class="form-control" min="1" required />
                 <span asp-validation-for="Beds" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Occupancy" class="control-label"></label>
-                <input asp-for="Occupancy" class="form-control" />
+                <input asp-for="Occupancy" class="form-control" required />
                 <span asp-validation-for="Occupancy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Size" class="control-label"></label>
-                <input asp-for="Size" class="form-control" />
+                <input asp-for="Size" class="form-control" required />
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Bathroom" class="control-label"></label>
-                <input asp-for="Bathroom" class="form-control" />
+                <input asp-for="Bathroom" class="form-control" required />
                 <span asp-validation-for="Bathroom" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Views" class="control-label"></label>
-                <input asp-for="Views" class="form-control" />
+                <input asp-for="Views" class="form-control" required />
                 <span asp-validation-for="Views" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UniqueFeature" class="control-label"></label>
-                <input asp-for="UniqueFeature" class="form-control" />
+                <input asp-for="UniqueFeature" class="form-control" required />
                 <span asp-validation-for="UniqueFeature" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ViewImage" class="control-label"></label>
+                <p>The image for scenery</p>
                 <input asp-for="ViewImage" type="file" name="ViewImage" class="form-control" />
                 <span asp-validation-for="ViewImage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FrontImage" class="control-label"></label>
+                <p>The image for front door</p>
                 <input asp-for="FrontImage" type="file" name="FrontImage" class="form-control" />
                 <span asp-validation-for="FrontImage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InsideImage" class="control-label"></label>
+                <p>The image inside property</p>
                 <input asp-for="InsideImage" type="file" name="InsideImage" class="form-control" />
                 <span asp-validation-for="InsideImage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SideImage" class="control-label"></label>
+                <p>the Image of the property's side</p>
                 <input asp-for="SideImage" type="file" name="SideImage" class="form-control" />
                 <span asp-validation-for="SideImage" class="text-danger"></span>
             </div>

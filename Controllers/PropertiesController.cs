@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using TimeShareProject.Models;
 
@@ -20,8 +22,41 @@ namespace TimeShareProject.Controllers
             _context = context;
             _hostingEnvironment = hostingEnvironment;
         }
-            
+        //public IActionResult GetProperty(int ID)
+        //{
+        //    using _4restContext context = new();
+        //    var property = context.Properties.FirstOrDefault(m => m.Id == ID);
+        //    if (property == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(property);
+        //}
+ 
         public IActionResult GetProperty(int ID)
+        {
+            using _4restContext context = new();
+            if (!User.Identity.IsAuthenticated)
+            {
+                var returnUrl = Url.Action("GetProperty", "Properties",  new { ID } );
+                return RedirectToAction("Login", "Login", new { returnUrl });
+            }
+            var property = context.Properties.FirstOrDefault(m => m.Id == ID);
+            string username = User.Identity.Name;
+            var user = context.Users.FirstOrDefault(a => a.Account.Username == username);
+            int userID = user.Id;
+            if (property == null)
+            {
+                return NotFound();
+            }
+            ViewBag.UserId = userID;
+            ViewBag.ProjectId = property.ProjectId;
+            ViewBag.BlockSelect = null;
+            ViewBag.SaleStatus = property.Status;
+            ViewBag.BedSelect = property.Beds;
+            return View(property);
+        }
+        public IActionResult GetPropertyDetails(int ID)
         {
             using _4restContext context = new();
             var property = context.Properties.FirstOrDefault(m => m.Id == ID);
@@ -33,38 +68,7 @@ namespace TimeShareProject.Controllers
         }
 
 
-        //[HttpPost]
 
-
-        //public IActionResult FilterProperties(int projectId, int blockSelect, int bedSelect, string saleStatus)
-        //{
-
-        //    bool isReserve = saleStatus == "Reserve";
-        //    bool isBuyNow = saleStatus == "Buynow";
-
-        //    var properties = _context.Properties
-        //                    .Where(p => p.Beds == bedSelect && p.ProjectId == projectId)
-        //                    .ToList();
-
-        //    var availableProperties = new List<Property>();
-        //    foreach (var property in properties)
-        //    {
-        //        bool isSale = property.SaleDate <= DateTime.Today;
-        //        bool isReservation = _context.Reservations.Any(r => r.PropertyId == property.Id && r.Block.Id == blockSelect);
-
-        //        if ((isReserve && !isSale) || (isBuyNow && !isReservation && isSale))
-        //        {
-        //            availableProperties.Add(property);
-        //        }
-        //    }
-
-        //    ViewBag.ProjectId = projectId;
-        //    ViewBag.BlockSelect = blockSelect;
-        //    ViewBag.SaleStatus = saleStatus;
-        //    ViewBag.BedSelect = bedSelect;
-
-        //    return View(availableProperties);
-        //}
         // GET: Properties
         [Authorize(Roles = "1,2")]
         public async Task<IActionResult> Index()
@@ -115,11 +119,11 @@ namespace TimeShareProject.Controllers
             {
                 return RedirectToAction("Error");
             }
+
             var newProperty = new Property
             {
                 Id = property.Id,
                 Name = property.Name,
-                SaleStatus = property.SaleStatus,
                 SaleDate = property.SaleDate,
                 UnitPrice = property.UnitPrice,
                 Beds = property.Beds,
@@ -129,6 +133,7 @@ namespace TimeShareProject.Controllers
                 UniqueFeature = property.UniqueFeature,
                 Size = property.Size,
                 Status = property.Status,
+                SaleStatus = true,
                 ProjectId = property.ProjectId,
             };
             newProperty.ViewImage = SavePropertyImage(property, ViewImage).Result;
@@ -138,6 +143,7 @@ namespace TimeShareProject.Controllers
 
             _context.Properties.Add(newProperty);
             _context.SaveChanges();
+            Common.AddProjectTotalUnit(newProperty.ProjectId);
             return RedirectToAction(nameof(Index));
         }
 
@@ -202,7 +208,7 @@ namespace TimeShareProject.Controllers
             try
             {
                 existingProperty.Name = property.Name;
-                existingProperty.SaleStatus = property.SaleStatus;
+                existingProperty.SaleStatus = true;
                 existingProperty.Status = property.Status;
                 existingProperty.SaleDate = property.SaleDate;
                 existingProperty.UnitPrice = property.UnitPrice;
@@ -359,52 +365,6 @@ namespace TimeShareProject.Controllers
             // If ModelState is not valid or no properties are selected, return to the form
             return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
         }
-
-        [HttpPost]
-
-        //public IActionResult FilterProperties(int projectId, int? blockSelect, int? bedSelect, string saleStatus)
-        //{
-        //    var query = _context.Properties
-        //        .Where(p => p.ProjectId == projectId);
-
-        //    foreach (var property in query)
-        //    {
-
-        //        if (bedSelect != null)
-        //        {
-        //            query = query.Where(property => property.Beds == bedSelect);
-        //        }
-
-        //        if (!string.IsNullOrEmpty(saleStatus))
-        //        {
-        //            bool isReserve = saleStatus == "Reserve";
-        //            bool isBuyNow = saleStatus == "Buy now";
-
-        //            if (blockSelect != null)
-        //            {
-        //                if (isReserve)
-        //                {
-        //                    query = query.Where(property => property.SaleDate > DateTime.Now);
-        //                }
-
-        //                else if (isBuyNow)
-        //                {
-        //                    query = query.Where(property => !_context.Reservations.Any(r => r.PropertyId == property.Id && r.Block.Id == blockSelect));
-        //                    query = query.Where(property => property.SaleDate < DateTime.Now);
-
-        //                }
-        //            }
-        //        }
-        //    }
-        //    var availableProperties = query.ToList();
-
-        //    ViewBag.ProjectId = projectId;
-        //    ViewBag.BlockSelect = blockSelect;
-        //    ViewBag.SaleStatus = saleStatus;
-        //    ViewBag.BedSelect = bedSelect;
-
-        //    return View(availableProperties);
-        //}
 
         [HttpPost]
         public IActionResult FilterProperties(int projectId, int? blockSelect, int? bedSelect, string saleStatus)

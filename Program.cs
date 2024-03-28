@@ -28,6 +28,8 @@ namespace TimeShareProject
                 )
             );
 
+            builder.Services.AddHostedService<DateCheckerService>();
+            builder.Services.AddScoped<IModelService, ModelService>();
 
             // Configure services
             ConfigureServices(builder.Services, builder.Configuration);

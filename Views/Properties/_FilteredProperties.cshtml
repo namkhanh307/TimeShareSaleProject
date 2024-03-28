@@ -16,7 +16,7 @@
                 <tr>
                     <th>Select</th>
                     <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.SaleStatus)</th>
+                  @*   <th>@Html.DisplayNameFor(model => model.SaleStatus)</th> *@
                     <th>@Html.DisplayNameFor(model => model.Status)</th>
                     <th>@Html.DisplayNameFor(model => model.SaleDate)</th>
                     <th>@Html.DisplayNameFor(model => model.UnitPrice)</th>
@@ -42,7 +42,7 @@
                             <input type="checkbox" name="selectedProperties" value="@item.Id">
                         </td>
                         <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td style="font-size: 12px;">
+      @*                   <td style="font-size: 12px;">
                             @if (item.SaleStatus.Value == true)
                             {
                                 <div>On sale</div>
@@ -51,7 +51,7 @@
                             {
                                 <div>Not for sale</div>
                             }
-                        </td>
+                        </td> *@
                         <td style="font-size: 12px;">
                             @if (item.Status.Value == true)
                             {
@@ -76,13 +76,17 @@
                         <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.SideImage)" /></td> *@
                         <td><div style="font-size: 12px;">@Common.GetProjectShortNameFromProperty(item)</div></td>
                         <td>
-                           @*  <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a> *@
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark">Delete</a>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+        <input type="checkbox" id="selectAll" onchange="selectAllProperties(this)">
+        <label for="selectAll">Select All</label>
+        <br />
+        
         <label for="saleDate">Sale Date:</label>
         <input type="date" id="saleDate" name="saleDate" required>
         <button type="submit">Set Sale Date</button>

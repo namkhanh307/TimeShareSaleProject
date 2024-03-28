@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TimeShareProject.Models;
 
 namespace TimeShareProject.Controllers
@@ -218,6 +219,11 @@ namespace TimeShareProject.Controllers
                 _context.SaveChanges();
                 transaction.Commit();
                 TempData["Message"] = "Reservation confirmed successfully!";
+
+                
+                
+                    NewsController.CreateNewForAll(reservation.UserId, reservation.Property.Id, Common.GetSaleDate(reservation.Property.Id).AddDays(1), 1);
+                
             }
             catch (Exception ex)
             {

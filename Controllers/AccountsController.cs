@@ -141,6 +141,14 @@ namespace TimeShareProject.Controllers
             var account = await _context.Accounts.FindAsync(id);
             if (account != null)
             {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.AccountId == id);
+                if (user != null)
+                {
+                   
+                    user.Status = false;
+                    _context.Update(user);
+                }
+
                 _context.Accounts.Remove(account);
             }
 

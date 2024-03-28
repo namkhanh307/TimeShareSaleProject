@@ -4,7 +4,9 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <h1>Accounts</h1>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -55,7 +57,7 @@
                     @role
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

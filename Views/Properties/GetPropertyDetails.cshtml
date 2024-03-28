@@ -1,36 +1,27 @@
-﻿@using System.Security.Claims
-@using TimeShareProject.Models
+﻿@using TimeShareProject.Models
 @model TimeShareProject.Models.Property
 
 @{
-    int userId = ViewBag.UserId;
     var layout = "_Layout.cshtml";
-    bool checkrole = false;
+
     if (User.Identity.IsAuthenticated)
     {
         var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
         switch (userRole)
         {
             case "1": // Admin
-                layout = "_AdminLayout.cshtml";
-                break;
             case "2": // Staff
                 layout = "_AdminLayout.cshtml";
                 break;
             case "3": // User
-                checkrole = true;
-                break;
             default:
                 break;
         }
     }
-    else
-    {
-        checkrole = true;
-    }
 
     Layout = $"~/Views/Shared/{layout}";
-
+}
 
 <div class="container">
     <div class="row justify-content-center mt-5">
@@ -67,14 +58,13 @@
     <div class="container " style="justify-content: center; margin-left: 330px">
         <div class="row mt-5">
             <div class="col-md-4">
-                <h5>Property:</h5>
-                <p>@Model.Name</p>
+
                 <h5>Sale Status:</h5>
                 <p> @(Model.SaleStatus.HasValue ? (Model.SaleStatus.Value ? "For Sale" : "Not for Sale") : "Unknown")</p>
                 <h5>Sale Date:</h5>
                 <p> @(Model.SaleDate.ToString("dd/MM/yyyy"))</p>
                 <h5>Unit Price:</h5>
-                <p> @(Model.UnitPrice) VND</p>
+                <p> @(Model.UnitPrice?.ToString("C"))</p>
                 <h5>Beds:</h5>
                 <p> @Model.Beds</p>
             </div>
@@ -92,66 +82,10 @@
             </div>
         </div>
     </div>
-       
-    @if (checkrole)
-    {
 
-    <div class="border-top" style="border-block">
-        <div class="row mt-3">
-            <div class="col-md-6 offset-md-3">
-
-                <form asp-action="SelectRoom" asp-controller="Reservations">
-                    <input type="hidden" name="propertyId" value="@Model.Id" />
-                    <input type="hidden" name="projectId" value="@Model.ProjectId" />
-                    <input type="hidden" name="bedSelect" value="@Model.Beds" />
-                    <div class="form-group row" style="margin-left: 40px">
-                        @*      @if (!Common.CheckReservation(User, Model.Id))
-                        { *@
-                        <label for="blockSelect" style="font-weight: 140%">Select Block:</label>
-                        <div class="col-sm-8">
-                            <select id="blockSelect" name="blockSelect" class="form-control">
-                                        @foreach (var block in Common.GetAvailableBlocks(userId, Model.Id))
-                                {
-                                    <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-sm-2">
-                            @if (Model.SaleDate <= DateTime.Today)
-                            {
-                                <input type="hidden" name="saleStatus" value="Buy now" />
-                                <button type="submit" id="filterButton" class="btn btn-dark">Buy now</button>
-                            }
-                            else
-                            {
-                                <input type="hidden" name="saleStatus" value="Reserve" />
-                                <button type="submit" id="filterButton" class="btn btn-dark">Reserve</button>
-                            }
-                        </div>
-
-
-                             
-                    </div>
-                        </form>
-                        <div class="form-group row" style="margin-left: 40px; margin-top: 10px">
-                            <form asp-action="FilterProperties" asp-controller="Properties">
-                                <input type="hidden" name="projectId" value="@Model.ProjectId" />
-                                <input type="hidden" name="blockSelect" value="@ViewBag.BlockSelect" />
-                                <input type="hidden" name="projectId" value="@Model.Beds" />
-                                <input type="hidden" name="projectId" value="@Model.SaleStatus" />
-                                <button type="submit" class="btn btn-dark">Back</button>
-                            </form>
-                        </div>
-            </div>
-
-                
-        </div>
-    </div>
-    }
- 
 
 </div>
-}
+
 @section Scripts {
     <script>
         $(document).ready(function () {

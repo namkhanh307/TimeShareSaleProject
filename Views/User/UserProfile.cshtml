@@ -37,6 +37,38 @@
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="../assets/css/fontawesome.css">
     <link rel="stylesheet" href="../assets/css/templatemo-villa-agency.css">
+    <style>
+        /* Chỉnh màu nền và viền của các phần tử .profile-section */
+        .profile-section {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Tạo hiệu ứng hover cho nút chỉnh sửa */
+        .btn-primary:hover {
+            background-color: #0069d9; /* Màu nền khi hover */
+            border-color: #0062cc; /* Màu viền khi hover */
+        }
+
+        /* Chỉnh màu chữ cho nút chỉnh sửa */
+        .btn-primary {
+            color: #ffffff; /* Màu chữ mặc định */
+        }
+
+            /* Chỉnh màu chữ khi hover */
+            .btn-primary:hover {
+                color: #ffffff; /* Màu chữ khi hover */
+            }
+
+        /* Chỉnh kích thước font cho các tiêu đề */
+        h1, h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+    </style>
 </head>
 <body>
     <div class="container">
@@ -53,6 +85,7 @@
                         <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
                         <p><strong>Email:</strong> @Model.Email</p>
                         <p><strong>Address:</strong> @Model.Address</p>
+                        <br />
                         <a href="@Url.Action("EditPersonalInfo", "User", new { id = Model.Id })" class="btn btn-primary">Edit</a>
                     </div>
                     <!-- Identity Card -->
@@ -60,21 +93,16 @@
                         <h2>Identity Card</h2>
                         <p><strong>ID Front Image:</strong> <img src="~/img/@Model.IdfrontImage" alt="ID Front Image" width="100px" height="250px" /></p>
                         <p><strong>ID Back Image:</strong> <img src="~/img/@Model.IdbackImage" alt="ID Back Image" width="100px" height="250px" /></p>
+                        <br />
                         <a href="@Url.Action("EditIdentityCard", "User", new { id = Model.Id })" class="btn btn-primary">Edit</a>
                     </div>
-                @*     <!-- Bank Information -->
-                    <div class="profile-section">
-                        <h2>Bank Information</h2>
-                        <p><strong>Bank Account Number:</strong> @Model.BankAccountNumber</p>
-                        <p><strong>Bank Account Holder:</strong> @Model.BankAccountHolder</p>
-                        <p><strong>Bank Name:</strong> @Model.BankName</p>
-                        <a href="@Url.Action("EditBankInfo", "User", new { id = Model.Id })" class="btn btn-primary">Edit</a>
-                    </div> *@
+                    
                     <!-- Account -->
                     <div class="profile-section">
                         <h2>Account</h2>
                         <p><strong>Username:</strong> *********</p>
                         <p><strong>Password:</strong> ****</p> <!-- For security reasons, don't display the password -->
+                        <br />
                         <a href="@Url.Action("EditAccount", "User", new { id = Model.Id })" class="btn btn-primary color-black">Edit</a>
                     </div>
                 </div>

@@ -10,18 +10,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TimeShareProject.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Transaction = TimeShareProject.Models.Transaction;
 
 namespace TimeShareProject.Controllers
 {
 
-    //public class PaypalOrderRequest
-    //{
-    //    public decimal Amount { get; set; }
-    //    public string Type { get; set; }
-    //    public string TransactionId { get; set; }
-    //}
+
 
     public class ReservationsController : Controller
     {
@@ -33,19 +30,71 @@ namespace TimeShareProject.Controllers
             _context = context;
             _paypalClient = paypalClient;
         }
+        public async Task<IActionResult> CancelReservation(int id)
+        {
+            var reservation = await _context.Reservations.FindAsync(id);
+            if (reservation != null)
+            {
+                reservation.Status = 2;
+                _context.Reservations.Update(reservation);
+            }
 
-        public PartialViewResult FilterDuplicate()
+            await _context.SaveChangesAsync();
+            return RedirectToAction("GetUserReservation", "User");
+        }
+        public async Task<IActionResult> UpdateReservationStatus(int id, int status)
+        {
+            var reservation = await _context.Reservations.FindAsync(id);
+
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            reservation.Status = status;
+            _context.Update(reservation);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult FilterDuplicate()
         {
             var reservations = _context.Reservations.Include(r => r.Block).Include(r => r.Property).Include(r => r.User).ToList();
 
             var duplicateReservations = reservations
-                .Where(r => r.Type == 1) // Filter only reservations with type "Reserve"
-                .GroupBy(r => new { r.PropertyId, r.BlockId }) // Group by property ID and block ID
-                .Where(g => g.Count() > 1) // Filter groups with more than one reservation
-                .SelectMany(g => g); // Flatten the groups back into individual reservations
+                .Where(r => r.Type == 1)
+                .GroupBy(r => new { r.PropertyId, r.BlockId })
+                .Where(g => g.Count() > 1)
+                .Select(g => g.First());
 
-            return PartialView("_FilteredReservations", duplicateReservations);
+            return View(duplicateReservations);
         }
+
+        public IActionResult ViewAllDuplicates(int propertyId, int blockId)
+        {
+            var duplicateReservations = _context.Reservations
+                .Include(r => r.Block)
+                .Include(r => r.Property)
+                .Include(r => r.User)
+                .Where(r => r.Type == 1 && r.PropertyId == propertyId && r.BlockId == blockId)
+                .ToList();
+
+            return View(duplicateReservations);
+        }
+
+        //public PartialViewResult FilterDuplicate()
+        //{
+        //    var reservations = _context.Reservations.Include(r => r.Block).Include(r => r.Property).Include(r => r.User).ToList();
+
+        //    var duplicateReservations = reservations
+        //        .Where(r => r.Type == 1) // Filter only reservations with type "Reserve"
+        //        .GroupBy(r => new { r.PropertyId, r.BlockId }) // Group by property ID and block ID
+        //        .Where(g => g.Count() > 1) // Filter groups with more than one reservation
+        //        .SelectMany(g => g); // Flatten the groups back into individual reservations
+
+        //    return PartialView("_FilteredReservations", duplicateReservations);
+        //}
         #region Paypal payment
 
 
@@ -57,6 +106,8 @@ namespace TimeShareProject.Controllers
             var totalString = total.ToString();
             var currency = "USD";
             var transactionCode = Common.GetTransactionCode(transaction.Id);
+            string username = User.Identity.Name;
+            var user = _context.Users.FirstOrDefault(u => u.Account.Username == username);
             try
             {
                 var response = await _paypalClient.CreateOrder(totalString, currency, transactionCode);
@@ -69,11 +120,14 @@ namespace TimeShareProject.Controllers
                         newTrasaction.TransactionCode = transactionCode;
                         _context.Update(newTrasaction);
                         await _context.SaveChangesAsync();
+
                     }
                     catch (Exception ex)
                     {
                         ModelState.AddModelError("", "Error occurred while updating the transaction.");
                     }
+
+                    
                 }
                 return Ok(response);
             }
@@ -92,7 +146,9 @@ namespace TimeShareProject.Controllers
             try
             {
                 var response = await _paypalClient.CaptureOrder(orderID);
+             
                 return Ok(response);
+
             }
             catch (Exception ex)
             {
@@ -102,7 +158,7 @@ namespace TimeShareProject.Controllers
         }
         #endregion
 
-       
+
         // GET: Reservations
         [Authorize(Roles = "1,2")]
         public async Task<IActionResult> Index()
@@ -153,7 +209,7 @@ namespace TimeShareProject.Controllers
 
             if (block == null || property == null)
             {
-                return RedirectToAction("GetProperty", "Properties", new { property.Id });
+                return RedirectToAction("GetProperty", "Properties", new { ID = property.Id });
             }
             ViewBag.SaleStatus = saleStatus;
             ViewBag.Block = block;
@@ -163,13 +219,15 @@ namespace TimeShareProject.Controllers
             return View();
         }
 
-        public IActionResult ConfirmReservation(int propertyId, int blockSelect, string transactionCode, string saleStatus)
+        public IActionResult ConfirmReservation(int propertyId, int blockSelect, string transactionCode, string saleStatus, int order)
         {
             string username = User.Identity.Name;
             var user = _context.Users.FirstOrDefault(u => u.Account.Username == username);
             var property = _context.Properties.FirstOrDefault(p => p.Id == propertyId);
-
-
+            order++;
+            int reservationID = 0;
+            int transactionId = 0;
+            int depositId = 0;
             int reservationType = 2;
             int transactionType = 0;
             if (saleStatus == "Reserve")
@@ -189,6 +247,8 @@ namespace TimeShareProject.Controllers
                         YearQuantity = 10,
                         RegisterDate = DateTime.Now,
                         Type = reservationType,
+                        Status = 3,
+                        Order = order
                     };
 
                     _context.Reservations.Add(newReservation);
@@ -198,79 +258,69 @@ namespace TimeShareProject.Controllers
                     {
                         var newReserveTransaction = new Transaction()
                         {
-                            Date = DateTime.Now,
+                            Date = DateTime.Today,
                             Amount = 500000,
                             Status = false,
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
-                            DeadlineDate = Common.GetSaleDate(propertyId)
-
+                            DeadlineDate = Common.GetSaleDate(propertyId),
+                            ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
                         };
                         _context.Transactions.Add(newReserveTransaction);
+                        
+                        var newDepositTransaction = new Transaction()
+                        {
+                            Date = DateTime.Today,
+                            Amount = property.UnitPrice,
+                            Status = false,
+                            TransactionCode = transactionCode,
+                            ReservationId = newReservation.Id,
+                            Type = 0,
+                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(order),
+                            ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
+                        };
+                      
+                       
+                        _context.Transactions.Add(newDepositTransaction);
+                       
                         _context.SaveChanges();
+                        reservationID = newReserveTransaction.Id;
+                        transactionId = newDepositTransaction.Id;
                     }
 
-                    if (transactionType == 0)
+                    if (reservationType == 2)
                     {
 
                         var newDepositTransaction = new Transaction()
                         {
-                            Date = DateTime.Now,
+                            Date = DateTime.Today,
                             Amount = property.UnitPrice,
                             Status = false,
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
-                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(1)
-
-                        };
-                        _context.Transactions.Add(newDepositTransaction);
-
-                        var newFirstTermTransaction = new Transaction()
-                        {
-                            Date = DateTime.Now,
-                            Amount = property.UnitPrice * 3,
-                            Status = false,
-                            TransactionCode = null,
-                            ReservationId = newReservation.Id,
-                            Type = 1,
-                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(7)
-
-
-                        };
-                        _context.Transactions.Add(newFirstTermTransaction);
-
-                        var newSecondTermTransaction = new Transaction()
-                        {
-                            Date = DateTime.Now,
-                            Amount = property.UnitPrice * 3,
-                            Status = false,
-                            TransactionCode = null,
-                            ReservationId = newReservation.Id,
-                            Type = 2,
-                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(365)
-
-                        };
-                        _context.Transactions.Add(newSecondTermTransaction);
-
-
-                        var newThirdTermTransaction = new Transaction()
-                        {
-                            Date = DateTime.Now,
-                            Amount = property.UnitPrice * 3,
-                            Status = false,
-                            TransactionCode = null,
-                            ReservationId = newReservation.Id,
-                            Type = 3,
-                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(730)
-
-                        };
-                        _context.Transactions.Add(newThirdTermTransaction);
+                            DeadlineDate = DateTime.Today.AddDays(1),
+                            ResolveDate = DateTime.Today
+                        }; _context.Transactions.Add(newDepositTransaction);
+                        
+                        
                         _context.SaveChanges();
+                        depositId = newDepositTransaction.Id;
                     }
                     transaction.Commit();
                     TempData["Message"] = "Reservation confirmed successfully!";
+                    if (reservationType == 1)
+                    {
+                        NewsController.CreateNewForAll(user.Id, reservationID, DateTime.Now, 1);
+                        NewsController.CreateNewForAll(user.Id, transactionId, Common.GetSaleDate(propertyId).AddDays(1), 2);
+                    }
+                    if (reservationType == 2)
+                    {
+                        
+                        NewsController.CreateNewForAll(user.Id, depositId, Common.GetSaleDate(propertyId).AddDays(1), 2);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -279,7 +329,6 @@ namespace TimeShareProject.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
 
         // GET: Reservations/Create
         public IActionResult Create()
@@ -393,6 +442,20 @@ namespace TimeShareProject.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var reservation = await _context.Reservations.FindAsync(id);
+            var transaction = _context.Transactions.Where(t => t.ReservationId == id).ToList();
+            if (transaction != null)
+            {
+                foreach (var item in transaction)
+                {
+                    var news = item.News.Where(r => r.TransactionId == item.Id);
+                    foreach (var item1 in news)
+                    {
+                        _context.News.Remove(item1);
+                        _context.Transactions.Remove(item);
+                    }
+
+                }
+            }
             if (reservation != null)
             {
                 _context.Reservations.Remove(reservation);
@@ -401,7 +464,6 @@ namespace TimeShareProject.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool ReservationExists(int id)
         {
             return _context.Reservations.Any(e => e.Id == id);

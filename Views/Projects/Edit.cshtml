@@ -16,29 +16,24 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="ShortName" class="control-label"></label>
-                <input asp-for="ShortName" class="form-control" />
+                <input asp-for="ShortName" class="form-control" required />
                 <span asp-validation-for="ShortName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+                <input asp-for="Address" class="form-control" required />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Area" class="control-label"></label>
-                <input asp-for="Area" class="form-control" />
+                <input asp-for="Area" class="form-control" type="number" min="1000" required />
                 <span asp-validation-for="Area" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalUnit" class="control-label"></label>
-                <input asp-for="TotalUnit" class="form-control" />
-                <span asp-validation-for="TotalUnit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Image1" class="control-label"></label>
@@ -57,12 +52,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="GeneralDescription" class="control-label"></label>
-                <input asp-for="GeneralDescription" class="form-control" />
+                <input asp-for="GeneralDescription" class="form-control" required />
                 <span asp-validation-for="GeneralDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DetailDescription" class="control-label"></label>
-                <input asp-for="DetailDescription" class="form-control" />
+                <input asp-for="DetailDescription" class="form-control" required />
                 <span asp-validation-for="DetailDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -74,11 +69,6 @@
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Star" class="control-label"></label>
-                <input asp-for="Star" class="form-control" />
-                <span asp-validation-for="Star" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -86,7 +76,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Details">Back to List</a>
 </div>
 
 @section Scripts {

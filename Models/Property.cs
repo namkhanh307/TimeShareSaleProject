@@ -11,7 +11,7 @@ public partial class Property
 
     public bool? SaleStatus { get; set; }
 
-    public DateTime? SaleDate { get; set; }
+    public DateTime SaleDate { get; set; }
 
     public double? UnitPrice { get; set; }
 
