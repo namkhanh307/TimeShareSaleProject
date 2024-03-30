@@ -5,7 +5,7 @@ namespace TimeShareProject.Models;
 
 public partial class New
 {
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     public int? UserId { get; set; }
 

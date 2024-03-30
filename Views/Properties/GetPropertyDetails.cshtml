@@ -58,13 +58,14 @@
     <div class="container " style="justify-content: center; margin-left: 330px">
         <div class="row mt-5">
             <div class="col-md-4">
-
+                <h5>Property:</h5>
+                <p>@Model.Name</p>
                 <h5>Sale Status:</h5>
                 <p> @(Model.SaleStatus.HasValue ? (Model.SaleStatus.Value ? "For Sale" : "Not for Sale") : "Unknown")</p>
                 <h5>Sale Date:</h5>
                 <p> @(Model.SaleDate.ToString("dd/MM/yyyy"))</p>
                 <h5>Unit Price:</h5>
-                <p> @(Model.UnitPrice?.ToString("C"))</p>
+                <p> @(Model.UnitPrice) VND</p>
                 <h5>Beds:</h5>
                 <p> @Model.Beds</p>
             </div>
@@ -84,6 +85,11 @@
     </div>
 
 
+    <div class="form-group row" style="margin-left: 120px; margin-top: 10px">
+        <form asp-action="GetUserReservation" asp-controller="User">
+            <button type="submit" class="btn btn-dark">Back</button>
+        </form>
+    </div>
 </div>
 
 @section Scripts {

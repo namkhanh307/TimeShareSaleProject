@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="~/css/templatemo-villa-agency.css">
     <link rel="stylesheet" href="~/css/owl.css">
     <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/notiflix/dist/notiflix-3.2.7.min.css"/>
     <style>
 
         .dropdown-toggle {
@@ -99,6 +100,8 @@
         </div>
     </div>
 
+
+
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
         <div class="container">
@@ -120,6 +123,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">M.Account</a>
                                 </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">M.Contact</a>
                                 </li>
@@ -176,7 +180,7 @@
             @RenderBody()
         </main>
     </div>
-
+    
 
 
     <script>
@@ -211,6 +215,8 @@
     <script src="~/js/owl-carousel.js"></script>
     <script src="~/js/counter.js"></script>
     <script src="~/js/custom.js"></script>
+    <script src="~/notiflix/dist/notiflix-3.2.7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notiflix@2.7.0/dist/notiflix.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

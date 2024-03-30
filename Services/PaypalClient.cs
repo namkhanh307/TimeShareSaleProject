@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace ECommerceMVC.Helpers
+namespace TimeShareProject.Services
 {
     public sealed class PaypalClient
     {

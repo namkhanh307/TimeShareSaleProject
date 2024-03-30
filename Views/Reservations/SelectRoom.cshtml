@@ -1,4 +1,98 @@
-﻿
+﻿@model TimeShareProject.Models.Property
+
+@{
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Booking information</h3>
+                    <p class="card-title">Property code: @ViewBag.Property.Name</p>
+                    <p class="card-title">Block: @ViewBag.Block.Id (from @ViewBag.Block.StartDay/@ViewBag.Block.EndMonth to @ViewBag.Block.EndDay/@ViewBag.Block.EndMonth) every year</p>
+                    <p class="card-title">Beds: @ViewBag.Property.Beds</p>
+                    <p class="card-title">Book timeshare in 10 years from now</p>
+                    @{
+                        // Convert ViewBag.Property.UnitPrice to float
+                        float unitPrice = 0; // Default value or handle conversion failure
+                        if (ViewBag.Property.UnitPrice != null)
+                        {
+                            float.TryParse(ViewBag.Property.UnitPrice.ToString(), out unitPrice);
+                            float totalPrice = @Common.Calculate(unitPrice);
+                            string formattedPrice = totalPrice.ToString("N0") + " VND"; // "N0" format specifier adds thousand separators
+                            <p class="card-title">Price: @formattedPrice</p>
+                        } 
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <p class="card-text"> <strong>Please review the selected block and property details above. If everything looks correct, you can confirm your reservation.</strong></p>
+                @{
+                    if (@Common.CountReservations(@ViewBag.Property.Id, @ViewBag.Block.Id) > 0)
+                    {
+                        <p class=" text-danger">This property has been reserved by @Common.CountReservations(@ViewBag.Property.Id, @ViewBag.Block.Id) people!! Do you really want to reserve?</p>
+                    }
+                }
+                <div class="text-center">
+                    <form id="confirmForm" asp-action="ConfirmReservation" asp-controller="Reservations" method="post">
+                        <input type="hidden" name="blockSelect" value="@ViewBag.Block.Id" />
+                        <input type="hidden" name="propertyId" value="@ViewBag.Property.Id" />
+                        <input type="hidden" name="saleStatus" value="@ViewBag.SaleStatus" />
+                        <button type="button" class="btn btn-dark" onclick="showConfirmation()">Confirm Reservation</button>
+                    </form>
+                    <form asp-action="FilterProperties" asp-controller="Properties">
+                        <input type="hidden" name="projectId" value="@ViewBag.ProjectId" />
+                        <input type="hidden" name="saleStatus" value="@ViewBag.SaleStatus" />
+                        <input type="hidden" name="bedSelect" value="@ViewBag.BedSelect" />
+                        <input type="hidden" name="blockSelect" value="@ViewBag.Block.Id" />
+                    </form>
+                    <br />
+                </div>
+            </div>
+            <br />
+            <div class="text-center">
+                <button type="button" class="btn btn-dark" onclick="window.history.back()">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showConfirmation() {
+        if (confirm("Are you sure?")) {
+            document.getElementById("confirmForm").submit();
+        }
+    }
+</script>
+@* 
 @model TimeShareProject.Models.Property
 
 @{
@@ -28,11 +122,15 @@
 }
 
 <div class="container">
-    <div>
-        <h3>Booking information</h3>
-        <p>Property code: @ViewBag.Property.Name</p>
-        <p>Block: @ViewBag.Block.Id (from @ViewBag.Block.StartDay/@ViewBag.Block.EndMonth to @ViewBag.Block.EndDay/@ViewBag.Block.EndMonth) every year</p>
-        <p>Beds: @ViewBag.Property.Beds</p>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Booking information</h3>
+                    <p class="card-title">Property code: @ViewBag.Property.Name</p>
+                    <p class="card-title">Block: @ViewBag.Block.Id (from @ViewBag.Block.StartDay/@ViewBag.Block.EndMonth to @ViewBag.Block.EndDay/@ViewBag.Block.EndMonth) every year</p>
+                    <p class="card-title">Beds: @ViewBag.Property.Beds</p>
+                    <p class="card-title">Book timeshare in 10 years from now</p>
         <p>Book timeshare in 10 years from now</p>
         @{
             // Convert ViewBag.Property.UnitPrice to float
@@ -108,4 +206,4 @@
     closeButton.addEventListener("click", function () {
         popupWindow.style.display = "none";
     });
-</script>     
+</script>      *@

@@ -78,10 +78,22 @@
                                     <div class="row align-items-center">
                                         <div class="col-lg-3">
                                             <select id="blockSelect" name="blockSelect">
-                                                <option value="">---- All Blocks ----</option>
+                                                <option value="">---------All Blocks--------</option>
                                                 @foreach (var block in Common.GetBlocks())
                                                 {
-                                                    <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
+                                                    var remainingProportion = block.Proportion - 100;
+                                                    if (remainingProportion > 0)
+                                                    {
+                                                        <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth) + @(remainingProportion) %</option>
+
+                                                    }else if (remainingProportion <0)
+                                                    {
+                                                        <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)  @(remainingProportion) % </option>
+                                                    }else{
+                                                        <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
+                                                    }
+
+                                                    
                                                 }
                                             </select>
                                         </div>
@@ -143,36 +155,36 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Best useful links ?
+                                 EXCLUSIVE OFFER
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn't eiusmod tempor kinfolk tonx seitan crucifix 3 wolf moon bicycle rights keffiyeh snackwave wolf same vice, chillwave vexillologist incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    We have seasonal offers with special prices and benefits for accommodation, food, beverage, spa services, mud bath, tour, recreation and more.
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    How does this work ?
+                                    BETTER SERVICE
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn't eiusmod tempor kinfolk tonx seitan crucifix 3 wolf moon bicycle rights keffiyeh snackwave wolf same vice, chillwave vexillologist incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    Modifying or cancelling reservation, special request can deal directly with our professional team. Book with us and we always find the BEST SOLUTION FOR YOU.
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingThree">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Why is Villa the best ?
+                                    BETTER GUEST EXPERIENCE
                                 </button>
                             </h2>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn't eiusmod tempor kinfolk tonx seitan crucifix 3 wolf moon bicycle rights keffiyeh snackwave wolf same vice, chillwave vexillologist incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    Everything comes down to making your journey memorable, we work for you. We pay special attention to our direct guests, who chose to book directly with us.
                                 </div>
                             </div>
                         </div>

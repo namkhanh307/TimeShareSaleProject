@@ -15,7 +15,7 @@ public partial class Transaction
 
     public string? TransactionCode { get; set; }
 
-    public int? ReservationId { get; set; }
+    public int ReservationId { get; set; }
 
     public int? Type { get; set; }
 

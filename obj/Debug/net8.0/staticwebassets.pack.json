@@ -2417,6 +2417,226 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix-Notiflix-78ca6fa\\.dev\\.eslintrc.json",
+      "PackagePath": "staticwebassets\\notiflix-Notiflix-78ca6fa\\.dev\\.eslintrc.json"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\.dev\\.eslintrc.json",
+      "PackagePath": "staticwebassets\\notiflix\\.dev\\.eslintrc.json"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\.eslintrc.json",
+      "PackagePath": "staticwebassets\\notiflix\\.eslintrc.json"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\.gitignore",
+      "PackagePath": "staticwebassets\\notiflix\\.gitignore"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\.stylelintrc.json",
+      "PackagePath": "staticwebassets\\notiflix\\.stylelintrc.json"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\CHANGELOG.md",
+      "PackagePath": "staticwebassets\\notiflix\\CHANGELOG.md"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\CNAME",
+      "PackagePath": "staticwebassets\\notiflix"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\CODE_OF_CONDUCT.md",
+      "PackagePath": "staticwebassets\\notiflix\\CODE_OF_CONDUCT.md"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\CONTRIBUTING.md",
+      "PackagePath": "staticwebassets\\notiflix\\CONTRIBUTING.md"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\LICENSE",
+      "PackagePath": "staticwebassets\\notiflix"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\README.md",
+      "PackagePath": "staticwebassets\\notiflix\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\SECURITY.md",
+      "PackagePath": "staticwebassets\\notiflix\\SECURITY.md"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\babel.config.js",
+      "PackagePath": "staticwebassets\\notiflix\\babel.config.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-aio.d.ts",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-aio.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-aio.js",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-aio.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-block-aio.d.ts",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-block-aio.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-block-aio.js",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-block-aio.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-confirm-aio.d.ts",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-confirm-aio.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-confirm-aio.js",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-confirm-aio.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-loading-aio.d.ts",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-loading-aio.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-loading-aio.js",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-loading-aio.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-notify-aio.d.ts",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-notify-aio.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-notify-aio.js",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-notify-aio.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-report-aio.d.ts",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-report-aio.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\build\\notiflix-report-aio.js",
+      "PackagePath": "staticwebassets\\notiflix\\build\\notiflix-report-aio.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\dist\\notiflix-3.2.7.min.css",
+      "PackagePath": "staticwebassets\\notiflix\\dist\\notiflix-3.2.7.min.css"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\dist\\notiflix-3.2.7.min.js",
+      "PackagePath": "staticwebassets\\notiflix\\dist\\notiflix-3.2.7.min.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\dist\\notiflix-aio-3.2.7.min.js",
+      "PackagePath": "staticwebassets\\notiflix\\dist\\notiflix-aio-3.2.7.min.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\dist\\notiflix-block-aio-3.2.7.min.js",
+      "PackagePath": "staticwebassets\\notiflix\\dist\\notiflix-block-aio-3.2.7.min.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\dist\\notiflix-confirm-aio-3.2.7.min.js",
+      "PackagePath": "staticwebassets\\notiflix\\dist\\notiflix-confirm-aio-3.2.7.min.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\dist\\notiflix-loading-aio-3.2.7.min.js",
+      "PackagePath": "staticwebassets\\notiflix\\dist\\notiflix-loading-aio-3.2.7.min.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\dist\\notiflix-notify-aio-3.2.7.min.js",
+      "PackagePath": "staticwebassets\\notiflix\\dist\\notiflix-notify-aio-3.2.7.min.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\dist\\notiflix-report-aio-3.2.7.min.js",
+      "PackagePath": "staticwebassets\\notiflix\\dist\\notiflix-report-aio-3.2.7.min.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\docs\\favicon.png",
+      "PackagePath": "staticwebassets\\notiflix\\docs\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\docs\\notiflix-banner.gif",
+      "PackagePath": "staticwebassets\\notiflix\\docs\\notiflix-banner.gif"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\docs\\notiflix-logo.svg",
+      "PackagePath": "staticwebassets\\notiflix\\docs\\notiflix-logo.svg"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\docs\\test-e2e-notify.html",
+      "PackagePath": "staticwebassets\\notiflix\\docs\\test-e2e-notify.html"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\docs\\test.html",
+      "PackagePath": "staticwebassets\\notiflix\\docs\\test.html"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\index.d.test.ts",
+      "PackagePath": "staticwebassets\\notiflix\\index.d.test.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\index.d.ts",
+      "PackagePath": "staticwebassets\\notiflix\\index.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\jest.config.js",
+      "PackagePath": "staticwebassets\\notiflix\\jest.config.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\package.json",
+      "PackagePath": "staticwebassets\\notiflix\\package.json"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\src\\notiflix.css",
+      "PackagePath": "staticwebassets\\notiflix\\src\\notiflix.css"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\src\\notiflix.d.ts",
+      "PackagePath": "staticwebassets\\notiflix\\src\\notiflix.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\src\\notiflix.js",
+      "PackagePath": "staticwebassets\\notiflix\\src\\notiflix.js"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\test\\README.md",
+      "PackagePath": "staticwebassets\\notiflix\\test\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\test\\_config\\config.ts",
+      "PackagePath": "staticwebassets\\notiflix\\test\\_config\\config.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\test\\_helpers\\utilities.test.ts",
+      "PackagePath": "staticwebassets\\notiflix\\test\\_helpers\\utilities.test.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\test\\_helpers\\utilities.ts",
+      "PackagePath": "staticwebassets\\notiflix\\test\\_helpers\\utilities.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\test\\e2e\\notify\\notify.enumerations.ts",
+      "PackagePath": "staticwebassets\\notiflix\\test\\e2e\\notify\\notify.enumerations.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\test\\e2e\\notify\\notify.interfaces.ts",
+      "PackagePath": "staticwebassets\\notiflix\\test\\e2e\\notify\\notify.interfaces.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\test\\e2e\\notify\\notify.options.ts",
+      "PackagePath": "staticwebassets\\notiflix\\test\\e2e\\notify\\notify.options.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\test\\e2e\\notify\\notify.test.ts",
+      "PackagePath": "staticwebassets\\notiflix\\test\\e2e\\notify\\notify.test.ts"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\tsconfig.json",
+      "PackagePath": "staticwebassets\\notiflix\\tsconfig.json"
+    },
+    {
+      "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\notiflix\\yarn.lock",
+      "PackagePath": "staticwebassets\\notiflix\\yarn.lock"
+    },
+    {
       "Id": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\wwwroot\\scss\\_layouts.scss",
       "PackagePath": "staticwebassets\\scss\\_layouts.scss"
     },

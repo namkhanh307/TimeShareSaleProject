@@ -92,10 +92,10 @@ namespace TimeShareProject
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error"); // Use custom error handling in Production
+                app.UseStatusCodePagesWithRedirects("/Error/ErrorNotFound");
                 app.UseHsts();
             }
-
+            app.UseStatusCodePagesWithRedirects("/Error/ErrorNotFound");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -103,8 +103,7 @@ namespace TimeShareProject
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseStatusCodePagesWithRedirects("/Error/ErrorNotFound");
-                
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

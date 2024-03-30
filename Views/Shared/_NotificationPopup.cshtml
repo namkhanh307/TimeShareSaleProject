@@ -3,7 +3,8 @@
 <div class="notification-body">
     @foreach (var item in Model)
     {
-        int? reservedTransactionId = Common.GetReservationId(item.TransactionId);
+        int reservedTransactionId = Common.GetReservationId(item.TransactionId);
+
         bool? status = Common.GetTransactionStatus(item.TransactionId);
  
 
@@ -25,13 +26,14 @@
                 <button type="button" class="btn btn-dark" onclick="deleteNews('@item.Id')">Delete</button>
 
             }
-            else if (status == false)
+            else if (status == false && Common.GetReservationStatus(reservedTransactionId) == 3)
             {
                 <p style="color:blue"> Waiting for paying</p>
             }
             else
             {
                 <p style="color:red"> Your reservation is cancel</p>
+                <button type="button" class="btn btn-dark" onclick="deleteNews('@item.Id')">Delete</button>
             }
         </div>
     }

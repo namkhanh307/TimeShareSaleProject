@@ -141,8 +141,27 @@ namespace TimeShareProject.Controllers
                         content = "Your third term payment is overdue!!!! ";
                         break;
                     case 13:
-                     
+                        title = "Your reservation had been CANCELLED";
+                        content = "Your reservation fee payment has been cancelled";
                         break;
+                    case 14:
+                        title = "Your reservation had been CANCELLED";
+                        content = "Your deposit fee payment has been cancelled";
+                        break;
+                    case 15:
+                        title = "Your reservation had been CANCELLED";
+                        content = "Your  first termn fee payment has been cancelled";
+                        break;
+                    case 16:
+                        title = "Your reservation had been CANCELLED";
+                        content = "Your second term fee payment has been cancelled";
+                        break;
+                    case 17:
+                        title = "Your reservation had been CANCELLED";
+                        content = "Your third term fee payment has been cancelled";
+                        break;
+
+                
                     default:
                         // Handle any other cases or throw an exception
                         break;

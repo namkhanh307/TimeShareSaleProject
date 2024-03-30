@@ -4,17 +4,10 @@
     ViewData["Title"] = "Property";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<h1 style="font-weight:700">Property Detail</h1>
 
 <form id="filterForm" asp-action="ManageProperties" asp-controller="Properties" method="get">
     <div class="form-check-inline">
-     @*    <div class="form-group">
-            <label for="saleStatus">Sale Status</label>
-            <select class="form-control" id="saleStatus" name="saleStatus">
-                <option value="">--All--</option>
-                <option value="1">On sale</option>
-                <option value="0">Not for sale</option>
-            </select>
-        </div> *@
 
         <div class="form-group">
             <label for="Status">Status</label>

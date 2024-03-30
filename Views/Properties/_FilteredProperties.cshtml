@@ -4,6 +4,32 @@
     ViewData["Title"] = "Property";
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
+
+<!--đã sửa-->
+<style>
+    /* Đặt khoảng cách giữa các hàng trong bảng */
+    table.table {
+        border-collapse: separate; /* Đảm bảo các đường viền riêng biệt */
+        border-spacing: 0 20px; /* Chọn khoảng cách theo chiều dọc và chiều ngang */
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+        /* Thiết lập độ dài cố định cho các nút */
+        .btn-container .btn {
+            width: 75px; /* Độ dài mong muốn */
+        }
+
+            .btn-container .btn + .btn {
+                margin-top: 5px; /* Khoảng cách giữa các nút */
+            }
+
+</style>
 <p>
     <a asp-action="Create" asp-controller="Properties">Create New</a>
 </p>
@@ -42,16 +68,7 @@
                             <input type="checkbox" name="selectedProperties" value="@item.Id">
                         </td>
                         <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Name)</td>
-      @*                   <td style="font-size: 12px;">
-                            @if (item.SaleStatus.Value == true)
-                            {
-                                <div>On sale</div>
-                            }
-                            else
-                            {
-                                <div>Not for sale</div>
-                            }
-                        </td> *@
+  
                         <td style="font-size: 12px;">
                             @if (item.Status.Value == true)
                             {
@@ -72,12 +89,13 @@
                         <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.UniqueFeature)</td>
                        <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.ViewImage)" /></td>
                         <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.FrontImage)" /></td>
-                        @*                 <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.InsideImage)" /></td>
-                        <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.SideImage)" /></td> *@
+             
                         <td><div style="font-size: 12px;">@Common.GetProjectShortNameFromProperty(item)</div></td>
                         <td>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark">Delete</a>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+                            <div class="btn-container">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark">Delete</a>
+                            </div>
                         </td>
                     </tr>
                 }

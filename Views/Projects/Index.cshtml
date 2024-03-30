@@ -5,26 +5,32 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>PROJECT DETAIL</h1
-    <br />
-<div class="d-flex justify-content-between">
-    @foreach (var item in Model)
+<h1 style="margin-bottom:20px;">PROJECT DETAIL</h1
+    <br/>
+@* <div class="d-flex justify-content-between">
+ *@ 
+ <div class="container">
+     <div class="row">
+          @foreach (var item in Model)
     {
-        <div class="">
+        <div class="col-4">
             <div> <a class="" asp-action="Details" asp-route-id="@item.Id"><img height="150px" src="~/img/@item.Image1" alt="Image 1" /></a></div>
             <div>@Html.DisplayFor(modelItem => item.Name)</div>
             @if (item.Status == true)
             {
-                <div>Active</div>
+                <div style="color:seagreen; font-weight:500">Active</div>
             }
             else
             {
-                <div>Inactive</div>
+                <div style="color:darkred; font-weight:500">Inactive</div>
             }
         </div>
     }
-</div>
-<br />
+     </div>
+ </div>
+
+@* </div>
+ *@<br />
 <p>
-    <a  asp-action="Create">Create New</a>
+    <a  asp-action="Create" style="font-weight:600; text-transform:uppercase">Create New</a>
 </p>

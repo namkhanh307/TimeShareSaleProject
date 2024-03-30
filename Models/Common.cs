@@ -185,7 +185,7 @@ namespace TimeShareProject.Models
                         break;
                     case 0:
                         type = "Deposit";
-                        CreateTermPayments(user.Id,transaction.Reservation.Id, propertyID);
+                        CreateTermPayments(user.Id,transaction.Reservation.Id, propertyID, DateTime.Today);
                         break;
                     case 1:
                         type = "FirstPayment";
@@ -205,13 +205,13 @@ namespace TimeShareProject.Models
                 return $"{userName}_{propertyName}_{blockId}_{type}";
             }
         }
-        public static int? GetReservationId(int transactionId)
+        public static int GetReservationId(int transactionId)
         {
             using _4restContext context = new();
             var transaction = context.Transactions
                                        .FirstOrDefault(t => t.Id == transactionId);
 
-            return transaction?.ReservationId; 
+            return transaction.ReservationId; 
         }
         public static bool? GetTransactionStatus(int transactionId)
         {
@@ -220,6 +220,14 @@ namespace TimeShareProject.Models
                                        .FirstOrDefault(t => t.Id == transactionId);
 
             return transaction?.Status;
+        }
+        public static int? GetReservationStatus(int reservationId)
+        {
+            using _4restContext context = new();
+            var reservation = context.Reservations
+                                       .FirstOrDefault(t => t.Id == reservationId);
+
+            return reservation.Status;
         }
         public static DateTime? GetTransactionDeadline(int transactionId)
         {
@@ -239,7 +247,7 @@ namespace TimeShareProject.Models
             }
             return false;
         }
-        public static void CreateTermPayments(int userID, int reservationID, int propertyID)
+        public static void CreateTermPayments(int userID, int reservationID, int propertyID, DateTime date)
         {
             using _4restContext _context = new _4restContext();
             var propertyId = propertyID; 
@@ -247,9 +255,9 @@ namespace TimeShareProject.Models
             var reservation = _context.Reservations.FirstOrDefault(r => r.Id == reservationID);
             var property = _context.Properties.FirstOrDefault(p => p.Id == propertyId);
 
-            DateTime DeadlineDate1 = Common.GetSaleDate(propertyId).AddDays(7);
-            DateTime DeadlineDate2 = Common.GetSaleDate(propertyId).AddDays(365);
-            DateTime DeadlineDate3 = Common.GetSaleDate(propertyId).AddDays(730);
+            DateTime DeadlineDate1 = date.AddDays(7);
+            DateTime DeadlineDate2 = date.AddDays(365);
+            DateTime DeadlineDate3 = date.AddDays(730);
 
             try
             {
@@ -355,14 +363,7 @@ namespace TimeShareProject.Models
 
             return transaction?.Type;
         }
-        public static int GetTransactionByReservation(int ReservationID)
-        {
-            using _4restContext context = new();
-            var transaction = context.Transactions
-                                      .FirstOrDefault(t => t.Reservation.Id == ReservationID);
 
-            return transaction.Id;
-        }
         public static bool CheckDeposit(int id)
         {
             using _4restContext context = new();
@@ -374,5 +375,20 @@ namespace TimeShareProject.Models
             }
             return true;
         }
+        public static int GetReservTransactionIDByResevationID(int reservationID)
+        {
+            using _4restContext context = new();
+            var transaction = context.Transactions
+             .FirstOrDefault(t => t.ReservationId == reservationID && t.Type == -1);
+            return transaction.Id;
+        }
+        public static int GetDepositIDByResevationID(int reservationID)
+        {
+            using _4restContext context = new();
+            var transaction = context.Transactions
+             .FirstOrDefault(t => t.ReservationId == reservationID && t.Type == 0);
+            return transaction.Id;
+        }
+
     }
 }

@@ -28,6 +28,7 @@
 <br />
 <h2>Your Transactions</h2>
 
+<div class="text-center" style="margin-top: 20px">
 @if (Model != null && Model.Any())
 {
     <table class="table">
@@ -37,15 +38,16 @@
                 <th>Register Date</th>
                 <th>Type</th>
                 <th>Block</th>
-                <th>Transaction detail</th>
+              
                 <th>Your order</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var reservation in Model)
             {
                 <tr>
-                    <td><a asp-action="GetProperty" asp-controller="Properties" asp-route-id="@reservation.Property.Id">@Common.GetPropertyName(@reservation.PropertyId)</a></td>
+                        <td><a asp-action="GetPropertyDetails" asp-controller="Properties" asp-route-id="@reservation.Property.Id">@Common.GetPropertyName(@reservation.PropertyId)</a></td>
                     <td>@reservation.RegisterDate</td>
                     <td>@(reservation.Type == 1 ? "Reserve" : "Buy now")</td>
 
@@ -53,11 +55,17 @@
                     <td>@reservation.Order</td>
                     <td>
                         <a class="btn btn-dark" href="@Url.Action("GetUserTransactions", "User", new{ reservation.Id})">Transaction Detail</a>
-                        @if (reservation.Property.SaleDate > DateTime.Today || (reservation.Property.SaleDate <= DateTime.Today && Common.CheckDeposit(reservation.Id)))
+                        @if ((reservation.Property.SaleDate > DateTime.Today && reservation.Type ==1 && reservation.Status ==3)|| (reservation.Property.SaleDate <= DateTime.Today && Common.CheckDeposit(reservation.Id)&& reservation.Status == 3))
                         {
-                            <a class="btn btn-dark" asp-action="CancelReservation" asp-controller="Reservations" asp-route-id="@reservation.Id">
-                                Cancel Reservation
-                            </a>
+                                <form asp-action="CancelReservation" asp-controller="Reservations" method="post">
+                                    <input type="hidden" name="id" value="@reservation.Id" />
+                                    <input type="hidden" name="userID" value="@reservation.UserId" />
+                                    <a>
+                                        <button type="submit" class="btn btn-red">Cancel Reservation</button>
+                                    </a>
+                                   
+                                </form>
+
                         }
                     </td>
                   
@@ -70,3 +78,9 @@ else
 {
     <p>You have not booked any property yet!</p>
 }
+</div>
+<div>
+    <form asp-action="Index" asp-controller="Home">
+              <button type="submit" class="btn btn-dark">Back</button>
+    </form>
+</div>

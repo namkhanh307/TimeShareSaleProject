@@ -28,7 +28,7 @@
 
 <br />
 <h2>Your Transactions</h2>
-
+<div class="text-center" style="margin-top: 20px">
 @if (Model != null && Model.Any())
 {
     <table class="table">
@@ -108,7 +108,7 @@
                     {
                         <td>Not available!</td>
                     }
-                    else if (DateTime.Today < transaction.ResolveDate && transaction.Type != -1)
+                    else if (DateTime.Today < transaction.ResolveDate && transaction.Type == 0)
                     {
                         <td>Waiting until resolve date!</td>
                     }
@@ -141,7 +141,7 @@
                         }
                         @status
                     </td>
-                 @*    <td>@transaction.ResolveDate</td> *@
+                   @*  <td>@transaction.ResolveDate</td> *@
                 </tr>
             }
         </tbody>
@@ -151,6 +151,13 @@ else
 {
     <p>No transactions found for this user.</p>
 }
+</div>
+<div>
+    <form asp-action="GetUserReservation" asp-controller="User">
+        <button type="submit" class="btn btn-dark">Back</button>
+    </form>
+</div>
+
 
 @section Scripts {
     <script src="https://www.paypal.com/sdk/js?client-id=AcK_cVj4laQY2VN5ZHxfaXRgs-VNDVmx9ifLV-3llbR-pQPzy48YjTgzzbZ7C35PgV6GfP9uNWjLXZ9d"></script>

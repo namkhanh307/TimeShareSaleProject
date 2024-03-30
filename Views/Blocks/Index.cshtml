@@ -24,7 +24,7 @@
                 <td>@block.StartDay/@block.StartMonth</td>
                 <td>@block.EndDay/@block.EndMonth</td>
                 <td>
-                    <input type="text" id="proportion_@block.Id" value="@block.Proportion" />
+                    <input type="number" id="proportion_@block.Id" name="proportion_@block.Id" value="@block.Proportion" min="50" required />
                 </td>
                 <td>
                     <button class="btn btn-dark" onclick="updateProportion(@block.Id)">Update</button>
@@ -34,7 +34,34 @@
     </tbody>
 </table>
 
+@section Scripts {
+    <script>
+        function updateProportion(id) {
+            var proportionInput = document.getElementById("proportion_" + id);
+            var proportion = proportionInput.value;
+            
+            // Validate the input
+            if (proportion < 50 || isNaN(proportion)) {
+                alert("Proportion must be a number and not below 50.");
+                proportionInput.value = 50; // Set default value to 50 if input is invalid
+                return;
+            }
 
+            var data = { Id: id, Proportion: proportion };
+
+            $.ajax({
+                type: "POST",
+                url: "/Blocks/UpdateProportion",
+                data: data,
+                success: function (response) {
+                    alert("Proportion updated successfully");
+                },
+                error: function () {
+                    alert("Error updating proportion");
+                }
+            });
+        }
+    </script>@* 
 @section Scripts {
     <script>
         function updateProportion(id) {
@@ -53,5 +80,5 @@
                 }
             });
         }
-    </script>
+    </script> *@
 }
