@@ -1,4 +1,4 @@
-using ECommerceMVC.Helpers;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -92,10 +92,10 @@ namespace TimeShareProject
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error"); // Use custom error handling in Production
+                app.UseStatusCodePagesWithRedirects("/Error/ErrorNotFound");
                 app.UseHsts();
             }
-
+            app.UseStatusCodePagesWithRedirects("/Error/ErrorNotFound");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

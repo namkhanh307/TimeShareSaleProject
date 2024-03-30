@@ -108,13 +108,26 @@
                         @*      @if (!Common.CheckReservation(User, Model.Id))
                         { *@
                         <label for="blockSelect" style="font-weight: 140%">Select Block:</label>
-                        <div class="col-sm-8">
-                            <select id="blockSelect" name="blockSelect" class="form-control">
+                                <div class="col-sm-8">
+                                    <select id="blockSelect" name="blockSelect" class="form-control">
                                         @foreach (var block in Common.GetAvailableBlocks(userId, Model.Id))
-                                {
-                                    <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
-                                }
-                            </select>
+                                        {
+                                            var remainingProportion = block.Proportion - 100;
+                                            if (remainingProportion > 0)
+                                            {
+                                                <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth) + @(remainingProportion) %</option>
+
+                                            }
+                                            else if (remainingProportion < 0)
+                                            {
+                                                <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)  @(remainingProportion) % </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
+                                            }
+                                        }
+                                    </select>
                         </div>
                         <div class="col-sm-2">
                             @if (Model.SaleDate <= DateTime.Today)

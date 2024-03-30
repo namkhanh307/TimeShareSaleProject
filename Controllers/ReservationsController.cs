@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
-using ECommerceMVC.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TimeShareProject.Models;
+using TimeShareProject.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -17,7 +17,6 @@ using Transaction = TimeShareProject.Models.Transaction;
 
 namespace TimeShareProject.Controllers
 {
-
 
 
     public class ReservationsController : Controller
@@ -30,16 +29,26 @@ namespace TimeShareProject.Controllers
             _context = context;
             _paypalClient = paypalClient;
         }
-        public async Task<IActionResult> CancelReservation(int id)
+        public async Task<IActionResult> CancelReservation(int id, int userID)
         {
             var reservation = await _context.Reservations.FindAsync(id);
+ 
+           
             if (reservation != null)
             {
                 reservation.Status = 2;
                 _context.Reservations.Update(reservation);
+           
+            }
+            await _context.SaveChangesAsync();
+            if (reservation.Type == 1) {
+                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id),  13);
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14);
+            }
+            if (reservation.Type == 2) {
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction("GetUserReservation", "User");
         }
         public async Task<IActionResult> UpdateReservationStatus(int id, int status)
@@ -83,18 +92,7 @@ namespace TimeShareProject.Controllers
             return View(duplicateReservations);
         }
 
-        //public PartialViewResult FilterDuplicate()
-        //{
-        //    var reservations = _context.Reservations.Include(r => r.Block).Include(r => r.Property).Include(r => r.User).ToList();
 
-        //    var duplicateReservations = reservations
-        //        .Where(r => r.Type == 1) // Filter only reservations with type "Reserve"
-        //        .GroupBy(r => new { r.PropertyId, r.BlockId }) // Group by property ID and block ID
-        //        .Where(g => g.Count() > 1) // Filter groups with more than one reservation
-        //        .SelectMany(g => g); // Flatten the groups back into individual reservations
-
-        //    return PartialView("_FilteredReservations", duplicateReservations);
-        //}
         #region Paypal payment
 
 
@@ -264,8 +262,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
-                            DeadlineDate = Common.GetSaleDate(propertyId),
-                            ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
+                            //DeadlineDate = Common.GetSaleDate(propertyId),
+                            //ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
                         };
                         _context.Transactions.Add(newReserveTransaction);
                         
@@ -277,8 +275,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = 0,
-                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(order),
-                            ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
+                            //DeadlineDate = Common.GetSaleDate(propertyId).AddDays(order),
+                            //ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
                         };
                       
                        
@@ -300,8 +298,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
-                            DeadlineDate = DateTime.Today.AddDays(1),
-                            ResolveDate = DateTime.Today
+                            //DeadlineDate = DateTime.Today.AddDays(1),
+                            //ResolveDate = DateTime.Today
                         }; _context.Transactions.Add(newDepositTransaction);
                         
                         
@@ -312,13 +310,13 @@ namespace TimeShareProject.Controllers
                     TempData["Message"] = "Reservation confirmed successfully!";
                     if (reservationType == 1)
                     {
-                        NewsController.CreateNewForAll(user.Id, reservationID, DateTime.Now, 1);
-                        NewsController.CreateNewForAll(user.Id, transactionId, Common.GetSaleDate(propertyId).AddDays(1), 2);
+                        NewsController.CreateNewForAll(user.Id, reservationID, 1);
+                        NewsController.CreateNewForAll(user.Id, transactionId,  2);
                     }
                     if (reservationType == 2)
                     {
                         
-                        NewsController.CreateNewForAll(user.Id, depositId, Common.GetSaleDate(propertyId).AddDays(1), 2);
+                        NewsController.CreateNewForAll(user.Id, depositId, 2);
                     }
 
                 }

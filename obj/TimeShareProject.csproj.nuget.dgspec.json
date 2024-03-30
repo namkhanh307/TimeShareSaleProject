@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj": {}
+    "D:\\sem5\\SWP\\New folder\\TimeShareProject\\TimeShareProject\\TimeShareProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj": {
+    "D:\\sem5\\SWP\\New folder\\TimeShareProject\\TimeShareProject\\TimeShareProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj",
+        "projectUniqueName": "D:\\sem5\\SWP\\New folder\\TimeShareProject\\TimeShareProject\\TimeShareProject.csproj",
         "projectName": "TimeShareProject",
-        "projectPath": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj",
-        "packagesPath": "C:\\Users\\nobod\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\obj\\",
+        "projectPath": "D:\\sem5\\SWP\\New folder\\TimeShareProject\\TimeShareProject\\TimeShareProject.csproj",
+        "packagesPath": "C:\\Users\\thaiq\\.nuget\\packages\\",
+        "outputPath": "D:\\sem5\\SWP\\New folder\\TimeShareProject\\TimeShareProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\nobod\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\thaiq\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

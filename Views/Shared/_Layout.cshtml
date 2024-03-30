@@ -41,6 +41,25 @@
     .notification-body {
         overflow-y: auto;
     }
+
+    #popup-window {
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        position: fixed;
+        width: 1100px;
+        height: 480px;
+        background: white;
+        border: 1px solid black;
+        padding: 10px;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        display: none;
+    }
 </style>
 
 <body>
@@ -79,7 +98,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                     <li><a class="dropdown-item" href="@Url.Action("UserProfile", "User")"><i class="fas fa-user fa-fw"></i> Profile</a></li>
-                                    <li><a class="dropdown-item" href="@Url.Action("GetUserReservation", "User")">Your Transactions</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("GetUserReservation", "User")">Your Reservations</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("Logout", "Login")">Logout</a></li>
 
 
@@ -122,8 +141,10 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li> <a class="active" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li> <a class="active" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+                            <li><a class="active" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a class="active" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+                            <li><a href="#" id="popup-link">terms and policy</a></li>
+
                             <li></li>
                         </ul>
                         <a class='menu-trigger'>
@@ -136,14 +157,42 @@
         </div>
     </header>
 
-
+    <div id="popup-window">
+        <h4 style="">Terms and Policies</h4>
+       
+        <div style="margin-left: 10px">
+            <h6 style="margin-top: 10px">
+                Reservation details:
+            </h6>
+            <p > - Year quantity for a timeshare is 10 years by default. This fee must be paid before the property is officially offered for sale; else, your reservation will be instantly canceled.
+            </p>
+            <p>- You can reserve a propety that has the same block with others. We will resolve the reservation from the top of the list. If the previous reservation holder haved chosed to buy property, we will not return the fee. Please consider before making the reservation!</p>
+            <p>- Reservation holders will receive priority and be contacted first when properties become available for sale.</p>
+            <p>- Your have to wait until your resolve date:</p>
+            <p>+ Your reservation fee resolve date = property's sale date</p>
+            <p>+ Your deposit fee resolve date = property's sale date + your order - 1</p>
+  
+            <h6 >
+                Payment details:
+            </h6>
+            <p>- Once you haved paid for any fee. The payment will not be returned under any circumstance!</p>
+            <p> - Reservation fee for all properties are 500,000 VND each.</p>
+            <p>
+                - Deposit fee is 10% of total fee.
+            </p>
+            <p>- This fee must be paid before the property is officially offered for sale; else, your reservation will be instantly canceled.</p>
+            <p>- You can cancel their reservations after making them. If you have paid a deposit and wish to cancel the reservation, please contact us to resolve.</p>
+        </div><div style ="padding-left: 10px">
+            <button id="close-button" class="btn btn-dark">Close</button>
+        </div>
+        
+    </div>
     <div id="notification-popup" class="notification-popup">
         <div class="notification-header">
             <h2 style="margin-left: 20px; color: white">News for you</h2>
 
         </div>
         <div class="notification-body" style="margin-left:10px">
-           
         </div>
     </div>
     <!-- ***** Header Area End ***** -->
@@ -183,21 +232,35 @@
                 }
             });
 
-        
+
             $(document).click(function (event) {
                 if (!$(event.target).closest('#notification-popup, #bell-icon').length) {
                     $('#notification-popup').hide();
                 }
             });
         });
-     
+
+
+        var popupLink = document.getElementById("popup-link");
+        var popupWindow = document.getElementById("popup-window");
+        var closeButton = document.getElementById("close-button");
+        // Show the pop-up window when the link is clicked
+        popupLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            popupWindow.style.display = "block";
+        });
+        // Hide the pop-up window when the close button is clicked
+        closeButton.addEventListener("click", function () {
+            popupWindow.style.display = "none";
+        });
+
     </script>
 
 
 
-        
 
- <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/isotope.min.js"></script>
     <script src="~/js/owl-carousel.js"></script>
     <script src="~/js/counter.js"></script>

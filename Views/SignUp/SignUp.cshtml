@@ -9,7 +9,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<<<<<<< Updated upstream
     <title>Sign Up</title>
+=======
+
+>>>>>>> Stashed changes
     <!-- plugins:css -->
     <link rel="stylesheet" href="~vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="~vendors/css/vendor.bundle.base.css">
@@ -65,7 +69,10 @@
                             <form method="post" action="@Url.Action("SignUp", "SignUp")">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input type="text" class="form-control p_input" name="username" required>
+
+                                    <input type="text" class="form-control" name="username" pattern="^(?=.*[A-Z]).{5,}$" title="Username must contain at least one uppercase letter and be at least 5 characters long without spaces" required>
+
+
                                 </div>
                                 <div class="form-group">
                                     <span>
@@ -74,7 +81,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control p_input" name="email" required>
+
+                                    <input type="email" class="form-control p_input" name="email" pattern="[^&#64; \t\r\n]+&#64;[^&#64; \t\r\n]+\.[^&#64; \t\r\n]+" title="Email must contain an character and a domain" required>
+
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
@@ -93,7 +102,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="birthday">Date of birth:</label>
-                                    <input type="date" id="birthday" name="dateOfBirth" class="form-control p_input" required>
+                                    <input type="date" id="birthday" name="dateOfBirth" max="<?php echo date('Y-m-d'); ?>" class="form-control" required>
                                 </div>
                                 <br />
                                 <div class="text-center">

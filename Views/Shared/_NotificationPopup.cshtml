@@ -3,15 +3,18 @@
 <div class="notification-body">
     @foreach (var item in Model)
     {
-        int? reservedTransactionId = Common.GetReservationId(item.TransactionId);
+        int reservedTransactionId = Common.GetReservationId(item.TransactionId);
+
         bool? status = Common.GetTransactionStatus(item.TransactionId);
  
 
         <div class="news-item" style="border: 1px solid #ddde; background-color:#EFEFEF; margin-bottom: 10px;padding: 20px">
             <a href="@Url.Action("GetUserTransactions", "User", new { ID = reservedTransactionId })">
+               
+                <h3>@Common.GetPropertyNameByTransactionID(item.TransactionId)</h3>
                 <h3>@item.Title</h3>
-                <p>@item.Content @item.Date?.ToString("dd MMM yyyy")</p>
-            </a>
+                <p>@item.Content </p>
+            
             @if (status == true)
             {
                 <div>
@@ -19,19 +22,20 @@
                     <button type="button" class="btn btn-dark" onclick="deleteNews('@item.Id')">Delete</button>
                 </div>
             }
-            else if (status == false && Common.GetTransactionDeadline(item.TransactionId) < DateTime.Today)
+                else if (status == false && Common.GetReservationStatus(reservedTransactionId) == 2)
             {
                 <p style="color:red"> Your reservation is cancel</p>
                 <button type="button" class="btn btn-dark" onclick="deleteNews('@item.Id')">Delete</button>
 
             }
-            else if (status == false)
+            else if (status == false && Common.GetReservationStatus(reservedTransactionId) == 3)
             {
                 <p style="color:blue"> Waiting for paying</p>
             }
             else
             {
                 <p style="color:red"> Your reservation is cancel</p>
+                <button type="button" class="btn btn-dark" onclick="deleteNews('@item.Id')">Delete</button>
             }
         </div>
     }

@@ -49,7 +49,7 @@ public class DateCheckerService : BackgroundService
                                     first.Status = 2;// cancel
                                     context.Update(first);
                                     context.SaveChanges();
-                                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, DateTime.Today, 8);
+                                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, 8);
                                     foreach (var item in group) //list cua duplicate 10 thang
                                     {
                                         item.Order--;
@@ -73,7 +73,7 @@ public class DateCheckerService : BackgroundService
                                     first.Status = 2;// cancel
                                     context.Update(first);
                                     context.SaveChanges();
-                                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, DateTime.Today, 9);
+                                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, 9);
                                     foreach (var item in group) //list cua duplicate 10 thang
                                     {
                                         item.Order--;
@@ -94,13 +94,15 @@ public class DateCheckerService : BackgroundService
                 {
                     if (scopeService.GetDeadlineDepositDate(item.Id) == DateTime.Today)
                     {
-                        var depositTransaction = item.Transactions.FirstOrDefault(t => t.Type == 0 && t.Status == true); //tra tien deposit chua
+                        var exdepositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0);
+                        var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0 && t.Status == true);
+                       
                         if (depositTransaction == null && item.Status != 2)
                         {
                             item.Status = 2;
                             context.Update(item);
                             context.SaveChanges();
-                            NewsController.CreateNewForAll(depositTransaction.Reservation.UserId, depositTransaction.Id, DateTime.Today, 9);
+                            NewsController.CreateNewForAll(exdepositTransaction.Reservation.UserId, exdepositTransaction.Id, 9);
                         }
                     }
                 }
@@ -125,7 +127,7 @@ public class DateCheckerService : BackgroundService
                 }
                 #endregion
             }
-            await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken);
+          //  await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
     }
 }
