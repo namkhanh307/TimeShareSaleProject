@@ -174,7 +174,7 @@ namespace TimeShareProject.Controllers
                     TransactionCode = null,
                     ReservationId = id,
                     Type = 0,
-                    DeadlineDate = Common.GetSaleDate(reservation.Property.Id).AddDays(1)
+                    
 
                 };
                 _context.Transactions.Add(newDepositTransaction);
@@ -187,7 +187,7 @@ namespace TimeShareProject.Controllers
                     TransactionCode = null,
                     ReservationId = id,
                     Type = 1,
-                    DeadlineDate = Common.GetSaleDate(reservation.Property.Id).AddDays(7)
+                   
 
                 };
                 _context.Transactions.Add(newFirstTermTransaction);
@@ -200,7 +200,7 @@ namespace TimeShareProject.Controllers
                     TransactionCode = null,
                     ReservationId = id,
                     Type = 2,
-                    DeadlineDate = Common.GetSaleDate(reservation.Property.Id).AddDays(365)
+                   
                 };
                 _context.Transactions.Add(newSecondTermTransaction);
 
@@ -213,7 +213,7 @@ namespace TimeShareProject.Controllers
                     TransactionCode = null,
                     ReservationId = id,
                     Type = 3,
-                    DeadlineDate = Common.GetSaleDate(reservation.Property.Id).AddDays(730)
+                  
                 };
                 _context.Transactions.Add(newThirdTermTransaction);
                 _context.SaveChanges();
@@ -222,7 +222,7 @@ namespace TimeShareProject.Controllers
 
                 
                 
-                    NewsController.CreateNewForAll(reservation.UserId, reservation.Property.Id, Common.GetSaleDate(reservation.Property.Id).AddDays(1), 1);
+                    NewsController.CreateNewForAll(reservation.UserId, reservation.Property.Id, 1);
                 
             }
             catch (Exception ex)

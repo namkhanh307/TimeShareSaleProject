@@ -1,7 +1,8 @@
-﻿using ECommerceMVC.Helpers;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Query;
 using TimeShareProject.Models;
 
 namespace TimeShareProject.Controllers
@@ -83,13 +84,13 @@ namespace TimeShareProject.Controllers
                 return StatusCode(500, $"An error occurred while deleting the news item: {ex.Message}");
             }
         }
-        public static void CreateNewForAll(int userId, int transactionID, DateTime date, int type)
+        public static void CreateNewForAll(int userId, int transactionID,int type)
         {
             using (_4restContext _context = new _4restContext())
             {
                 string title = string.Empty;
                 string content = string.Empty;
-
+                var transaction = _context.Transactions.FirstOrDefault(t => t.Id == transactionID);
                 switch (type)
                 {
                     case 1:
@@ -114,11 +115,11 @@ namespace TimeShareProject.Controllers
                         break;
                     case 6:
                         title = "Your reservation had been recorded";
-                        content = "Please visit us on " + Common.GetSaleDate + " to finish your reservation. ";
+                        content = "To finish your reservation, please visit us on " + Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId);
                         break;
                     case 7:
                         title = "Today is Opening Day. ";
-                        content = "To complete registration, we recommend paying the deposit by " + date + " at 11: 59 p.m. ";
+                        content = "To complete registration, we recommend paying the deposit by " + Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId);
                         break;
                     case 8:
                         title = "Your reservation had been CANCELLED";
@@ -171,7 +172,6 @@ namespace TimeShareProject.Controllers
                 {
                     UserId = userId,
                     TransactionId = transactionID,
-                    Date = date,
                     Title = title,
                     Content = content,
                     Type = type,

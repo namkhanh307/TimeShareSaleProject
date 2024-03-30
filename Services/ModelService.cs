@@ -44,17 +44,21 @@ namespace TimeShareProject.Services
         public DateTime GetDeadlineReserveDate(int id)
         {
             using _4restContext context = new();
-            var transaction = context.Transactions
-             .FirstOrDefault(t => t.ReservationId == id && t.Type == -1);
-            return (DateTime)transaction.DeadlineDate;
+            //var transaction = context.Transactions
+            // .FirstOrDefault(t => t.ReservationId == id && t.Type == -1);
+            //return (DateTime)transaction.DeadlineDate;
+            var resrvation = context.Reservations.FirstOrDefault(r => r.Id == id);
+            var property = context.Properties.FirstOrDefault(p => p.Id == resrvation.PropertyId);
+            return (DateTime)property.SaleDate;
         }
 
         public DateTime GetDeadlineDepositDate(int id)
         {
             using _4restContext context = new();
-            var transaction = context.Transactions
-             .FirstOrDefault(t => t.ReservationId == id && t.Type == 0);
-            return (DateTime)transaction.DeadlineDate;
+            // var property = context.Properties.Include(p => p.Reservations).Where(p => p.Id == )
+            var resrvation = context.Reservations.FirstOrDefault(r => r.Id == id);
+            var property = context.Properties.FirstOrDefault(p => p.Id == resrvation.PropertyId);
+            return (DateTime)property.SaleDate.AddDays(1);
         }
 
         public DateTime GetDeadlineFirstDate(int id)
