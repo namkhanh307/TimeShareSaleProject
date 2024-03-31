@@ -67,12 +67,8 @@ namespace TimeShareProject.Models
             int reservationCount = context.Reservations.Count(r => r.PropertyId == propertyId && r.BlockId == blockId);
             return reservationCount;
         }
-        public static DateTime GetSaleDate(int id)
-        {
-            using _4restContext context = new();
-            var property = context.Properties.FirstOrDefault(p => p.Id == id);
-            return (DateTime)property.SaleDate;
-        }
+
+ 
         public static Reservation GetPropertyFromReservation(int id)
         {
             using _4restContext context = new();
@@ -255,9 +251,13 @@ namespace TimeShareProject.Models
             var reservation = _context.Reservations.FirstOrDefault(r => r.Id == reservationID);
             var property = _context.Properties.FirstOrDefault(p => p.Id == propertyId);
 
+<<<<<<< HEAD
             DateTime DeadlineDate1 = date.AddDays(7);
             DateTime DeadlineDate2 = date.AddDays(365);
             DateTime DeadlineDate3 = date.AddDays(730);
+=======
+    
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
 
             try
             {
@@ -271,8 +271,7 @@ namespace TimeShareProject.Models
                         TransactionCode = null,
                         ReservationId = reservationId,
                         Type = 1,
-                        DeadlineDate = DeadlineDate1,
-                        ResolveDate = DeadlineDate1
+                    
                     };
 
                     _context.Transactions.Add(firstTermTransaction);
@@ -285,8 +284,7 @@ namespace TimeShareProject.Models
                         TransactionCode = null,
                         ReservationId = reservationId,
                         Type = 2,
-                        DeadlineDate = DeadlineDate2,
-                        ResolveDate = DeadlineDate1
+               
                     };
 
                     _context.Transactions.Add(secondTermTransaction);
@@ -299,16 +297,15 @@ namespace TimeShareProject.Models
                         TransactionCode = null,
                         ReservationId = reservationId,
                         Type = 3,
-                        DeadlineDate = DeadlineDate3,
-                        ResolveDate = DeadlineDate1
+                       
                     };
 
                     _context.Transactions.Add(thirdTermTransaction);
                     _context.SaveChanges();
                     dbTransaction.Commit();
-                    NewsController.CreateNewForAll(userID, firstTermTransaction.Id, DeadlineDate1, 3);
-                    NewsController.CreateNewForAll(userID, secondTermTransaction.Id, DeadlineDate2, 4);
-                    NewsController.CreateNewForAll(userID, thirdTermTransaction.Id, DeadlineDate3, 5);
+                    NewsController.CreateNewForAll(userID, firstTermTransaction.Id,  3);
+                    NewsController.CreateNewForAll(userID, secondTermTransaction.Id, 4);
+                    NewsController.CreateNewForAll(userID, thirdTermTransaction.Id,  5);
                     
                 }
             }
@@ -389,6 +386,25 @@ namespace TimeShareProject.Models
              .FirstOrDefault(t => t.ReservationId == reservationID && t.Type == 0);
             return transaction.Id;
         }
+<<<<<<< HEAD
 
+=======
+        public static string GetPropertyNameByTransactionID(int transactionID)
+        {
+            using _4restContext context = new();
+            var transaction = context.Transactions.FirstOrDefault(t => t.Id == transactionID);
+
+            var property = context.Properties
+             .FirstOrDefault(p => p.Id == transaction.Reservation.PropertyId);
+            return property.Name;
+        }
+        public static DateTime GetSaleDateofPropertyDByPropertyID(int propertyID)
+        {
+            using _4restContext context = new();
+            var property = context.Properties
+             .FirstOrDefault(p => p.Id == propertyID);
+            return property.SaleDate;
+        }
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
     }
 }

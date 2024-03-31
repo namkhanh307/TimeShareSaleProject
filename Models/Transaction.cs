@@ -25,5 +25,5 @@ public partial class Transaction
 
     public virtual ICollection<New> News { get; set; } = new List<New>();
 
-    public virtual Reservation? Reservation { get; set; }
+    public virtual Reservation Reservation { get; set; }
 }

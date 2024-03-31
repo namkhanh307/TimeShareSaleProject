@@ -58,10 +58,29 @@ public class DateCheckerService : BackgroundService
             //                    }
             //                }
 
+<<<<<<< HEAD
             //                if (scopeService.GetDeadlineDepositDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
             //                {
             //                    var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == 0);
             //                    var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == 0 && t.Status == true);
+=======
+                                var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == -1);
+                                var reserveTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == -1 && t.Status == true);//tra tien reserve chua
+                                if (reserveTransaction == null && first.Status != 2)//thang dau chua tra
+                                {
+                                    first.Status = 2;// cancel
+                                    context.Update(first);
+                                    context.SaveChanges();
+                                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, 8);
+                                    foreach (var item in group) //list cua duplicate 10 thang
+                                    {
+                                        item.Order--;
+                                        context.Update(item);
+                                        context.SaveChanges();
+                                    }
+                                }
+                                else {
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
 
             //                    if (depositTransaction == null && first.Status != 2)//thang dau chua tra
             //                    {
@@ -83,6 +102,7 @@ public class DateCheckerService : BackgroundService
             //    await context.SaveChangesAsync();
             //    #endregion
 
+<<<<<<< HEAD
             //    #region Handle Buy now
             //    var buyNowReservation = await scopeService.GetBuyNowReservation();
             //    foreach (var item in buyNowReservation)
@@ -123,6 +143,73 @@ public class DateCheckerService : BackgroundService
             //    #endregion
             //}
             await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken);
+=======
+                            if (scopeService.GetDeadlineDepositDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
+                            {
+                                var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == 0);
+                                var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == 0 && t.Status == true);
+                               
+                                if (depositTransaction == null && first.Status != 2)//thang dau chua tra
+                                {
+                                    first.Status = 2;// cancel
+                                    context.Update(first);
+                                    context.SaveChanges();
+                                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, 9);
+                                    foreach (var item in group) //list cua duplicate 10 thang
+                                    {
+                                        item.Order--;
+                                        context.Update(item);
+                                        context.SaveChanges();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                await context.SaveChangesAsync();
+                #endregion
+
+                #region Handle Buy now
+                var buyNowReservation = await scopeService.GetBuyNowReservation();
+                foreach (var item in buyNowReservation)
+                {
+                    if (scopeService.GetDeadlineDepositDate(item.Id) == DateTime.Today)
+                    {
+                        var exdepositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0);
+                        var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0 && t.Status == true);
+                       
+                        if (depositTransaction == null && item.Status != 2)
+                        {
+                            item.Status = 2;
+                            context.Update(item);
+                            context.SaveChanges();
+                            NewsController.CreateNewForAll(exdepositTransaction.Reservation.UserId, exdepositTransaction.Id, 9);
+                        }
+                    }
+                }
+
+                #endregion
+                #region Update done reservation status
+                //update status for reservation if every field of transaction is done
+                var finishedReservation = await scopeService.GetFinishedReservation();
+                if (finishedReservation != null)
+                {
+                    foreach (var item in finishedReservation)
+                    {
+                        bool allTransactionIsPaid = item.Transactions.All(t => t.Status == true && item.Transactions.Count >= 5);
+                        if (allTransactionIsPaid && item.Status != 4)
+                        {
+                            item.Status = 4;
+                            context.Update(item);
+                            context.SaveChanges();
+                            NewsController.CreateFinishNews(item.UserId);
+                        }
+                    }
+                }
+                #endregion
+            }
+          //  await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
         }
     }
 }

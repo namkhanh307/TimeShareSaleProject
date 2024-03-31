@@ -504,6 +504,7 @@ D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\obj\Debug\net8.0\refint
 D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\obj\Debug\net8.0\TimeShareProject.pdb
 D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\obj\Debug\net8.0\TimeShareProject.genruntimeconfig.cache
 D:\sem5\SWP\New folder\TimeShareProject\TimeShareProject\obj\Debug\net8.0\ref\TimeShareProject.dll
+<<<<<<< HEAD
 C:\Users\nobod\Documents\GitHub\TimeShareProject (2)\TimeShareProject\TimeShareProject\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\nobod\Documents\GitHub\TimeShareProject (2)\TimeShareProject\TimeShareProject\bin\Debug\net8.0\appsettings.json
 C:\Users\nobod\Documents\GitHub\TimeShareProject (2)\TimeShareProject\TimeShareProject\bin\Debug\net8.0\TimeShareProject.exe
@@ -756,3 +757,5 @@ C:\Users\nobod\Documents\GitHub\TimeShareProject (2)\TimeShareProject\TimeShareP
 C:\Users\nobod\Documents\GitHub\TimeShareProject (2)\TimeShareProject\TimeShareProject\obj\Debug\net8.0\TimeShareProject.pdb
 C:\Users\nobod\Documents\GitHub\TimeShareProject (2)\TimeShareProject\TimeShareProject\obj\Debug\net8.0\TimeShareProject.genruntimeconfig.cache
 C:\Users\nobod\Documents\GitHub\TimeShareProject (2)\TimeShareProject\TimeShareProject\obj\Debug\net8.0\ref\TimeShareProject.dll
+=======
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f

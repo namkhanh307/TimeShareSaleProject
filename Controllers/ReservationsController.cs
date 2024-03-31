@@ -42,11 +42,19 @@ namespace TimeShareProject.Controllers
             }
             await _context.SaveChangesAsync();
             if (reservation.Type == 1) {
+<<<<<<< HEAD
                 NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id), DateTime.Now, 13);
                 NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), DateTime.Now, 14);
             }
             if (reservation.Type == 2) {
                 NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), DateTime.Now, 14);
+=======
+                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id),  13);
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14);
+            }
+            if (reservation.Type == 2) {
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14);
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
             }
 
             return RedirectToAction("GetUserReservation", "User");
@@ -262,8 +270,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
-                            DeadlineDate = Common.GetSaleDate(propertyId),
-                            ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
+                            //DeadlineDate = Common.GetSaleDate(propertyId),
+                            //ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
                         };
                         _context.Transactions.Add(newReserveTransaction);
                         
@@ -275,8 +283,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = 0,
-                            DeadlineDate = Common.GetSaleDate(propertyId).AddDays(order),
-                            ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
+                            //DeadlineDate = Common.GetSaleDate(propertyId).AddDays(order),
+                            //ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
                         };
                       
                        
@@ -298,8 +306,8 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
-                            DeadlineDate = DateTime.Today.AddDays(1),
-                            ResolveDate = DateTime.Today
+                            //DeadlineDate = DateTime.Today.AddDays(1),
+                            //ResolveDate = DateTime.Today
                         }; _context.Transactions.Add(newDepositTransaction);
                         
                         
@@ -310,13 +318,17 @@ namespace TimeShareProject.Controllers
                     TempData["Message"] = "Reservation confirmed successfully!";
                     if (reservationType == 1)
                     {
-                        NewsController.CreateNewForAll(user.Id, reservationID, DateTime.Now, 1);
-                        NewsController.CreateNewForAll(user.Id, transactionId, Common.GetSaleDate(propertyId).AddDays(1), 2);
+                        NewsController.CreateNewForAll(user.Id, reservationID, 1);
+                        NewsController.CreateNewForAll(user.Id, transactionId,  2);
                     }
                     if (reservationType == 2)
                     {
                         
+<<<<<<< HEAD
                         NewsController.CreateNewForAll(user.Id, depositId, DateTime.Today.AddDays(1), 2);
+=======
+                        NewsController.CreateNewForAll(user.Id, depositId, 2);
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
                     }
 
                 }

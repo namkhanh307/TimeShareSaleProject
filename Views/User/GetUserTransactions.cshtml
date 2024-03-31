@@ -108,15 +108,46 @@
                     {
                         <td>Not available!</td>
                     }
+<<<<<<< HEAD
                     else if (DateTime.Today < transaction.ResolveDate && transaction.Type == 0)
                     {
+=======
+                        else if (DateTime.Today < Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId) && transaction.Type == 0 || (transaction.Type == 0 && transaction.Reservation.Order > 1))
+                        {
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
                         <td>Waiting until resolve date!</td>
                     }
                     else 
                     {
                         <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
                     }
-                    <td>You should pay this field before @transaction.DeadlineDate</td>
+                    <td>
+                            @{
+                                DateTime Date = Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId);
+                                int AddOrderDate = transaction.Reservation.Order;
+                                int Adddate = 0;
+                                if (AddOrderDate > 0) Adddate = AddOrderDate - 1;
+                                switch (@transaction.Type)
+                                {
+                                    case -1:
+                                      
+                                        break;
+                                    case 0:
+                                        Date = Date.AddDays(1 + Adddate);
+                                        break;
+                                    case 1:
+                                        Date = Date.AddDays(7 + Adddate);
+                                        break;
+                                    case 2:
+                                        Date = Date.AddDays(365 + Adddate);
+                                        break;
+                                    default:
+                                        Date = Date.AddDays(730 + Adddate);
+                                        break;
+                                }
+                            }
+                            You should pay this field before @Date
+                        </td>
                     <td>
                         @{
                             string status = "";
