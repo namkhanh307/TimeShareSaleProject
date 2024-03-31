@@ -39,7 +39,7 @@ public class DateCheckerService : BackgroundService
                         var first = group.FirstOrDefault(r => r.Order == 1); //lay dau tien order == 1
                         if (first != null)
                         {
-                            if (scopeService.GetDeadlineReserveDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
+                            if (scopeService.GetDeadlineReserveDate(first.Id) <= DateTime.Today) //lay ngay deadline cua thang 1
                             {
 
                                 var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == -1);
@@ -63,7 +63,7 @@ public class DateCheckerService : BackgroundService
                                 }
                             }
 
-                            if (scopeService.GetDeadlineDepositDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
+                            if (scopeService.GetDeadlineDepositDate(first.Id) <= DateTime.Today) //lay ngay deadline cua thang 1
                             {
                                 var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == 0);
                                 var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == 0 && t.Status == true);
@@ -92,7 +92,8 @@ public class DateCheckerService : BackgroundService
                 var buyNowReservation = await scopeService.GetBuyNowReservation();
                 foreach (var item in buyNowReservation)
                 {
-                    if (scopeService.GetDeadlineDepositDate(item.Id) == DateTime.Today)
+                    //scopeService.GetDeadlineDepositDate(item.Id)
+                    if ( item.RegisterDate < DateTime.Today)
                     {
                         var exdepositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0);
                         var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0 && t.Status == true);
