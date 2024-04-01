@@ -41,14 +41,21 @@ namespace TimeShareProject.Controllers
 
             }
             await _context.SaveChangesAsync();
-            if (reservation.Type == 1)
-            {
-                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id), 13);
+            if (reservation.Type == 1) {
+<<<<<<< HEAD
+                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id), DateTime.Now, 13);
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), DateTime.Now, 14);
+            }
+            if (reservation.Type == 2) {
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), DateTime.Now, 14);
+=======
+                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id),  13);
                 NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14);
             }
             if (reservation.Type == 2)
             {
                 NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14);
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
             }
 
             return RedirectToAction("GetUserReservation", "User");
@@ -317,8 +324,12 @@ namespace TimeShareProject.Controllers
                     }
                     if (reservationType == 2)
                     {
-
+                        
+<<<<<<< HEAD
+                        NewsController.CreateNewForAll(user.Id, depositId, DateTime.Today.AddDays(1), 2);
+=======
                         NewsController.CreateNewForAll(user.Id, depositId, 2);
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
                     }
 
                 }

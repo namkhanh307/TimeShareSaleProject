@@ -108,8 +108,13 @@
                     {
                         <td>Not available!</td>
                     }
+<<<<<<< HEAD
+                    else if (DateTime.Today < transaction.ResolveDate && transaction.Type == 0)
+                    {
+=======
                         else if (DateTime.Today < Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId) && transaction.Type == 0 || (transaction.Type == 0 && transaction.Reservation.Order > 1))
                         {
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
                         <td>Waiting until resolve date!</td>
                     }
                     else 

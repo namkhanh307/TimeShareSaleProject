@@ -7,15 +7,15 @@
       "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\reservationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\models\\common.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\models\\common.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:models\\common.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\views\\reservations\\selectroom.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\views\\reservations\\selectroom.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\reservations\\selectroom.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\views\\user\\getusertransactions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\views\\user\\getusertransactions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\user\\getusertransactions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -50,8 +50,7 @@
               "RelativeToolTip": "Views\\Reservations\\SelectRoom.cshtml",
               "ViewState": "AQIAAA8AAAAAAAAAAAAAACsAAABiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-01T08:25:12.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-01T08:25:12.608Z"
             },
             {
               "$type": "Document",
@@ -63,8 +62,7 @@
               "RelativeToolTip": "Views\\User\\GetUserTransactions.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-01T08:23:22.671Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-01T08:23:22.671Z"
             },
             {
               "$type": "Document",
@@ -76,8 +74,7 @@
               "RelativeToolTip": "Models\\Common.cs",
               "ViewState": "AQIAAOoAAAAAAAAAAIAwwAcBAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T08:08:54.258Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-01T08:08:54.258Z"
             },
             {
               "$type": "Document",
@@ -85,9 +82,9 @@
               "Title": "ReservationsController.cs",
               "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs",
               "RelativeDocumentMoniker": "Controllers\\ReservationsController.cs",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs",
-              "RelativeToolTip": "Controllers\\ReservationsController.cs",
-              "ViewState": "AQIAABIBAAAAAAAAAAArwCoBAAAAAAAA",
+              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs*",
+              "RelativeToolTip": "Controllers\\ReservationsController.cs*",
+              "ViewState": "AQIAACwBAAAAAAAAAAAmwDYBAABQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-01T02:43:27.055Z",
               "EditorCaption": ""

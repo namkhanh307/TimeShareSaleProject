@@ -45,9 +45,14 @@
                             double totalPrice = @Common.Calculate(unitPrice, 10, proportion);
                             string formattedPrice = totalPrice.ToString("N0") + " VND"; // "N0" format specifier adds thousand separators
                             <p class="card-title">Price: @formattedPrice</p>
+<<<<<<< HEAD
+                        } 
+                    }
+=======
                         }
                     }
 
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
                 </div>
             </div>
         </div>
@@ -67,7 +72,10 @@
                         <input type="hidden" name="blockSelect" value="@ViewBag.Block.Id" />
                         <input type="hidden" name="propertyId" value="@ViewBag.Property.Id" />
                         <input type="hidden" name="saleStatus" value="@ViewBag.SaleStatus" />
+<<<<<<< HEAD
+=======
                         <input type="hidden" name="order" value="@Common.CountReservations(@ViewBag.Property.Id, @ViewBag.Block.Id)" />
+>>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
                         <button type="button" class="btn btn-dark" onclick="showConfirmation()">Confirm Reservation</button>
                     </form>
                     <form asp-action="FilterProperties" asp-controller="Properties">
