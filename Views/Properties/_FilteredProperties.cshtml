@@ -1,0 +1,132 @@
+﻿@model IEnumerable<TimeShareProject.Models.Property>
+
+@{
+    ViewData["Title"] = "Property";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+<!--đã sửa-->
+<style>
+    /* Đặt khoảng cách giữa các hàng trong bảng */
+    table.table {
+        border-collapse: separate; /* Đảm bảo các đường viền riêng biệt */
+        border-spacing: 0 20px; /* Chọn khoảng cách theo chiều dọc và chiều ngang */
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+        /* Thiết lập độ dài cố định cho các nút */
+        .btn-container .btn {
+            width: 75px; /* Độ dài mong muốn */
+        }
+
+            .btn-container .btn + .btn {
+                margin-top: 5px; /* Khoảng cách giữa các nút */
+            }
+
+</style>
+<p>
+    <a asp-action="Create" asp-controller="Properties">Create New</a>
+</p>
+
+@if (Model != null && Model.Any())
+{
+    <form id="propertyForm" asp-action="SetSaleDate" asp-controller="Properties" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                  @*   <th>@Html.DisplayNameFor(model => model.SaleStatus)</th> *@
+                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                    <th>@Html.DisplayNameFor(model => model.SaleDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.UnitPrice)</th>
+                    <th>@Html.DisplayNameFor(model => model.Beds)</th>
+                    <th>@Html.DisplayNameFor(model => model.Occupancy)</th>
+                    <th>@Html.DisplayNameFor(model => model.Size)</th>
+                    <th>@Html.DisplayNameFor(model => model.Bathroom)</th>
+                    <th>@Html.DisplayNameFor(model => model.Views)</th>
+                    <th>@Html.DisplayNameFor(model => model.UniqueFeature)</th>
+                    <th>@Html.DisplayNameFor(model => model.ViewImage)</th>
+                    <th>@Html.DisplayNameFor(model => model.FrontImage)</th>
+                    @*           <th>@Html.DisplayNameFor(model => model.InsideImage)</th>
+                    <th>@Html.DisplayNameFor(model => model.SideImage)</th> *@
+                    <th>@Html.DisplayNameFor(model => model.Project)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selectedProperties" value="@item.Id">
+                        </td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Name)</td>
+  
+                        <td style="font-size: 12px;">
+                            @if (item.Status.Value == true)
+                            {
+                                <div>Active</div>
+                            }
+                            else
+                            {
+                                <div>Inactive</div>
+                            }
+                        </td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.SaleDate)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.UnitPrice)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Beds)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Occupancy)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Size)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Bathroom)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.Views)</td>
+                        <td style="font-size: 12px;">@Html.DisplayFor(modelItem => item.UniqueFeature)</td>
+                       <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.ViewImage)" /></td>
+                        <td><img class="w-100" src="~/img/@Html.DisplayFor(modelItem => item.FrontImage)" /></td>
+             
+                        <td><div style="font-size: 12px;">@Common.GetProjectShortNameFromProperty(item)</div></td>
+                        <td>
+                            <div class="btn-container">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <input type="checkbox" id="selectAll" onchange="selectAllProperties(this)">
+        <label for="selectAll">Select All</label>
+        <br />
+        
+        <label for="saleDate">Sale Date:</label>
+        <input type="date" id="saleDate" name="saleDate" required>
+        <button type="submit">Set Sale Date</button>
+    </form>
+}
+else
+{
+    <p>No reservations found.</p>
+}
+
+<script>
+    function selectAllProperties(checkbox) {
+        var checkboxes = document.querySelectorAll('input[name="selectedProperties"]');
+        checkboxes.forEach(function (cb) {
+            cb.checked = checkbox.checked;
+        });
+    }
+
+    function deselectAllProperties(checkbox) {
+        var checkboxes = document.querySelectorAll('input[name="selectedProperties"]');
+        checkboxes.forEach(function (cb) {
+            cb.checked = !checkbox.checked;
+        });
+    }
+</script>

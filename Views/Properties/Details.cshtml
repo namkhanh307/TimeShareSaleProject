@@ -1,0 +1,136 @@
+﻿@model TimeShareProject.Models.Property
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Property</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SaleStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.SaleStatus.Value == true)
+            {
+                <span>For sale</span>
+            }
+            else
+            {
+                <span>Not for sale</span>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Status.Value == true)
+            {
+                <span>Active</span>
+            }
+            else
+            {
+                <span>In active</span>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SaleDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SaleDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Beds)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Beds)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Occupancy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Occupancy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bathroom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bathroom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Views)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Views)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UniqueFeature)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UniqueFeature)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ViewImage)
+        </dt>
+        <dd class="col-sm-10">
+            <img height="150px" src="~/img/@Model.ViewImage" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FrontImage)
+        </dt>
+        <dd class="col-sm-10">
+            <img height="150px" src="~/img/@Model.FrontImage" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InsideImage)
+        </dt>
+        <dd class="col-sm-10">
+            <img height="150px" src="~/img/@Model.InsideImage" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SideImage)
+        </dt>
+        <dd class="col-sm-10">
+            <img height="150px" src="~/img/@Model.SideImage" />
+        </dd>
+    </dl>
+</div>
+<div>
+<<<<<<< Updated upstream
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+=======
+    <div>
+        @Html.ActionLink("Back", "FilterProperties", "Properties", new { blockSelect = ViewBag.BlockSelect, propertyId = Model.Id, projectId = Model.ProjectId, bedSelect = ViewBag.BedSelect }, new { @class = "btn btn-default" })
+    </div>
+  
+>>>>>>> Stashed changes
+</div>

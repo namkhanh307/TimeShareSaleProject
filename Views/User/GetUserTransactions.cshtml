@@ -1,0 +1,244 @@
+﻿@model List<TimeShareProject.Models.Transaction>
+
+@{
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+}
+
+<br />
+<h2>Your Transactions</h2>
+<div class="text-center" style="margin-top: 20px">
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Register Date</th>
+                <th>Amount</th>
+                <th>Payment status</th>
+                <th>Transaction Code</th>
+                <th>Type</th>
+                <th>Pay</th>
+                <th>Deadline</th>
+                <th>Transaction status</th>
+               @*  <th>Resolve Date</th> *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model)
+            {
+                <tr>
+                    <td>@transaction.Date</td>
+                    <td>@transaction.Amount</td>
+                    <td>@(transaction.Status == true ? "Paid" : "Not Paid")</td>
+                    <td>@transaction.TransactionCode</td>
+                    <td>
+                        @{
+                            string transactionType = "";
+                            switch (transaction.Type)
+                            {
+                                case -1:
+                                    transactionType = "Reserve";
+                                    break;
+                                case 0:
+                                    transactionType = "Deposit";
+                                    break;
+                                case 1:
+                                    transactionType = "First Payment";
+                                    break;
+                                case 2:
+                                    transactionType = "Second Payment";
+                                    break;
+                                case 3:
+                                    transactionType = "Third Payment";
+                                    break;
+                                default:
+                                    transactionType = "Unknown";
+                                    break;
+                            }
+                        }
+                        @transactionType
+                    </td>
+               @*      @if (transaction.Status == true)
+                    {
+                        <td>You have paid this field!</td>
+                    }
+                    else if ((transaction.Type == -1 && transaction.DeadlineDate > DateTime.Today) || (DateTime.Today == transaction.ResolveDate && transaction.Reservation.Status == 3) || (transaction.Type == 1 || transaction.Type == 2 || transaction.Type == 3))
+                    {
+                        <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
+                    }
+                    else if (Common.CheckNotAvailable(transaction.Status, transaction.Type, transaction.DeadlineDate))
+                    {
+                        <td>Not available!</td>
+                    }
+                    else if (DateTime.Today < transaction.ResolveDate)
+                    {
+                        <td>Waiting until resolve date!</td>
+                    }
+                    else
+                    {
+                        <td>Not catch</td>
+                    } *@
+                    @if (transaction.Status == true)
+                    {
+                        <td>You have paid this field!</td>
+                    }
+                    else if (Common.CheckNotAvailable(transaction.Status, transaction.Type, transaction.DeadlineDate, transaction.ResolveDate) || transaction.Reservation.Status != 3)
+                    {
+                        <td>Not available!</td>
+                    }
+                        else if (DateTime.Today < Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId) && transaction.Type == 0 || (transaction.Type == 0 && transaction.Reservation.Order > 1))
+                        {
+                        <td>Waiting until resolve date!</td>
+                    }
+                    else 
+                    {
+                        <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
+                    }
+                    <td>
+                            @{
+                                DateTime Date = Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId);
+                                int AddOrderDate = transaction.Reservation.Order;
+                                int Adddate = 0;
+                                if (AddOrderDate > 0) Adddate = AddOrderDate - 1;
+                                switch (@transaction.Type)
+                                {
+                                    case -1:
+                                      
+                                        break;
+                                    case 0:
+                                        Date = Date.AddDays(1 + Adddate);
+                                        break;
+                                    case 1:
+                                        Date = Date.AddDays(7 + Adddate);
+                                        break;
+                                    case 2:
+                                        Date = Date.AddDays(365 + Adddate);
+                                        break;
+                                    default:
+                                        Date = Date.AddDays(730 + Adddate);
+                                        break;
+                                }
+                            }
+                            You should pay this field before @Date
+                        </td>
+                    <td>
+                        @{
+                            string status = "";
+                            switch (@transaction.Reservation.Status)
+                            {
+                                case 1:
+                                    status = "Violation";
+                                    break;
+                                case 2:
+                                    status = "Cancel";
+                                    break;
+                                case 3:
+                                    status = "Pending";
+                                    break;
+                                case 4:
+                                    status = "Finished";
+                                    break;
+                                default:
+                                    status = "Unknown";
+                                    break;
+                            }
+                        }
+                        @status
+                    </td>
+                   @*  <td>@transaction.ResolveDate</td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No transactions found for this user.</p>
+}
+</div>
+<div>
+    <form asp-action="GetUserReservation" asp-controller="User">
+        <button type="submit" class="btn btn-dark">Back</button>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script src="https://www.paypal.com/sdk/js?client-id=AcK_cVj4laQY2VN5ZHxfaXRgs-VNDVmx9ifLV-3llbR-pQPzy48YjTgzzbZ7C35PgV6GfP9uNWjLXZ9d"></script>
+    <script>
+        $(document).ready(function () {
+            function renderPayPalButton(containerId, transaction) {
+                paypal.Buttons({
+                    style: {
+                        disableMaxWidth: true
+                    },
+                    createOrder() {
+                        // This function sets up the details of the transaction, including the amount and line item details.
+                        return fetch("/Reservations/create-paypal-order", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(transaction)
+                        }).then((response) => {
+                            if (!response.ok) {
+                                return response.json().then((err) => {
+                                    throw err;
+                                });
+                            }
+                            return response.json();
+                        })
+                            .then((order) => order.id)
+                            .catch(err => {
+                                alert(err.message);
+                            });
+                    },
+                    onApprove: (data, actions) => {
+                        // This function captures the funds from the transaction.
+                        return fetch(`/Reservations/capture-paypal-order?orderId=${data.orderID}`, {
+                            method: "POST",
+                        }).then((response) => {
+                            if (!response.ok) {
+                                return response.json().then(err => { throw err; });
+                            }
+                            window.location.href = "/User/GetUserReservation";
+                        })
+                            .catch(err => {
+                                alert(err.message);
+                            });
+                    }
+                }).render('#' + containerId);
+            }
+
+            // Loop through transactions and render PayPal button for each
+        @foreach (var transaction in Model)
+        {
+            <text>
+                    renderPayPalButton('paypal-button-container-@transaction.Id', @Html.Raw(Json.Serialize(transaction)));
+            </text>
+        }
+                                                });
+    </script>
+}

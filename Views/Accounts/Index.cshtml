@@ -1,0 +1,68 @@
+﻿@model IEnumerable<TimeShareProject.Models.Account>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Accounts</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    ********
+                </td>
+                <td>
+                    @{
+                        string role = "";
+                        switch (item.Role)
+                        {
+                            case 1:
+                                role = "Admin";
+                                break;
+                            case 2:
+                                role = "Staff";
+                                break;
+                            case 3:
+                                role = "User";
+                                break;
+                            default:
+                                role = "Unknown";
+                                break;
+                        }
+                    }
+                    @role
+                </td>
+                <td>
+                    @if (item.Role != 1) // Only show delete link for non-admin accounts
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

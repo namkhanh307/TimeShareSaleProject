@@ -1,0 +1,117 @@
+﻿@model TimeShareProject.Models.Property
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2>Edit Property</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <select asp-for="Status" class="form-control" required>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SaleDate" class="control-label"></label>
+                        <input asp-for="SaleDate" class="form-control" required />
+                        <span asp-validation-for="SaleDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UnitPrice" class="control-label"></label>
+                        <input asp-for="UnitPrice" class="form-control" required />
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Project</label>
+                        <select asp-for="ProjectId" class="form-control" asp-items="@(new SelectList(ViewBag.Projects, "Value", "Text"))" required></select>
+                        <span asp-validation-for="ProjectId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Beds" class="control-label"></label>
+                        <input asp-for="Beds" class="form-control" type="number" min="1" required />
+                        <span asp-validation-for="Beds" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Occupancy" class="control-label"></label>
+                        <input asp-for="Occupancy" class="form-control" required />
+                        <span asp-validation-for="Occupancy" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Size" class="control-label"></label>
+                        <input asp-for="Size" class="form-control" required />
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Bathroom" class="control-label"></label>
+                        <input asp-for="Bathroom" class="form-control" required />
+                        <span asp-validation-for="Bathroom" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Views" class="control-label"></label>
+                        <input asp-for="Views" class="form-control" required />
+                        <span asp-validation-for="Views" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UniqueFeature" class="control-label"></label>
+                        <input asp-for="UniqueFeature" class="form-control" required />
+                        <span asp-validation-for="UniqueFeature" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <p>The image for scenery</p>
+                        <input asp-for="ViewImage" type="file" name="ViewImage" class="form-control" />
+                        <span asp-validation-for="ViewImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <p>The image for front door</p>
+                        <input asp-for="FrontImage" type="file" name="FrontImage" class="form-control" />
+                        <span asp-validation-for="FrontImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <p>The image inside property</p>
+                        <input asp-for="InsideImage" type="file" name="InsideImage" class="form-control" />
+                        <span asp-validation-for="InsideImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <p>the Image of the property's side</p>
+                        <input asp-for="SideImage" type="file" name="SideImage" class="form-control" />
+                        <span asp-validation-for="SideImage" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" value="Save" class="btn btn-primary" />
+
+                </form>
+            </div>
+        </div>
+        <br />
+
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

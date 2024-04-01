@@ -1,0 +1,120 @@
+﻿@model IEnumerable<TimeShareProject.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Reservation";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Reservation</h1>
+<div>
+    <form id="searchForm" asp-action="Search" asp-controller="Reservations" method="get">
+        <input type="text" name="searchTerm" placeholder="Enter search term">
+        <button type="submit">Search</button>
+    </form>
+</div>
+<div>
+    <form id="filterForm" asp-action="FilterReservation" asp-controller="Reservations" method="get">
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="propertyId">Property:</label>
+                <select class="form-control" id="propertyId" name="propertyId">
+                    <option value="">-- All Properties --</option>
+                    @foreach (var property in Common.GetReservedProperties())
+                    {
+                        <option value="@property.Id">@property.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="blockId">Block:</label>
+                <select class="form-control" id="blockId" name="blockId">
+                    <option value="">-- All Blocks --</option>
+                    @foreach (var block in Common.GetReservedBlocks())
+                    {
+                        <option value="@block.Id">@block.Id</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <select class="form-control" id="type" name="type">
+                    <option value="">-- All Types --</option>
+                    <option value="1">Reserve</option>
+                    <option value="2">Buy now</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-dark">Filter</button>
+            </div>
+            <div class="form-group">
+                <a href="@Url.Action("Index", "Reservations")" class="btn btn-dark" style="color: white;">Refresh</a>
+            </div>
+        </div>
+    </form>
+</div>
+<form id="filterDuplicate" asp-action="FilterDuplicate" asp-controller="Reservations" method="get">
+    <button type="submit" class="btn btn-dark">Filter Duplicate</button>
+</form>
+
+
+<div id="filteredReservationsContainer">
+    @Html.Partial("_FilteredReservations", Model)
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#filterForm').submit(function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            var formData = $(this).serialize(); // Serialize form data
+
+            $.ajax({
+                url: '@Url.Action("FilterReservation", "Reservations")',
+                type: 'GET',
+                data: formData,
+                success: function (result) {
+                    $('#filteredReservationsContainer').html(result);
+                },
+                error: function () {
+                    // Handle errors if necessary
+                }
+            });
+        });
+
+        $('#searchForm').submit(function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            var formData = $(this).serialize(); // Serialize form data
+
+            $.ajax({
+                url: '@Url.Action("Search", "Reservations")',
+                type: 'GET',
+                data: formData,
+                success: function (result) {
+                    $('#filteredReservationsContainer').html(result);
+                },
+                error: function () {
+                    // Handle errors if necessary
+                }
+            });
+        });
+
+        $('#filterDuplicate').submit(function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            var formData = $(this).serialize(); // Serialize form data
+
+            $.ajax({
+                url: '@Url.Action("FilterDuplicate", "Reservations")',
+                type: 'GET',
+                data: formData,
+                success: function (result) {
+                    $('#filteredReservationsContainer').html(result);
+                },
+                error: function () {
+                    // Handle errors if necessary
+                }
+            });
+        });
+    });
+</script>

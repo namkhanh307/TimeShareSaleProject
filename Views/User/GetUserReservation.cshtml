@@ -1,0 +1,86 @@
+﻿@model List<TimeShareProject.Models.Reservation>
+
+@{
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+}
+<br />
+<h2>Your Transactions</h2>
+
+<div class="text-center" style="margin-top: 20px">
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th>Register Date</th>
+                <th>Type</th>
+                <th>Block</th>
+              
+                <th>Your order</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                        <td><a asp-action="GetPropertyDetails" asp-controller="Properties" asp-route-id="@reservation.Property.Id">@Common.GetPropertyName(@reservation.PropertyId)</a></td>
+                    <td>@reservation.RegisterDate</td>
+                    <td>@(reservation.Type == 1 ? "Reserve" : "Buy now")</td>
+
+                    <td>@reservation.BlockId</td>
+                    <td>@reservation.Order</td>
+                    <td>
+                        <a class="btn btn-dark" href="@Url.Action("GetUserTransactions", "User", new{ reservation.Id})">Transaction Detail</a>
+                        @if ((reservation.Property.SaleDate > DateTime.Today && reservation.Type ==1 && reservation.Status ==3)|| (reservation.Property.SaleDate <= DateTime.Today && Common.CheckDeposit(reservation.Id)&& reservation.Status == 3))
+                        {
+                                <form asp-action="CancelReservation" asp-controller="Reservations" method="post">
+                                    <input type="hidden" name="id" value="@reservation.Id" />
+                                    <input type="hidden" name="userID" value="@reservation.UserId" />
+                                    <a>
+                                        <button type="submit" class="btn btn-dark">Cancel Reservation</button>
+                                    </a>
+                                   
+                                </form>
+
+                        }
+                    </td>
+                  
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You have not booked any property yet!</p>
+}
+</div>
+<div>
+    <form asp-action="Index" asp-controller="Home">
+              <button type="submit" class="btn btn-dark">Back</button>
+    </form>
+</div>

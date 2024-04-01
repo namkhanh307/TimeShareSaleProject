@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - 4REST HOME</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+    <!-- Bootstrap core CSS
+
+
+    <!-- Bootstrap core CSS-->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/fontawesome.css">
+    <link rel="stylesheet" href="~/css/templatemo-villa-agency.css">
+    <link rel="stylesheet" href="~/css/owl.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/notiflix/dist/notiflix-3.2.7.min.css"/>
+    <style>
+
+        .dropdown-toggle {
+            background-color: transparent !important;
+            color: black !important;
+            font-weight: 600;
+        }
+
+        .dropdown-menu .dropdown-item {
+            background-color: transparent !important;
+            color: black !important;
+            font-weight: 600;
+            padding-left: 0.5rem;
+            margin-left: 0;
+        }
+
+        .nav-item .more-dropdown-toggle .dropdown-menu .dropdown-item {
+            font-weight: 600;
+        }
+
+        .nav-item {
+            font-size: 10px;
+            margin-left:
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <ul class="info">
+                        <li><i class="fa fa-envelope"></i> 4REST.2TK@gmail.com</li>
+                        <li><i class="fa fa-map"></i> Long Thạnh Mỹ, Hồ Chí Minh City</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="user-info text-center">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" role="button" id="userDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user fa-fw"></i>
+                                    @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="@Url.Action("UserProfile", "User")"><i class="fas fa-user fa-fw"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Logout", "Login")">Logout</a></li>
+                                </ul>
+                            </div>
+                           
+                        </div>
+                    
+                       
+                    }
+                    else
+                    {
+                        <div class="d-inline-flex align-items-center" style="height: 45px;">
+                            <a asp-controller="SignUp" asp-action="SignUp"><small class="me-3 text-dark"><i class="fa fa-user me-2"></i>Sign up</small></a>
+                            <a asp-controller="Login" asp-action="Login"><small class="me-3 text-dark"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+                        </div>
+                    
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav" style="padding: 0; margin: 0;">
+                        <!-- ***** Logo Start ***** -->
+                        <a class="logo" asp-area="" asp-controller="Home" asp-action="Index">
+                            <h1>4Rest</h1>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            @if (User.IsInRole("1")) // Assuming "1" is the Admin Role
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="DashBoard" asp-action="Index">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">M.Account</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">M.Contact</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">M.Project</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Properties" asp-action="Index">M.Property</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Blocks" asp-action="Index">M.Block</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">M.Reservation</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">M.User</a>
+                                </li>
+                                <li>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="DashBoard" asp-action="Index">Dashboard</a>
+                                </li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Contacts" asp-action="Index">M.Contact</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Projects" asp-action="Index">M.Project</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Properties" asp-action="Index">M.Property</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Blocks" asp-action="Index">M.Block</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Reservations" asp-action="Index">M.Reservation</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">M.User</a>
+                                </li>
+                                <li></li>
+
+                            }
+
+                        </ul>
+
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ***** Header Area End ***** -->
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var dropdownToggle = document.querySelector('.dropdown-toggle');
+            var dropdownMenu = document.querySelector('#userDropdownMenu');
+
+            if (dropdownToggle && dropdownMenu) {
+
+                dropdownToggle.addEventListener('click', function (event) {
+
+                    event.stopPropagation();
+
+                    dropdownMenu.classList.toggle('show');
+                });
+
+
+                document.addEventListener('click', function (event) {
+                    if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+
+                        dropdownMenu.classList.remove('show');
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/isotope.min.js"></script>
+    <script src="~/js/owl-carousel.js"></script>
+    <script src="~/js/counter.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="~/notiflix/dist/notiflix-3.2.7.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,97 @@
+﻿@model IEnumerable<TimeShareProject.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Transaction Detail</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservation)
+            </th>
+
+            <th>Create Transaction</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @if (item.Status.Value == true)
+                    {
+                        <span>Done</span>
+                    }
+                    else
+                    {
+                        <span>Undone</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionCode)
+                </td>
+                <td>
+                    @if (item.Type.Value == -1)
+                    {
+                        <span>Reserve amount</span>
+                    }
+                    else if (item.Type.Value == 0)
+                    {
+                        <span>Deposit amount</span>
+                    }
+                    else if (item.Type.Value == 1)
+                    {
+                        <span>First term amount</span>
+                    }
+                    else if (item.Type.Value == 2)
+                    {
+                        <span>Second term amount</span>
+                    }
+                    else
+                    {
+                        <span>Third term amount</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reservation.Id)
+                </td>
+                @if (item.Reservation.Type == 1 && @ViewBag.Count <= 1)
+                {
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("CreateTransaction", "Transactions", new{ id = item.Reservation.Id})">Create Transaction</a>
+                    </td>
+                }
+                else
+                {
+                    <td>Not Available!</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

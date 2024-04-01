@@ -1,0 +1,360 @@
+﻿@model TimeShareProject.Models.Project
+
+@using TimeShareProject.Models
+@{
+
+
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+     
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+
+}
+
+<body>
+    <div class="page-heading header-text" style="background-color: dimgrey">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <span class="breadcrumb" style=" border-radius: 5px"><a href="#">Home</a>  / Timeshare Project</span>
+                    <h3>@Model.Name</h3>
+                    </br>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="single-property section">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="main-banner">
+                        <div class="owl-carousel owl-banner">
+                            <div class="item " style="background-image:url(/img/@Model.Image1);">
+                            </div>
+                            <div class="item" style="background-image:url(/img/@Model.Image2);">
+                            </div>
+                            <div class="item" style="background-image:url(/img/@Model.Image3);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main-content">
+
+                        <h4>@Model.Name</h4>
+                        <p>
+                            @Model.GeneralDescription
+                        </p>
+                    </div>
+
+                    <div class="body-right center-block col-sm" style="margin-bottom: 30px;">
+
+                        <form id="filterForm" asp-action="FilterProperties" asp-controller="Properties">
+                            <input type="hidden" name="projectId" value="@Model.Id" />
+                            <div class="col-lg-12 mt-4">
+                                <div class="filter-wrapper">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-3">
+                                            <select id="blockSelect" name="blockSelect">
+                                                <option value="">---------All Blocks--------</option>
+                                                @foreach (var block in Common.GetBlocks())
+                                                {
+                                                    var remainingProportion = block.Proportion - 100;
+                                                    if (remainingProportion > 0)
+                                                    {
+                                                        <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth) + @(remainingProportion) %</option>
+
+                                                    }else if (remainingProportion <0)
+                                                    {
+                                                        <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)  @(remainingProportion) % </option>
+                                                    }else{
+                                                        <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
+                                                    }
+
+                                                    
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="beds col-lg-3">
+                                            <select id="bedSelect" name="bedSelect">
+                                                <option value="">---- All Beds ----</option>
+                                                @{
+                                                    List<int?> distinctBedTypes = ViewBag.DistinctBedTypes;
+                                                    foreach (var bedType in distinctBedTypes)
+                                                    {
+                                                        <option value="@bedType">@bedType</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="saleStatus col-lg-3">
+                                            <select id="saleStatus" name="saleStatus">
+                                                <option value="">---- All Types ----</option>
+                                                <option value="Reserve">Reserve</option>
+                                                <option value="Buynow">Buy now</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-3">
+                                            <button type="submit" id="filterButton" class="btn btn-dark">Filter</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div id="propertyContainer" class="row flex-nowrap overflow-auto" style="margin-bottom: 30px;">
+                        @foreach (Property p in Common.GetProperties(Model))
+                        {
+                            if (p.SaleStatus.Value)
+                            {
+                                <div class="col-md-3 mb-3">
+                                    <div class="card">
+                                        <form asp-controller="Reservations" asp-action="HandleReservation">
+                                            <input type="hidden" name="propertyId" value="@p.Id" />
+                                            <a href="@Url.Action("GetProperty", "Properties", new{ ID = p.Id})"><img src="~/img/@p.InsideImage" class="card-img-top" alt="Property Image"></a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">@p.Name</h5>
+                                                <p class="card-text">Beds: @p.Beds</p>
+                                                <p>Unit Price: @String.Format("{0: #,##VND}", p.UnitPrice)/1 block</p>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                              
+                            }
+                        }
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                 EXCLUSIVE OFFER
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    We have seasonal offers with special prices and benefits for accommodation, food, beverage, spa services, mud bath, tour, recreation and more.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    BETTER SERVICE
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    Modifying or cancelling reservation, special request can deal directly with our professional team. Book with us and we always find the BEST SOLUTION FOR YOU.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    BETTER GUEST EXPERIENCE
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    Everything comes down to making your journey memorable, we work for you. We pay special attention to our direct guests, who chose to book directly with us.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="info-table">
+                        <ul>
+                            <li>
+                                <img src="~/info-icon-01.png" alt="" style="max-width: 52px;">
+                                <h4>@Model.Area m2<br><span>Total Flat Space</span></h4>
+                            </li>
+                            <li>
+                                <img src="~/info-icon-02.png" alt="" style="max-width: 52px;">
+                                <h4>Contract<br><span>Contract Ready</span></h4>
+                            </li>
+                            <li>
+                                <img src="~/info-icon-03.png" alt="" style="max-width: 52px;">
+                                <h4>Payment<br><span>Payment Process</span></h4>
+                            </li>
+                            <li>
+                                <img src="~/info-icon-04.png" alt="" style="max-width: 52px;">
+                                <h4>Safety<br><span>24/7 Under Control</span></h4>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="body-right center-block col-sm " style="margin-top:50px;">
+            <h1>What's around</h1>
+            <div class="col-lg-12" style="margin-top:50px;">
+                <div id="map">
+                    <iframe src="@Model.Address" width="100%" height="500px" frameborder="0" style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:350px;">
+
+            <div class="container">
+                <div class="section-heading " style="margin-bottom:20px;">
+                </div>
+
+                <div class="single-property section">
+                    <div class="contact-content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-lg-8">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-12 col-lg-10">
+                                            <h4 class="mb-4 text-center">Recent Feedback</h4>
+                                            <!-- Container for the feedback -->
+                                            <div id="feedbackContainer"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div>
+                                        <h6 class="mb-4 text-center" style="text-transform:uppercase;font-weight:650;">
+                                            Your Feedback
+                                        </h6>
+                                        <form asp-action="Rates" asp-controller="Projects" method="post">
+                                            <input type="hidden" name="Id" value="@Model.Id" />
+                                            <div class="form-group">
+                                                <label for="rating">Rating</label>
+                                                <div class="rating">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        <span class="star" data-value="@i">&#9733;</span>
+                                                    }
+                                                </div>
+                                                <input type="hidden" name="starRate" id="starRate" value="5">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="detailRate">Message</label>
+                                                <textarea name="detailRate" id="detailRate" class="form-control" rows="4" placeholder="Your Message"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-dark">Send Rating</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+</body>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var stars = document.querySelectorAll('.star');
+            stars.forEach(function (star) {
+                star.addEventListener('click', function () {
+                    var value = this.getAttribute('data-value');
+                    document.getElementById('starRate').value = value; // Update starRate input value
+                    stars.forEach(s => s.style.color = s.dataset.value <= value ? 'gold' : 'grey'); // Update star colors
+                });
+            });
+        });
+    </script>
+    <script>
+
+        function loadFeedback() {
+            var projectId = @Model.Id;
+            $.ajax({
+                url: '@Url.Action("GetFeedback", "Projects")',
+                type: 'GET',
+                data: { projectId: projectId },
+                success: function (data) {
+                    $('#feedbackContainer').html(data);
+                },
+                error: function () {
+                    $('#feedbackContainer').html('Error fetching feedback.');
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            loadFeedback();
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
+
+@*
+<form id="filterForm" asp-action="FilterProperties" asp-controller="Properties">
+    <input type="hidden" name="projectId" value="@Model.Id" />
+    <div class="col-lg-12 mt-4">
+        <div class="filter-wrapper">
+            <div class="row align-items-center">
+                <div class="col-lg-3">
+                    <select id="blockSelect" name="blockSelect" class="form-select" aria-label="Default select example">
+                        @foreach (var block in Common.GetBlocks())
+                        {
+                            <option value="@block.Id">Block @(block.BlockNumber): @(block.StartDay)/@(block.StartMonth)-@(block.EndDay)/@(block.EndMonth)</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <select id="bedSelect" name="bedSelect" class="form-select" aria-label="Default select example">
+                        @{
+                            List<int?> distinctBedTypes = ViewBag.DistinctBedTypes;
+                            foreach (var bedType in distinctBedTypes)
+                            {
+                                <option value="@bedType">@bedType</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="saleStatus col-md-4">
+                    <select class="form-select" id="saleStatus" name="saleStatus">
+                        <option value="Reserve">Reserve</option>
+                        <option value="Buynow">Buy now</option>
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <button type="submit" id="filterButton" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form> *@

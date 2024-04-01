@@ -1,0 +1,124 @@
+﻿@model IEnumerable<TimeShareProject.Models.Reservation>
+
+@{
+    ViewData["Title"] = "FilterDuplicate";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Duplicate Reservations</h1>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table" style="padding:unset">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.RegisterDate)</th>
+                <th>@Html.DisplayNameFor(model => model.YearQuantity)</th>
+                <th>@Html.DisplayNameFor(model => model.Type)</th>
+                <th>@Html.DisplayNameFor(model => model.Block)</th>
+                <th>From date</th>
+                <th>End date</th>
+                <th>@Html.DisplayNameFor(model => model.Property)</th>
+                <th>@Html.DisplayNameFor(model => model.User)</th>
+                <th>Manage</th>
+                <th>Order</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.RegisterDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.YearQuantity)</td>
+                    <td>
+                        @if (item.Type.Value == 1)
+                        {
+                            <span>Reserve</span>
+                        }
+                        else
+                        {
+                            <span>Buy now</span>
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.BlockNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.StartDay)/@Html.DisplayFor(modelItem => item.Block.StartMonth)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.EndDay)/@Html.DisplayFor(modelItem => item.Block.EndMonth)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Property.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
+                    <td>
+                        <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="TransactionDetail" asp-route-id="@item.Id" class="btn btn-dark">Transaction Detail</a>
+                        <select class="status-select" id="status_@item.Id">
+                            @if (item.Status == 1)
+                            {
+                                <option value="1" selected>Violation</option>
+                                <option value="2">Cancel</option>
+                                <option value="3">Pending</option>
+                                <option value="4">Finished</option>
+                            }
+                            else if (item.Status == 2)
+                            {
+                                <option value="1">Violation</option>
+                                <option value="2" selected>Cancel</option>
+                                <option value="3">Pending</option>
+                                <option value="4">Finished</option>
+                            }
+                            else if (item.Status == 3)
+                            {
+                                <option value="1">Violation</option>
+                                <option value="2">Cancel</option>
+                                <option value="3" selected>Pending</option>
+                                <option value="4">Finished</option>
+                            }
+                            else if (item.Status == 4)
+                            {
+                                <option value="1">Violation</option>
+                                <option value="2">Cancel</option>
+                                <option value="3">Pending</option>
+                                <option value="4" selected>Finished</option>
+                            }
+                            else
+                            {
+                                <option value="1">Violation</option>
+                                <option value="2">Cancel</option>
+                                <option value="3">Pending</option>
+                                <option value="4">Finished</option>
+                                <option value="" selected>Unknown</option>
+                            }
+                        </select>
+                        <a class="btn btn-dark" onclick="updateStatus('@item.Id')">Update Status</a>
+
+                    </td>
+                    <td>@item.Order</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No reservations found.</p>
+}
+
+@section Scripts {
+    <script>
+        function updateStatus(id) {
+            var statusSelect = document.getElementById("status_" + id);
+            var status = statusSelect.value;
+            var data = { id: id, status: parseInt(status) };
+
+            $.ajax({
+                type: "POST",
+                url: "/Reservations/UpdateReservationStatus",
+                data: data,
+                success: function (response) {
+                    alert("Status updated successfully");
+                },
+                error: function () {
+                    alert("Error updating status");
+                }
+            });
+        }
+    </script>
+}
+

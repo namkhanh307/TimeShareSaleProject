@@ -1,0 +1,84 @@
+﻿@model IEnumerable<TimeShareProject.Models.Block>
+
+@{
+    ViewData["Title"] = "Edit Blocks";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Block Number</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Proportion</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var block in Model)
+        {
+            <tr>
+                <td>@block.BlockNumber</td>
+                <td>@block.StartDay/@block.StartMonth</td>
+                <td>@block.EndDay/@block.EndMonth</td>
+                <td>
+                    <input type="number" id="proportion_@block.Id" name="proportion_@block.Id" value="@block.Proportion" min="50" required />
+                </td>
+                <td>
+                    <button class="btn btn-dark" onclick="updateProportion(@block.Id)">Update</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function updateProportion(id) {
+            var proportionInput = document.getElementById("proportion_" + id);
+            var proportion = proportionInput.value;
+            
+            // Validate the input
+            if (proportion < 50 || isNaN(proportion)) {
+                alert("Proportion must be a number and not below 50.");
+                proportionInput.value = 50; // Set default value to 50 if input is invalid
+                return;
+            }
+
+            var data = { Id: id, Proportion: proportion };
+
+            $.ajax({
+                type: "POST",
+                url: "/Blocks/UpdateProportion",
+                data: data,
+                success: function (response) {
+                    alert("Proportion updated successfully");
+                },
+                error: function () {
+                    alert("Error updating proportion");
+                }
+            });
+        }
+    </script>@* 
+@section Scripts {
+    <script>
+        function updateProportion(id) {
+            var proportion = document.getElementById("proportion_" + id).value;
+            var data = { Id: id, Proportion: proportion };
+
+            $.ajax({
+                type: "POST",
+                url: "/Blocks/UpdateProportion",
+                data: data,
+                success: function (response) {
+                    alert("Proportion updated successfully");
+                },
+                error: function () {
+                    alert("Error updating proportion");
+                }
+            });
+        }
+    </script> *@
+}

@@ -1,0 +1,219 @@
+﻿@model List<TimeShareProject.Models.Project>
+@using TimeShareProject.Models
+@{
+
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+                layout = "_Layout.cshtml";
+                break;
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>4REST HOME</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/fontawesome.css">
+    <link rel="stylesheet" href="~/css/templatemo-villa-agency.css">
+    <link rel="stylesheet" href="~/css/owl.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+</head>
+<body>
+
+    <div class="main-banner">
+        <div class="owl-carousel owl-banner">
+            <div class="item item-1" style="">
+                <div class="header-text">
+                    <span class="category">Amiana Nha Trang</span>
+                    <h2>Indulge In The Infinite</h2>
+                </div>
+            </div>
+            <div class="item item-2">
+                <div class="header-text">
+                    <span class="category">Shangri-La Tanjung Aru, Kota Kinabalu</span>
+                    <h2>Indulge In The Infinite</h2>
+                </div>
+            </div>
+            <div class="item item-3">
+                <div class="header-text">
+                    <span class="category">Japamala</span>
+                    <h2>Indulge In The Infinite</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="featured section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="left-image">
+                        <img src="~/images/img/Logo.png" alt="" />
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="section-heading">
+                        <h6>| Featured</h6>
+                        <h2>Best Apartment &amp; Sea view</h2>
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    THE NATURALLY INSPIRED
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    One of the most large and famous tourist cities of Vietnam, converging many famous sightseeing places and landmarks, blessed with both weather and geographical location, scenery and historical background…
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    LOCAL AND TROPICAL SEASON
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    A tropical monsoon climate and the influence of the oceanic climate makes for a relatively mild climate. Nha Trang has a cold winter, hot but not harsh summer. Weather of Nha Trang also has two distinct rainy and sunny seasons in the area less affected by storms…
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    BEST ACTIVITIES
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    It’s fairly easy to explore this popular destination on foot and surf, and diving There are numerous tour operators within the Nha Trang city center that organize daily excursions to the area’s most popular attractions.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="info-table">
+                        <ul>
+                            <li>
+                                <img src="~/info-icon-01.png" alt="" style="max-width: 52px;">
+                                <h4>Booking<br><span>24/7 service</span></h4>
+                            </li>
+                            <li>
+                                <img src="~/info-icon-02.png" alt="" style="max-width: 52px;">
+                                <h4>Contract<br><span>Contract Ready</span></h4>
+                            </li>
+                            <li>
+                                <img src="~/info-icon-03.png" alt="" style="max-width: 52px;">
+                                <h4>PayPal<br><span>Payment Process</span></h4>
+                            </li>
+                            <li>
+                                <img src="~/info-icon-04.png" alt="" style="max-width: 52px;">
+                                <h4>Safety<br><span>24/7 Under Control</span></h4>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section best-deal">
+        <div class="container">
+            <!-- Heading Section -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading">
+                        <h6>| TimeShare</h6>
+                        <h2>Find Your TimeShare Right Now!</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects List -->
+            @foreach (Project p in Model)
+            {
+                if (p.Status.Value)
+                {
+                    <div class="row mb-5">
+                        <!-- mb-5 adds margin-bottom for spacing -->
+                        <div class="col-lg-12">
+                            <div class="project-wrapper">
+                                <!-- Project Name -->
+                                <h3>@p.Name</h3>
+                                <!-- Project Details -->
+                                <div class=" ">
+
+                                    <div class="row">
+                                        
+                                            <div class="col-lg-3">
+                                                <div class="info-table">
+                                                    <ul>
+                                                        <li>Total Flat Space <span>@p.Area m2</span></li>
+                                                    <li>Booking <span>24/7 service</span></li>
+                                                        <li>Number of rooms <span>@p.TotalUnit</span></li>
+                                                        <li>Parking Available <span>Yes</span></li>
+                                                        <li>Payment Process <span>Paypal</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <a href="@Url.Action("GetProject","Projects",new {ID = p.Id})"><img height="150px" src="~/img/@p.Image1" alt="Project Image" class="img-fluid" /></a>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <h4>Extra Info About Property</h4>
+                                                <p>
+                                                    @p.DetailDescription
+                                                </p>
+                                                <div class="icon-button">
+                                                    <a href="@Url.Action("GetProject","Projects",new {ID = p.Id})"><i class="fa fa-calendar"></i> View detail</a>
+                                                </div>
+                                            </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+
+
+
+    @*     @section Scripts {
+    @await Html.RenderPartialAsync("_ValidationScriptsPartial")
+    }
+    *@
+</body>
+</html>

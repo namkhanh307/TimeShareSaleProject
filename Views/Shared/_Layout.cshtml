@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - 4REST HOME</title>
+
+    @*    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> *@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/fontawesome.css">
+    <link rel="stylesheet" href="~/css/templatemo-villa-agency.css">
+    <link rel="stylesheet" href="~/css/owl.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/notiflix/dist/notiflix-3.2.7.min.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .notification-popup {
+        margin-top: 40px;
+        width: 500px;
+        background: #FFF;
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 10px 0 0 10px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: none;
+        overflow-y: auto;
+    }
+
+    .notification-header {
+        padding: 10px;
+        background: #DF5906;
+        color: #FFF;
+        border-top-left-radius: 10px;
+    }
+
+    .notification-body {
+        overflow-y: auto;
+    }
+
+    #popup-window {
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        position: fixed;
+        width: 1100px;
+        height: 480px;
+        background: white;
+        border: 1px solid black;
+        padding: 10px;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        display: none;
+    }
+</style>
+
+<body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <ul class="info">
+                        <li><i class="fa fa-envelope"></i> 4REST.2TK@gmail.com</li>
+                        <li><i class="fa fa-map"></i> Long Thạnh Mỹ, Hồ Chí Minh City</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="user-info text-center">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" role="button" id="userDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color:black">
+                                    <i class="fas fa-user fa-fw" style="color:black"></i>
+                                    @User.Identity.Name
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="@Url.Action("UserProfile", "User")"><i class="fas fa-user fa-fw"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("GetUserReservation", "User")">Your Reservations</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Logout", "Login")">Logout</a></li>
+
+
+                                </ul>
+
+                                <a>
+                                    <i id="bell-icon" class="fas fa-bell" style="color:black; margin-left: 20px; cursor: pointer;"></i>
+                                </a>
+                            </div>
+
+
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="d-inline-flex align-items-center" style="height: 45px;">
+                            <a asp-controller="SignUp" asp-action="SignUp"><small class="me-3 text-dark"><i class="fa fa-user me-2"></i>Sign up</small></a>
+                            <a asp-controller="Login" asp-action="Login"><small class="me-3 text-dark"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a class="logo" asp-area="" asp-controller="Home" asp-action="Index">
+                            <h1>4Rest</h1>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a class="active" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a class="active" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+                            <li><a href="#" id="popup-link">terms and policy</a></li>
+
+                            <li></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="popup-window">
+        <h4 style="">Terms and Policies</h4>
+       
+        <div style="margin-left: 10px">
+            <h6 style="margin-top: 10px">
+                Reservation details:
+            </h6>
+            <p > - Year quantity for a timeshare is 10 years by default. This fee must be paid before the property is officially offered for sale; else, your reservation will be instantly canceled.
+            </p>
+            <p>- You can reserve a propety that has the same block with others. We will resolve the reservation from the top of the list. If the previous reservation holder haved chosed to buy property, we will not return the fee. Please consider before making the reservation!</p>
+            <p>- Reservation holders will receive priority and be contacted first when properties become available for sale.</p>
+            <p>- Your have to wait until your resolve date:</p>
+            <p>+ Your reservation fee resolve date = property's sale date</p>
+            <p>+ Your deposit fee resolve date = property's sale date + your order - 1</p>
+  
+            <h6 >
+                Payment details:
+            </h6>
+            <p>- Once you haved paid for any fee. The payment will not be returned under any circumstance!</p>
+            <p> - Reservation fee for all properties are 500,000 VND each.</p>
+            <p>
+                - Deposit fee is 10% of total fee.
+            </p>
+            <p>- This fee must be paid before the property is officially offered for sale; else, your reservation will be instantly canceled.</p>
+            <p>- You can cancel their reservations after making them. If you have paid a deposit and wish to cancel the reservation, please contact us to resolve.</p>
+        </div><div style ="padding-left: 10px">
+            <button id="close-button" class="btn btn-dark">Close</button>
+        </div>
+        
+    </div>
+    <div id="notification-popup" class="notification-popup">
+        <div class="notification-header">
+            <h2 style="margin-left: 20px; color: white">News for you</h2>
+
+        </div>
+        <div class="notification-body" style="margin-left:10px">
+        </div>
+    </div>
+    <!-- ***** Header Area End ***** -->
+    <div class="container">
+        <main role="main" class="pb-3">
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="col-md-12">
+                <p style="line-height: 40px">
+                    Copyright © 2023 4Rest Co., Ltd. All rights reserved.
+                </p>
+                <p style="line-height: 40px">
+                    Address: Long Thạnh Mỹ,Thủ Đức City, Hồ Chí Minh City
+                </p>
+                <p style="line-height: 40px">Phone: +84-3223092003</p>
+                <p style="line-height: 40px">Mail:4REST.2TK@gmail.com</p>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#bell-icon").click(function () {
+                // Toggle the display of the notification popup
+                $("#notification-popup").toggle();
+
+                // Load the partial view if the popup is being shown
+                if ($("#notification-popup").is(':visible')) {
+                    $("#notification-popup .notification-body").load('/News/NotificationPopup');
+                }
+            });
+
+
+            $(document).click(function (event) {
+                if (!$(event.target).closest('#notification-popup, #bell-icon').length) {
+                    $('#notification-popup').hide();
+                }
+            });
+        });
+
+
+        var popupLink = document.getElementById("popup-link");
+        var popupWindow = document.getElementById("popup-window");
+        var closeButton = document.getElementById("close-button");
+        // Show the pop-up window when the link is clicked
+        popupLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            popupWindow.style.display = "block";
+        });
+        // Hide the pop-up window when the close button is clicked
+        closeButton.addEventListener("click", function () {
+            popupWindow.style.display = "none";
+        });
+
+    </script>
+
+
+
+
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/isotope.min.js"></script>
+    <script src="~/js/owl-carousel.js"></script>
+    <script src="~/js/counter.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="~/notiflix/dist/notiflix-3.2.7.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @*  <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+</body>
+</html>

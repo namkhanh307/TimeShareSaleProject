@@ -1,0 +1,103 @@
+﻿@using TimeShareProject.Models
+@model TimeShareProject.Models.Property
+
+@{
+    var layout = "_Layout.cshtml";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        var userRole = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+
+        switch (userRole)
+        {
+            case "1": // Admin
+            case "2": // Staff
+                layout = "_AdminLayout.cshtml";
+                break;
+            case "3": // User
+            default:
+                break;
+        }
+    }
+
+    Layout = $"~/Views/Shared/{layout}";
+}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <div id="image-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @{
+                        var isFirst = true;
+                        foreach (var propertyImage in new[] { Model.ViewImage, Model.FrontImage, Model.InsideImage, Model.SideImage })
+                        {
+                            if (!string.IsNullOrEmpty(propertyImage))
+                            {
+                                <div class="carousel-item @(isFirst ? "active" : "")">
+                                    <img src="@Url.Content("~/img/" + propertyImage)" class="d-block img-fluid mx-auto" alt="Property Image" style="max-width: 50%; margin-top: 20px; margin-bottom: 20px;">
+                                </div>
+                                isFirst = false;
+                            }
+                        }
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#image-carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#image-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="border-top">
+    <div class="container " style="justify-content: center; margin-left: 330px">
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <h5>Property:</h5>
+                <p>@Model.Name</p>
+                <h5>Sale Status:</h5>
+                <p> @(Model.SaleStatus.HasValue ? (Model.SaleStatus.Value ? "For Sale" : "Not for Sale") : "Unknown")</p>
+                <h5>Sale Date:</h5>
+                <p> @(Model.SaleDate.ToString("dd/MM/yyyy"))</p>
+                <h5>Unit Price:</h5>
+                <p> @(Model.UnitPrice) VND</p>
+                <h5>Beds:</h5>
+                <p> @Model.Beds</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Occupancy:</h5>
+                <p> @Model.Occupancy</p>
+                <h5>Size:</h5>
+                <p> @Model.Size</p>
+                <h5>Bathroom:</h5>
+                <p> @Model.Bathroom</p>
+                <h5>Views:</h5>
+                <p> @Model.Views</p>
+                <h5>Unique Feature:</h5>
+                <p> @Model.UniqueFeature</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group row" style="margin-left: 120px; margin-top: 10px">
+        <form asp-action="GetUserReservation" asp-controller="User">
+            <button type="submit" class="btn btn-dark">Back</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#image-carousel').on('click', function () {
+                $(this).carousel('next');
+            });
+        });
+    </script>
+}
