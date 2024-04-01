@@ -35,14 +35,14 @@
                     <p class="card-title">Property code: @ViewBag.Property.Name</p>
                     <p class="card-title">Block: @ViewBag.Block.Id (from @ViewBag.Block.StartDay/@ViewBag.Block.EndMonth to @ViewBag.Block.EndDay/@ViewBag.Block.EndMonth) every year</p>
                     <p class="card-title">Beds: @ViewBag.Property.Beds</p>
-                    <p class="card-title">Book timeshare in 10 years from now</p>
+                    <p class="card-title">Book timeshare in 10 years from 2025</p>
                     @{
-                        // Convert ViewBag.Property.UnitPrice to float
-                        float unitPrice = 0; // Default value or handle conversion failure
+                        double unitPrice = 0;
+                        double proportion = ViewBag.Block.Proportion;
                         if (ViewBag.Property.UnitPrice != null)
                         {
-                            float.TryParse(ViewBag.Property.UnitPrice.ToString(), out unitPrice);
-                            float totalPrice = @Common.Calculate(unitPrice);
+                            double.TryParse(ViewBag.Property.UnitPrice.ToString(), out unitPrice);
+                            double totalPrice = @Common.Calculate(unitPrice, 10, proportion);
                             string formattedPrice = totalPrice.ToString("N0") + " VND"; // "N0" format specifier adds thousand separators
                             <p class="card-title">Price: @formattedPrice</p>
                         }
@@ -59,7 +59,7 @@
                 @{
                     if (@Common.CountReservations(@ViewBag.Property.Id, @ViewBag.Block.Id) > 0)
                     {
-                        <p class=" text-danger">This property has been reserved by @Common.CountReservations(@ViewBag.Property.Id, @ViewBag.Block.Id) people!! Do you really want to reserve?</p>
+                        <p class=" text-danger">This property has been reserved by @Common.CountReservations(@ViewBag.Property.Id, @ViewBag.Block.Id) people!! Please read our terms and policies before reserving!!!</p>
                     }
                 }
                 <div class="text-center">
@@ -86,12 +86,17 @@
         </div>
     </div>
 </div>
-
 <script>
     function showConfirmation() {
-        if (confirm("Are you sure?")) {
-            document.getElementById("confirmForm").submit();
-        }
+        Notiflix.Confirm.show(
+            'Confirm Reservation', 
+            'Are you sure you want to confirm this reservation? Please read our terms and policies carefully before confirming!!', 
+            'Yes', 
+            'No', 
+            () => { 
+                document.getElementById("confirmForm").submit();
+            }
+        );
     }
 </script>
 @* 

@@ -87,7 +87,6 @@ public class DateCheckerService : BackgroundService
                 }
                 await context.SaveChangesAsync();
                 #endregion
-
                 #region Handle Buy now
                 var buyNowReservation = await scopeService.GetBuyNowReservation();
                 foreach (var item in buyNowReservation)
@@ -128,7 +127,7 @@ public class DateCheckerService : BackgroundService
                 }
                 #endregion
             }
-          //  await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
     }
 }

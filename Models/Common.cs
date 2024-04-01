@@ -56,9 +56,9 @@ namespace TimeShareProject.Models
             return distinctReservation;
         }
 
-        public static float Calculate(float unitprice)
+        public static double Calculate(double? unitprice, int num, double proportion)
         {
-            return unitprice * 10;
+            return (double)(unitprice * num * proportion / 100);
         }
 
         public static int CountReservations(int propertyId, int blockId)
@@ -248,11 +248,8 @@ namespace TimeShareProject.Models
             using _4restContext _context = new _4restContext();
             var propertyId = propertyID; 
             var reservationId = reservationID;
-            var reservation = _context.Reservations.FirstOrDefault(r => r.Id == reservationID);
+            var reservation = _context.Reservations.Include(r => r.Block).FirstOrDefault(r => r.Id == reservationID);
             var property = _context.Properties.FirstOrDefault(p => p.Id == propertyId);
-
-    
-
             try
             {
                 using (var dbTransaction = _context.Database.BeginTransaction())
@@ -260,7 +257,7 @@ namespace TimeShareProject.Models
                     var firstTermTransaction = new Transaction()
                     {
                         Date = DateTime.Now,
-                        Amount = property.UnitPrice * 3,
+                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
                         Status = false,
                         TransactionCode = null,
                         ReservationId = reservationId,
@@ -273,7 +270,7 @@ namespace TimeShareProject.Models
                     var secondTermTransaction = new Transaction()
                     {
                         Date = DateTime.Now,
-                        Amount = property.UnitPrice * 3,
+                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
                         Status = false,
                         TransactionCode = null,
                         ReservationId = reservationId,
@@ -286,7 +283,7 @@ namespace TimeShareProject.Models
                     var thirdTermTransaction = new Transaction()
                     {
                         Date = DateTime.Now,
-                        Amount = property.UnitPrice * 3,
+                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
                         Status = false,
                         TransactionCode = null,
                         ReservationId = reservationId,
