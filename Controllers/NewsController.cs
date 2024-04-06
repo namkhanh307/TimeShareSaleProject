@@ -84,38 +84,45 @@ namespace TimeShareProject.Controllers
                 return StatusCode(500, $"An error occurred while deleting the news item: {ex.Message}");
             }
         }
-        public static void CreateNewForAll(int userId, int transactionID,int type)
+        public static void CreateNewForAll(int userId, int transactionID, int type, DateTime deadlineDate)
         {
             using (_4restContext _context = new _4restContext())
             {
                 string title = string.Empty;
                 string content = string.Empty;
+                DateTime deadline = DateTime.Now;
                 var transaction = _context.Transactions.FirstOrDefault(t => t.Id == transactionID);
                 switch (type)
                 {
                     case 1:
                         title = "Deadline for reservation payment";
                         content = "Please complete your transaction before 12pm";
+                        deadline = deadlineDate;
                         break;
                     case 2:
                         title = "Deadline for deposit payment";
                         content = "Please complete your transaction before 12pm ";
+                        deadline = deadlineDate;
                         break;
                     case 3:
                         title = "Deadline for first term payment";
                         content = "Please complete your transaction before 12pm ";
+                        deadline = deadlineDate;
                         break;
                     case 4:
                         title = "Deadline for second term payment";
                         content = "Please complete your transaction before 12pm ";
+                        deadline = deadlineDate;
                         break;
                     case 5:
                         title = "Deadline for third term payment";
                         content = "Please complete your transaction before 12pm ";
+                        deadline = deadlineDate;
                         break;
                     case 6:
                         title = "Your reservation had been recorded";
                         content = "To finish your reservation, please visit us on " + Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId);
+
                         break;
                     case 7:
                         title = "Today is Opening Day. ";
@@ -162,7 +169,7 @@ namespace TimeShareProject.Controllers
                         content = "Your third term fee payment has been cancelled";
                         break;
 
-                
+
                     default:
                         // Handle any other cases or throw an exception
                         break;
@@ -173,6 +180,7 @@ namespace TimeShareProject.Controllers
                     UserId = userId,
                     TransactionId = transactionID,
                     Title = title,
+                    Date = deadline,
                     Content = content,
                     Type = type,
                 };
@@ -181,23 +189,23 @@ namespace TimeShareProject.Controllers
                 _context.SaveChanges();
             }
         }
-        public static void CreateFinishNews(int userId)
+        public static void CreateFinishNews(int userId, int transactionID)
         {
             using _4restContext _context = new _4restContext();
             var news = new New
             {
                 UserId = userId,
-                TransactionId = 0,
+                TransactionId = transactionID,
                 Date = DateTime.Today,
                 Title = "Your reservation had been Paied",
-            Content = "Enjoy your time. ",
-            Type = 13
+                Content = "Enjoy your time. ",
+                Type = 13
             };
 
             _context.News.Add(news);
             _context.SaveChanges();
         }
-      
+
     }
 }
 

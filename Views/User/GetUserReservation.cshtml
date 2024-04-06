@@ -55,7 +55,8 @@
                     <td>@reservation.Order</td>
                     <td>
                         <a class="btn btn-dark" href="@Url.Action("GetUserTransactions", "User", new{ reservation.Id})">Transaction Detail</a>
-                        @if ((reservation.Property.SaleDate > DateTime.Today && reservation.Type ==1 && reservation.Status ==3)|| (reservation.Property.SaleDate <= DateTime.Today && Common.CheckDeposit(reservation.Id)&& reservation.Status == 3))
+                            @if ((reservation.Property.SaleDate > DateTime.Today && reservation.Type == 1 && reservation.Status == 3 && Common.GetDepositStatusByResevationID(reservation.Id)==false) 
+                            || (reservation.Property.SaleDate <= DateTime.Today && Common.CheckDeposit(reservation.Id) && reservation.Status == 3))
                         {
                                 <form asp-action="CancelReservation" asp-controller="Reservations" method="post">
                                     <input type="hidden" name="id" value="@reservation.Id" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,13 +33,13 @@ namespace TimeShareProject.Controllers
         //    }
         //    return View(property);
         //}
- 
+
         public IActionResult GetProperty(int ID)
         {
             using _4restContext context = new();
             if (!User.Identity.IsAuthenticated)
             {
-                var returnUrl = Url.Action("GetProperty", "Properties",  new { ID } );
+                var returnUrl = Url.Action("GetProperty", "Properties", new { ID });
                 return RedirectToAction("Login", "Login", new { returnUrl });
             }
             var property = context.Properties.FirstOrDefault(m => m.Id == ID);
@@ -333,38 +334,38 @@ namespace TimeShareProject.Controllers
             return PartialView("_FilteredProperties", filteredProperties);
         }
 
-        [HttpPost]
-        public IActionResult SetSaleDate(DateTime saleDate, List<int> selectedProperties)
-        {
-            if (ModelState.IsValid)
-            {
-                // Ensure that at least one property is selected
-                if (selectedProperties != null && selectedProperties.Any())
-                {
-                    // Process the selected properties and set the sale date
-                    foreach (int propertyId in selectedProperties)
-                    {
-                        var property = _context.Properties.Find(propertyId);
-                        if (property != null)
-                        {
-                            property.SaleDate = saleDate;
-                        }
-                    }
+        //[HttpPost]
+        //public IActionResult SetSaleDate(DateTime saleDate, List<int> selectedProperties)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Ensure that at least one property is selected
+        //        if (selectedProperties != null && selectedProperties.Any())
+        //        {
+        //            // Process the selected properties and set the sale date
+        //            foreach (int propertyId in selectedProperties)
+        //            {
+        //                var property = _context.Properties.Find(propertyId);
+        //                if (property != null)
+        //                {
+        //                    property.SaleDate = saleDate;
+        //                }
+        //            }
 
-                    // Save changes to the database
-                    _context.SaveChanges();
-                    return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
-                }
-                else
-                {
-                    // Handle the case where no properties are selected
-                    ModelState.AddModelError("", "Please select at least one property.");
-                }
-            }
+        //            // Save changes to the database
+        //            _context.SaveChanges();
+        //            return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
+        //        }
+        //        else
+        //        {
+        //            // Handle the case where no properties are selected
+        //            ModelState.AddModelError("", "Please select at least one property.");
+        //        }
+        //    }
 
-            // If ModelState is not valid or no properties are selected, return to the form
-            return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
-        }
+        //    // If ModelState is not valid or no properties are selected, return to the form
+        //    return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
+        //}
 
         [HttpPost]
         public IActionResult FilterProperties(int projectId, int? blockSelect, int? bedSelect, string saleStatus)
@@ -408,6 +409,50 @@ namespace TimeShareProject.Controllers
             ViewBag.BedSelect = bedSelect;
 
             return View(availableProperties);
+        }
+        [HttpPost]
+        public IActionResult SetSaleDate(DateTime saleDate, List<int> selectedProperties)
+        {
+            if (ModelState.IsValid)
+            {
+                // Ensure that at least one property is selected
+                if (selectedProperties != null && selectedProperties.Any())
+                {
+                    // Process the selected properties and set the sale date
+                    foreach (int propertyId in selectedProperties)
+                    {
+                        var property = _context.Properties.Find(propertyId);
+                        if (property != null)
+                        {
+                            property.SaleDate = saleDate;
+                            _context.Update(property);
+                        }
+                    }
+                    // Save changes to the database
+
+                    _context.SaveChanges();
+                    // Update all deadline dates to be one day before the new sale date
+                    var transactions = _context.Transactions.Include(r => r.Reservation).ThenInclude(r => r.Property).Where(r => r.Reservation.Property.SaleDate == saleDate && (r.Reservation.Status == 3 || r.Reservation.Status == 5));
+                    foreach (var item in transactions)
+                    {
+                        if (item.DeadlineDate.HasValue)
+                        {
+                            item.DeadlineDate = item.DeadlineDate.Value.AddDays(-1);
+                            _context.Update(item);
+                        }
+                    }
+                    _context.SaveChanges();
+                    return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
+                }
+                else
+                {
+                    // Handle the case where no properties are selected
+                    ModelState.AddModelError("", "Please select at least one property.");
+                }
+            }
+
+            // If ModelState is not valid or no properties are selected, return to the form
+            return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
         }
 
 

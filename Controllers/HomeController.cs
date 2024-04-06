@@ -26,7 +26,10 @@ namespace TimeShareProject.Controllers
         {
             return View();
         }
-
+        public IActionResult TermsAndPolicies()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

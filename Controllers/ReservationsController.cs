@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using NuGet.Protocol;
 using TimeShareProject.Models;
 using TimeShareProject.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -37,16 +38,17 @@ namespace TimeShareProject.Controllers
             if (reservation != null)
             {
                 reservation.Status = 2;
+                reservation.Order = 0;
                 _context.Reservations.Update(reservation);
            
             }
             await _context.SaveChangesAsync();
             if (reservation.Type == 1) {
-                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id),  13);
-                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14);
+                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id),  13, DateTime.Now);
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14, DateTime.Now);
             }
             if (reservation.Type == 2) {
-                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14);
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14, DateTime.Now);
             }
 
             return RedirectToAction("GetUserReservation", "User");
@@ -67,7 +69,7 @@ namespace TimeShareProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult FilterDuplicate()
+        public PartialViewResult FilterDuplicate()
         {
             var reservations = _context.Reservations.Include(r => r.Block).Include(r => r.Property).Include(r => r.User).ToList();
 
@@ -77,9 +79,8 @@ namespace TimeShareProject.Controllers
                 .Where(g => g.Count() > 1)
                 .Select(g => g.First());
 
-            return View(duplicateReservations);
+            return PartialView("_FilteredReservations", duplicateReservations);
         }
-
         public IActionResult ViewAllDuplicates(int propertyId, int blockId)
         {
             var duplicateReservations = _context.Reservations
@@ -228,11 +229,13 @@ namespace TimeShareProject.Controllers
             int depositId = 0;
             int reservationType = 2;
             int transactionType = 0;
+
             if (saleStatus == "Reserve")
             {
                 reservationType = 1;
                 transactionType = -1;
             }
+
             try
             {
                 using (var transaction = _context.Database.BeginTransaction())
@@ -254,6 +257,9 @@ namespace TimeShareProject.Controllers
 
                     if (reservationType == 1)
                     {
+                        var reserveDeadlineDate = property.SaleDate;
+                        var depositDeadlineDate = reserveDeadlineDate.AddDays(order);
+
                         var newReserveTransaction = new Transaction()
                         {
                             Date = DateTime.Today,
@@ -262,11 +268,10 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
-                            //DeadlineDate = Common.GetSaleDate(propertyId),
-                            //ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
+                            DeadlineDate = reserveDeadlineDate
                         };
                         _context.Transactions.Add(newReserveTransaction);
-                        
+
                         var newDepositTransaction = new Transaction()
                         {
                             Date = DateTime.Today,
@@ -275,13 +280,10 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = 0,
-                            //DeadlineDate = Common.GetSaleDate(propertyId).AddDays(order),
-                            //ResolveDate = Common.GetSaleDate(propertyId).AddDays(order - 1)
+                            DeadlineDate = depositDeadlineDate
                         };
-                      
-                       
                         _context.Transactions.Add(newDepositTransaction);
-                       
+
                         _context.SaveChanges();
                         reservationID = newReserveTransaction.Id;
                         transactionId = newDepositTransaction.Id;
@@ -289,7 +291,6 @@ namespace TimeShareProject.Controllers
 
                     if (reservationType == 2)
                     {
-
                         var newDepositTransaction = new Transaction()
                         {
                             Date = DateTime.Today,
@@ -298,35 +299,36 @@ namespace TimeShareProject.Controllers
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
                             Type = transactionType,
-                            //DeadlineDate = DateTime.Today.AddDays(1),
-                            //ResolveDate = DateTime.Today
-                        }; _context.Transactions.Add(newDepositTransaction);
-                        
-                        
+                            DeadlineDate = DateTime.Today.AddDays(1)
+                        };
+                        _context.Transactions.Add(newDepositTransaction);
+
                         _context.SaveChanges();
                         depositId = newDepositTransaction.Id;
                     }
+
                     transaction.Commit();
                     TempData["Message"] = "Reservation confirmed successfully!";
                     if (reservationType == 1)
                     {
-                        NewsController.CreateNewForAll(user.Id, reservationID, 1);
-                        NewsController.CreateNewForAll(user.Id, transactionId,  2);
+                        NewsController.CreateNewForAll(user.Id, reservationID, 1, DateTime.Today);
+                        NewsController.CreateNewForAll(user.Id, transactionId, 2, DateTime.Today.AddDays(1));
                     }
                     if (reservationType == 2)
                     {
-                        
-                        NewsController.CreateNewForAll(user.Id, depositId, 2);
+                        NewsController.CreateNewForAll(user.Id, depositId, 2, DateTime.Today.AddDays(1));
                     }
-
                 }
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "An error occurred while confirming the reservation.";
             }
+
             return RedirectToAction("Index", "Home");
         }
+
+
 
         // GET: Reservations/Create
         public IActionResult Create()

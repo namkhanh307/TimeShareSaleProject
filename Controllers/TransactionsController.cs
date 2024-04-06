@@ -222,7 +222,7 @@ namespace TimeShareProject.Controllers
 
                 
                 
-                    NewsController.CreateNewForAll(reservation.UserId, reservation.Property.Id, 1);
+                    NewsController.CreateNewForAll(reservation.UserId, reservation.Property.Id, 1, DateTime.Today);
                 
             }
             catch (Exception ex)

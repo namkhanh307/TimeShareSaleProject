@@ -56,19 +56,19 @@ namespace TimeShareProject.Models
             return distinctReservation;
         }
 
-        public static float Calculate(float unitprice)
+        public static double Calculate(double? unitprice, int num, double proportion)
         {
-            return unitprice * 10;
+            return (double)(unitprice * num * proportion / 100);
         }
 
         public static int CountReservations(int propertyId, int blockId)
         {
             using _4restContext context = new();
-            int reservationCount = context.Reservations.Count(r => r.PropertyId == propertyId && r.BlockId == blockId);
+            int reservationCount = context.Reservations.Count(r => r.PropertyId == propertyId && r.BlockId == blockId && r.Status == 3);
             return reservationCount;
         }
 
- 
+
         public static Reservation GetPropertyFromReservation(int id)
         {
             using _4restContext context = new();
@@ -81,34 +81,107 @@ namespace TimeShareProject.Models
             {
                 List<Block> availableBlocks = new List<Block>();
 
-                var reservations = context.Reservations.Where(r => r.PropertyId == propertyId).ToList();
-                var blocks = context.Blocks.ToList();
-                availableBlocks.AddRange(blocks);
-                if (reservations.Count > 0)
-                {
-                    foreach (var block in blocks)
-                    {
-                        foreach (var reservation in reservations)
-                        {
-                            int blockId = reservation.BlockId;
-                            int? type = reservation.Type;
+                // Get all reservations for the specified property
+                var reservations = context.Reservations
+                    .Include(r => r.Block)
+                    .Include(r => r.Transactions)
+                    .Where(r => r.PropertyId == propertyId && r.Status == 3)
+                    .ToList();
 
-                            if ((type == 1 && reservation.UserId == userId && block.Id == blockId) || (block.Id == blockId && type == 2))
+                // Get all blocks for the property
+                var blocks = context.Blocks.ToList();
+
+                foreach (var block in blocks)
+                {
+                    // Check if the block is available
+                    bool isAvailable = true;
+
+                    foreach (var reservation in reservations)
+                    {
+                        // Check if the block is reserved by the current user
+                        if (reservation.UserId == userId && reservation.BlockId == block.Id)
+                        {
+                            isAvailable = false;
+                            break;
+                        }
+
+                        // Check if the block is booked or paid during the reserve flow
+                        if (reservation.BlockId == block.Id && reservation.Type == 1 && reservation.Transactions != null)
+                        {
+                            foreach (var transaction in reservation.Transactions)
                             {
-                                availableBlocks.Remove(block);
-                                break;
+                                if (transaction.Type == 0 && transaction.Status == true)
+                                {
+                                    isAvailable = false;
+                                    break;
+                                }
                             }
                         }
+
+                        // Check if the block is booked by another user
+                        if (reservation.BlockId == block.Id && reservation.Type == 2)
+                        {
+                            isAvailable = false;
+                            break;
+                        }
                     }
-                }
-                else
-                {
-                    availableBlocks.AddRange(blocks);
+
+                    if (isAvailable)
+                    {
+                        availableBlocks.Add(block);
+                    }
                 }
 
                 return availableBlocks;
             }
         }
+        //public static List<Block> GetAvailableBlocks(int userId, int propertyId)
+        //{
+        //    using (_4restContext context = new _4restContext())
+        //    {
+        //        List<Block> availableBlocks = new List<Block>();
+
+        //        var reservations = context.Reservations.Where(r => r.PropertyId == propertyId).ToList();
+        //        var blocks = context.Blocks.ToList();
+        //        availableBlocks.AddRange(blocks);
+        //        if (reservations.Count > 0)
+        //        {
+        //            //foreach (var block in blocks)
+        //           // {
+        //            foreach (var reservation in reservations)
+        //            {
+        //                if (reservation.Status == 3)
+        //                {
+        //                    var block = new Block();
+        //                    int blockId = reservation.BlockId;
+        //                    int? type = reservation.Type;
+        //                    var transaction = context.Transactions.FirstOrDefault(t => t.ReservationId == reservation.Id);
+        //                    if (transaction != null && transaction.Type == 0)
+        //                    {
+        //                        if ((type == 1 && reservation.UserId == userId && block.Id == blockId)//get the block of current user 
+        //                     || (block.Id == blockId && type == 2)// get the block which has been booked 
+        //                     || (type == 1 && transaction.Status == true)//get the block that have been pay during the reserve flow
+        //                        )
+        //                        {
+        //                            availableBlocks.Remove(block);
+        //                            break;
+        //                        }
+        //                    } else if (   transaction != null && transaction.Type == -1 ) { 
+
+        //                    }
+
+        //                }
+        //            }
+        //            //}
+        //        }
+        //        else
+        //        {
+        //            availableBlocks.AddRange(blocks);
+        //        }
+
+        //        return availableBlocks;
+        //    }
+        //}
 
 
         public static List<Property> GetReservedProperties()
@@ -181,7 +254,7 @@ namespace TimeShareProject.Models
                         break;
                     case 0:
                         type = "Deposit";
-                        CreateTermPayments(user.Id,transaction.Reservation.Id, propertyID, DateTime.Today);
+                        CreateTermPayments(user.Id, transaction.Reservation.Id, propertyID, DateTime.Today);
                         break;
                     case 1:
                         type = "FirstPayment";
@@ -207,7 +280,7 @@ namespace TimeShareProject.Models
             var transaction = context.Transactions
                                        .FirstOrDefault(t => t.Id == transactionId);
 
-            return transaction.ReservationId; 
+            return transaction.ReservationId;
         }
         public static bool? GetTransactionStatus(int transactionId)
         {
@@ -225,6 +298,24 @@ namespace TimeShareProject.Models
 
             return reservation.Status;
         }
+        public static int? GetReservationStatusByTransactionID(int transactionId)
+        {
+            using (_4restContext context = new _4restContext())
+            {
+                var transaction = context.Transactions
+                    .Include(t => t.Reservation) // Include the Reservation navigation property
+                    .FirstOrDefault(t => t.Id == transactionId);
+
+                // Check if transaction or reservation is null
+                if (transaction == null || transaction.Reservation == null)
+                {
+                    return null;
+                }
+
+                // Return the status of the associated reservation
+                return transaction.Reservation.Status;
+            }
+        }
         public static DateTime? GetTransactionDeadline(int transactionId)
         {
             using _4restContext context = new();
@@ -237,7 +328,7 @@ namespace TimeShareProject.Models
         {
             using _4restContext context = new();
             DateTime today = DateTime.Today;
-            if (status == false && (type == -1 || type == 0 || type == 1 || type == 2 || type == 3) && deadlineDate == today && resolveDate <= today)
+            if (status == false && (type == -1 || type == 0 || type == 1 || type == 2 || type == 3) && deadlineDate == today)
             {
                 return true;
             }
@@ -246,12 +337,12 @@ namespace TimeShareProject.Models
         public static void CreateTermPayments(int userID, int reservationID, int propertyID, DateTime date)
         {
             using _4restContext _context = new _4restContext();
-            var propertyId = propertyID; 
+            var propertyId = propertyID;
             var reservationId = reservationID;
             var reservation = _context.Reservations.FirstOrDefault(r => r.Id == reservationID);
             var property = _context.Properties.FirstOrDefault(p => p.Id == propertyId);
 
-    
+
 
             try
             {
@@ -260,12 +351,13 @@ namespace TimeShareProject.Models
                     var firstTermTransaction = new Transaction()
                     {
                         Date = DateTime.Now,
-                        Amount = property.UnitPrice * 3,
+                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
                         Status = false,
                         TransactionCode = null,
                         ReservationId = reservationId,
                         Type = 1,
-                    
+                        DeadlineDate = DateTime.Today.AddDays(7)
+
                     };
 
                     _context.Transactions.Add(firstTermTransaction);
@@ -273,12 +365,12 @@ namespace TimeShareProject.Models
                     var secondTermTransaction = new Transaction()
                     {
                         Date = DateTime.Now,
-                        Amount = property.UnitPrice * 3,
+                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
                         Status = false,
                         TransactionCode = null,
                         ReservationId = reservationId,
                         Type = 2,
-               
+                        DeadlineDate = DateTime.Today.AddDays(365)
                     };
 
                     _context.Transactions.Add(secondTermTransaction);
@@ -286,27 +378,28 @@ namespace TimeShareProject.Models
                     var thirdTermTransaction = new Transaction()
                     {
                         Date = DateTime.Now,
-                        Amount = property.UnitPrice * 3,
+                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
                         Status = false,
                         TransactionCode = null,
                         ReservationId = reservationId,
                         Type = 3,
-                       
+                        DeadlineDate = DateTime.Today.AddDays(750)
+
                     };
 
                     _context.Transactions.Add(thirdTermTransaction);
                     _context.SaveChanges();
                     dbTransaction.Commit();
-                    NewsController.CreateNewForAll(userID, firstTermTransaction.Id,  3);
-                    NewsController.CreateNewForAll(userID, secondTermTransaction.Id, 4);
-                    NewsController.CreateNewForAll(userID, thirdTermTransaction.Id,  5);
-                    
+                    NewsController.CreateNewForAll(userID, firstTermTransaction.Id, 3, DateTime.Today.AddDays(7));
+                    NewsController.CreateNewForAll(userID, secondTermTransaction.Id, 4, DateTime.Today.AddDays(365));
+                    NewsController.CreateNewForAll(userID, thirdTermTransaction.Id, 5, DateTime.Today.AddDays(730));
+
                 }
             }
             catch (Exception ex)
             {
-                
-                throw; 
+
+                throw;
             }
         }
         public static bool CheckReservation(System.Security.Claims.ClaimsPrincipal user, int propertyId)
@@ -380,6 +473,13 @@ namespace TimeShareProject.Models
              .FirstOrDefault(t => t.ReservationId == reservationID && t.Type == 0);
             return transaction.Id;
         }
+        public static bool GetDepositStatusByResevationID(int reservationID)
+        {
+            using _4restContext context = new();
+            var transaction = context.Transactions
+             .FirstOrDefault(t => t.ReservationId == reservationID && t.Type == 0);
+            return transaction.Status.Value;
+        }
         public static string GetPropertyNameByTransactionID(int transactionID)
         {
             using _4restContext context = new();
@@ -396,5 +496,55 @@ namespace TimeShareProject.Models
              .FirstOrDefault(p => p.Id == propertyID);
             return property.SaleDate;
         }
+        public static void UpdateOrderOnOpeningDay(int propertyId)
+        {
+            using (var context = new _4restContext())
+            {
+                var reservations = context.Reservations
+                    .Include(r => r.Transactions)
+                    .Where(r => r.PropertyId == propertyId)
+                    .OrderBy(r => r.RegisterDate)
+                    .ToList();
+
+                int order = 0;
+                foreach (var reservation in reservations)
+                {
+                    // Check if it's the opening day
+                    if (reservation.Property.SaleDate == DateTime.Today)
+                    {
+                        // Check if the reservation fee has been paid
+                        var reservationFeePaid = reservation.Transactions
+                            .Any(t => t.Type == 0 && t.Status == true); // Assuming Type 0 is for reservation fee
+
+                        // Update the order based on whether the fee has been paid
+                        if (!reservationFeePaid)
+                        {
+                            reservation.Order = 0; // If fee not paid, set order to 0
+                        }
+                        else
+                        {
+                            reservation.Order = order++; // Increment order for each paid reservation
+                        }
+                    }
+                }
+
+                // Save changes to the database
+                context.SaveChanges();
+            }
+        }
+
+        public static string GetPercentage(double proportion)
+        {
+            if (proportion > 100)
+            {
+                return $"(already + {proportion - 100}%)";
+            }
+            else if (proportion < 100)
+            {
+                return $"(already - {100 - proportion}%)";
+            }
+            return "";
+        }
+
     }
 }

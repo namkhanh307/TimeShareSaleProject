@@ -39,10 +39,12 @@
                     @{
                         // Convert ViewBag.Property.UnitPrice to float
                         float unitPrice = 0; // Default value or handle conversion failure
+                        double proportion = ViewBag.Block.Proportion;
                         if (ViewBag.Property.UnitPrice != null)
                         {
                             float.TryParse(ViewBag.Property.UnitPrice.ToString(), out unitPrice);
-                            float totalPrice = @Common.Calculate(unitPrice);
+
+                            double totalPrice = @Common.Calculate(unitPrice, 10, proportion);
                             string formattedPrice = totalPrice.ToString("N0") + " VND"; // "N0" format specifier adds thousand separators
                             <p class="card-title">Price: @formattedPrice</p>
                         }

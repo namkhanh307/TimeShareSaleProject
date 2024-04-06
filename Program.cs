@@ -52,9 +52,15 @@ namespace TimeShareProject
         {
             services.AddControllers();
             services.AddControllersWithViews();
-
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<_4restContext>(options => options.UseSqlServer(connectionString));
+            //services.AddDbContext<_4restContext>(options =>
+            //{
+            //    options.UseSqlServer(connectionString, sqlServerOptions =>
+            //    {
+            //        sqlServerOptions.EnableRetryOnFailure();
+            //    });
+            //});
+      services.AddDbContext<_4restContext>(options => options.UseSqlServer(connectionString));
 
             services.AddHttpContextAccessor();
             services.AddControllers().AddJsonOptions(options =>
