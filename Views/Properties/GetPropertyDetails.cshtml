@@ -61,7 +61,7 @@
                 <h5>Property:</h5>
                 <p>@Model.Name</p>
                 <h5>Sale Status:</h5>
-                <p> @(Model.SaleStatus.HasValue ? (Model.SaleStatus.Value ? "For Sale" : "Not for Sale") : "Unknown")</p>
+                <p> @(Model.Status.HasValue ? (Model.Status.Value ? "For Sale" : "Not for Sale") : "Unknown")</p>
                 <h5>Sale Date:</h5>
                 <p> @(Model.SaleDate.ToString("dd/MM/yyyy"))</p>
                 <h5>Unit Price:</h5>

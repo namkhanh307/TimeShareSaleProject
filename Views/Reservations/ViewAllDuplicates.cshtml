@@ -43,10 +43,10 @@
                     <td>@Html.DisplayFor(modelItem => item.Block.BlockNumber)</td>
                     <td>@Html.DisplayFor(modelItem => item.Block.StartDay)/@Html.DisplayFor(modelItem => item.Block.StartMonth)</td>
                     <td>@Html.DisplayFor(modelItem => item.Block.EndDay)/@Html.DisplayFor(modelItem => item.Block.EndMonth)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Property.Name)</td>
-                    <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
+                    <td><a asp-action="GetProperty" asp-controller="Properties" asp-route-id="@item.PropertyId">@Html.DisplayFor(modelItem => item.Property.Name)</a></td>
+                    <td><a asp-action="Index" asp-controller="User" asp-route-id="@item.UserId">@Html.DisplayFor(modelItem => item.User.Name)</a></td>
                     <td>
-                        <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        @* <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
                         <a asp-action="TransactionDetail" asp-route-id="@item.Id" class="btn btn-dark">Transaction Detail</a>
                         <select class="status-select" id="status_@item.Id">
                             @if (item.Status == 1)

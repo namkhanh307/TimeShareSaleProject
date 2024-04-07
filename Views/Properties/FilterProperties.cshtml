@@ -30,7 +30,7 @@
     {
         @foreach (var p in Model)
         {
-            if (p.SaleStatus.Value)
+            if (p.Status.Value)
             {
                 <div class="col-md-3 mb-3">
                     <form asp-action="SelectRoom" asp-controller="Reservations">

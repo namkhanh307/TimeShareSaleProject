@@ -114,7 +114,6 @@ public partial class _4restContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Address).HasColumnName("address");
-            entity.Property(e => e.AddressImage).HasColumnName("addressImage");
             entity.Property(e => e.Area).HasColumnName("area");
             entity.Property(e => e.DetailDescription).HasColumnName("detailDescription");
             entity.Property(e => e.GeneralDescription).HasColumnName("generalDescription");
@@ -123,7 +122,6 @@ public partial class _4restContext : DbContext
             entity.Property(e => e.Image3).HasColumnName("image3");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.ShortName).HasColumnName("shortName");
-            entity.Property(e => e.Star).HasColumnName("star");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalUnit).HasColumnName("totalUnit");
         });
@@ -145,7 +143,6 @@ public partial class _4restContext : DbContext
             entity.Property(e => e.SaleDate)
                 .HasColumnType("datetime")
                 .HasColumnName("saleDate");
-            entity.Property(e => e.SaleStatus).HasColumnName("saleStatus");
             entity.Property(e => e.SideImage).HasColumnName("sideImage");
             entity.Property(e => e.Size).HasColumnName("size");
             entity.Property(e => e.Status).HasColumnName("status");
@@ -228,9 +225,6 @@ public partial class _4restContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("deadlineDate");
             entity.Property(e => e.ReservationId).HasColumnName("reservationID");
-            entity.Property(e => e.ResolveDate)
-                .HasColumnType("datetime")
-                .HasColumnName("resolveDate");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TransactionCode).HasColumnName("transactionCode");
             entity.Property(e => e.Type).HasColumnName("type");

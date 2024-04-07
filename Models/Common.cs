@@ -56,9 +56,12 @@ namespace TimeShareProject.Models
             return distinctReservation;
         }
 
-        public static double Calculate(double? unitprice, int num, double proportion)
+        public static double Calculate(double? unitprice, int num, int blockId)
         {
-            return (double)(unitprice * num * proportion / 100);
+            using _4restContext context = new();
+            var block = context.Blocks
+           .FirstOrDefault(b => b.Id == blockId);
+            return (double)(unitprice * num * block.Proportion / 100);
         }
 
         public static int CountReservations(int propertyId, int blockId)
@@ -90,7 +93,11 @@ namespace TimeShareProject.Models
 
                 // Get all blocks for the property
                 var blocks = context.Blocks.ToList();
-
+                var checkProperty = context.Properties.FirstOrDefault(p => p.Id == propertyId && p.SaleDate > DateTime.Today);
+                if (checkProperty != null)
+                {
+                    return blocks;
+                }
                 foreach (var block in blocks)
                 {
                     // Check if the block is available
@@ -111,6 +118,11 @@ namespace TimeShareProject.Models
                             foreach (var transaction in reservation.Transactions)
                             {
                                 if (transaction.Type == 0 && transaction.Status == true)
+                                {
+                                    isAvailable = false;
+                                    break;
+                                }
+                                if (transaction.Type == -1 && transaction.Status == true && transaction.DeadlineDate == DateTime.Today)
                                 {
                                     isAvailable = false;
                                     break;
@@ -254,16 +266,19 @@ namespace TimeShareProject.Models
                         break;
                     case 0:
                         type = "Deposit";
-                        CreateTermPayments(user.Id, transaction.Reservation.Id, propertyID, DateTime.Today);
+                        CreateFirstTermPayment(user.Id, transaction.Reservation.Id, propertyID);
                         break;
                     case 1:
                         type = "FirstPayment";
+                        CreateSecondTermPayment(user.Id, transaction.Reservation.Id, propertyID);
                         break;
                     case 2:
                         type = "SecondPayment";
+                        CreateThirdTermPayment(user.Id, transaction.Reservation.Id, propertyID);
                         break;
                     case 3:
                         type = "ThirdPayment";
+                        UpdateFinishStatus(transaction.Reservation.Id);
                         break;
                     default:
                         type = "Unknown";
@@ -298,6 +313,14 @@ namespace TimeShareProject.Models
 
             return reservation.Status;
         }
+        public static DateTime? GetTransactionDeadline(int transactionId)
+        {
+            using _4restContext context = new();
+            var transaction = context.Transactions
+                                       .FirstOrDefault(t => t.Id == transactionId);
+
+            return transaction?.DeadlineDate;
+        }
         public static int? GetReservationStatusByTransactionID(int transactionId)
         {
             using (_4restContext context = new _4restContext())
@@ -316,15 +339,8 @@ namespace TimeShareProject.Models
                 return transaction.Reservation.Status;
             }
         }
-        public static DateTime? GetTransactionDeadline(int transactionId)
-        {
-            using _4restContext context = new();
-            var transaction = context.Transactions
-                                       .FirstOrDefault(t => t.Id == transactionId);
 
-            return transaction?.ResolveDate;
-        }
-        public static bool CheckNotAvailable(bool? status, int? type, DateTime? deadlineDate, DateTime? resolveDate)
+        public static bool CheckNotAvailable(bool? status, int? type, DateTime? deadlineDate)
         {
             using _4restContext context = new();
             DateTime today = DateTime.Today;
@@ -334,7 +350,45 @@ namespace TimeShareProject.Models
             }
             return false;
         }
-        public static void CreateTermPayments(int userID, int reservationID, int propertyID, DateTime date)
+        public static void CreateFirstTermPayment(int userID, int reservationID, int propertyID)
+        {
+            using _4restContext _context = new _4restContext();
+            var propertyId = propertyID;
+            var reservationId = reservationID;
+            var reservation = _context.Reservations.FirstOrDefault(r => r.Id == reservationID);
+            var property = _context.Properties.FirstOrDefault(p => p.Id == propertyId);
+
+            try
+            {
+                using (var dbTransaction = _context.Database.BeginTransaction())
+                {
+                    var firstTermTransaction = new Transaction()
+                    {
+                        Date = DateTime.Now,
+                        Amount = Common.Calculate(property.UnitPrice, 3, reservation.BlockId),
+                        Status = false,
+                        TransactionCode = null,
+                        ReservationId = reservationId,
+                        Type = 1,
+                        DeadlineDate = DateTime.Today.AddDays(7)
+
+                    };
+
+                    _context.Transactions.Add(firstTermTransaction);
+                    _context.SaveChanges();
+                    dbTransaction.Commit();
+                    NewsController.CreateNewForAll(userID, firstTermTransaction.Id, 3, DateTime.Today.AddDays(7));
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        public static void CreateSecondTermPayment(int userID, int reservationID, int propertyID)
         {
             using _4restContext _context = new _4restContext();
             var propertyId = propertyID;
@@ -348,24 +402,12 @@ namespace TimeShareProject.Models
             {
                 using (var dbTransaction = _context.Database.BeginTransaction())
                 {
-                    var firstTermTransaction = new Transaction()
-                    {
-                        Date = DateTime.Now,
-                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
-                        Status = false,
-                        TransactionCode = null,
-                        ReservationId = reservationId,
-                        Type = 1,
-                        DeadlineDate = DateTime.Today.AddDays(7)
 
-                    };
-
-                    _context.Transactions.Add(firstTermTransaction);
 
                     var secondTermTransaction = new Transaction()
                     {
                         Date = DateTime.Now,
-                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
+                        Amount = Common.Calculate(property.UnitPrice, 3, reservation.BlockId),
                         Status = false,
                         TransactionCode = null,
                         ReservationId = reservationId,
@@ -374,11 +416,40 @@ namespace TimeShareProject.Models
                     };
 
                     _context.Transactions.Add(secondTermTransaction);
+                    _context.SaveChanges();
+                    dbTransaction.Commit();
+
+                    NewsController.CreateNewForAll(userID, secondTermTransaction.Id, 4, DateTime.Today.AddDays(365));
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        public static void CreateThirdTermPayment(int userID, int reservationID, int propertyID)
+        {
+            using _4restContext _context = new _4restContext();
+            var propertyId = propertyID;
+            var reservationId = reservationID;
+            var reservation = _context.Reservations.FirstOrDefault(r => r.Id == reservationID);
+            var property = _context.Properties.FirstOrDefault(p => p.Id == propertyId);
+
+
+
+            try
+            {
+                using (var dbTransaction = _context.Database.BeginTransaction())
+                {
+
 
                     var thirdTermTransaction = new Transaction()
                     {
                         Date = DateTime.Now,
-                        Amount = Common.Calculate(property.UnitPrice, 3, (double)reservation.Block.Proportion),
+                        Amount = Common.Calculate(property.UnitPrice, 3, reservation.BlockId),
                         Status = false,
                         TransactionCode = null,
                         ReservationId = reservationId,
@@ -390,8 +461,6 @@ namespace TimeShareProject.Models
                     _context.Transactions.Add(thirdTermTransaction);
                     _context.SaveChanges();
                     dbTransaction.Commit();
-                    NewsController.CreateNewForAll(userID, firstTermTransaction.Id, 3, DateTime.Today.AddDays(7));
-                    NewsController.CreateNewForAll(userID, secondTermTransaction.Id, 4, DateTime.Today.AddDays(365));
                     NewsController.CreateNewForAll(userID, thirdTermTransaction.Id, 5, DateTime.Today.AddDays(730));
 
                 }
@@ -434,6 +503,20 @@ namespace TimeShareProject.Models
                 if (existingProject != null)
                 {
                     existingProject.TotalUnit++;
+                    context.Projects.Update(existingProject);
+                    context.SaveChangesAsync();
+                }
+            }
+        }
+        public static void MinusProjectTotalUnit(int id)
+        {
+            using (_4restContext context = new _4restContext())
+            {
+                var existingProject = context.Projects.FindAsync(id).Result;
+
+                if (existingProject != null)
+                {
+                    existingProject.TotalUnit--;
                     context.Projects.Update(existingProject);
                     context.SaveChangesAsync();
                 }
@@ -532,7 +615,21 @@ namespace TimeShareProject.Models
                 context.SaveChanges();
             }
         }
-
+        public static void UpdateFinishStatus(int reservationID) {
+            using _4restContext context = new();
+            var reservation = context.Reservations
+            .FirstOrDefault(r => r.Id == reservationID);
+            if (reservation != null)
+            {
+                reservation.Status = 4; // Set status to 4 (finished)
+                context.SaveChanges();
+            }
+            else
+            {
+                
+                throw new ArgumentException($"Reservation with ID {reservationID} not found.");
+            }
+        }
         public static string GetPercentage(double proportion)
         {
             if (proportion > 100)

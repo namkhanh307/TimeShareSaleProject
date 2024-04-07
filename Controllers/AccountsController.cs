@@ -53,11 +53,24 @@ namespace TimeShareProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Username,Password,Role")] Account account)
+        public async Task<IActionResult> Create(Account account, string NewUsername, string NewPassword)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(account);
+                var existedUsername = _context.Accounts.Where(u => u.Username == NewUsername);
+                if (existedUsername.Any())
+                {
+                    TempData["errorExistUsername"] = "Username already exists!";
+                    return RedirectToAction("Create");
+
+                }
+                var newAccount = new Account
+                {
+                    Username = NewUsername,
+                    Password = NewPassword,
+                    Role = account.Role
+                };
+                _context.Add(newAccount);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

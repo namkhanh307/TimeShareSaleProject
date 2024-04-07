@@ -51,19 +51,17 @@
                     }>
                         @if (item.Status)
                         {
-                    <option value="true" selected>Contacted</option>
+                            <option value="true" selected>Contacted</option>
                         }
                         else
                         {
-                                     <option value="false">Not Contacted</option>
-                    <option value="true">Contacted</option>
-                   
+                            <option value="false">Not Contacted</option>
+                            <option value="true">Contacted</option>
                         }
-        </select>
+            </select>
                 </td>
                 <td>
                     <button class="btn btn-dark" onclick="updateStatus('@item.Id')">Update Status</button>
-          
                     <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
@@ -71,7 +69,7 @@
     </tbody>
 </table>
 
-    
+
 @section Scripts {
     <script>
         function updateStatus(id) {
@@ -84,13 +82,15 @@
                 url: "/Contacts/UpdateContactStatus",
                 data: data,
                 success: function (response) {
-                    alert("Status updated successfully");
+                    //alert("Status updated successfully");
+                    Notiflix.Notify.success('Status updated successfully');
                     // Disable the select element after successful update
                     statusSelect.disabled = true;
                     // Optionally, you can update the status display in the table without refreshing the page
                 },
                 error: function () {
-                    alert("Error updating status");
+                    //alert("Error updating status");
+                    Notiflix.Notify.failure('Error updating status');
                 }
             });
         }

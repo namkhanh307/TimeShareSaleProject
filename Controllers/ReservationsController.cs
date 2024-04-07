@@ -44,11 +44,11 @@ namespace TimeShareProject.Controllers
             }
             await _context.SaveChangesAsync();
             if (reservation.Type == 1) {
-                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id),  13, DateTime.Now);
+                NewsController.CreateNewForAll(userID, Common.GetReservTransactionIDByResevationID(id),  13, DateTime.Today);
                 NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14, DateTime.Now);
             }
             if (reservation.Type == 2) {
-                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14, DateTime.Now);
+                NewsController.CreateNewForAll(userID, Common.GetDepositIDByResevationID(id), 14, DateTime.Today);
             }
 
             return RedirectToAction("GetUserReservation", "User");
@@ -63,8 +63,12 @@ namespace TimeShareProject.Controllers
             }
 
             reservation.Status = status;
+            reservation.Order = 0;
             _context.Update(reservation);
             await _context.SaveChangesAsync();
+            if (status == 1) {
+                NewsController.CreateNewForAll(reservation.UserId, Common.GetDepositIDByResevationID(id), 18, DateTime.Now);
+            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -254,15 +258,16 @@ namespace TimeShareProject.Controllers
 
                     _context.Reservations.Add(newReservation);
                     _context.SaveChanges();
-
+                    var reservation = _context.Reservations.Include(r => r.Block).FirstOrDefault(r => r.Id == newReservation.Id);
+                    var reserveDeadlineDate = property.SaleDate;
+                    var depositDeadlineDate = reserveDeadlineDate.AddDays(order);
                     if (reservationType == 1)
                     {
-                        var reserveDeadlineDate = property.SaleDate;
-                        var depositDeadlineDate = reserveDeadlineDate.AddDays(order);
+                        
 
                         var newReserveTransaction = new Transaction()
                         {
-                            Date = DateTime.Today,
+                            Date = DateTime.Now,
                             Amount = 500000,
                             Status = false,
                             TransactionCode = transactionCode,
@@ -274,8 +279,8 @@ namespace TimeShareProject.Controllers
 
                         var newDepositTransaction = new Transaction()
                         {
-                            Date = DateTime.Today,
-                            Amount = property.UnitPrice,
+                            Date = DateTime.Now,
+                            Amount = Common.Calculate(property.UnitPrice, 1, reservation.BlockId),
                             Status = false,
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
@@ -294,7 +299,7 @@ namespace TimeShareProject.Controllers
                         var newDepositTransaction = new Transaction()
                         {
                             Date = DateTime.Today,
-                            Amount = property.UnitPrice,
+                            Amount = Common.Calculate(property.UnitPrice, 1, reservation.BlockId),
                             Status = false,
                             TransactionCode = transactionCode,
                             ReservationId = newReservation.Id,
@@ -311,8 +316,8 @@ namespace TimeShareProject.Controllers
                     TempData["Message"] = "Reservation confirmed successfully!";
                     if (reservationType == 1)
                     {
-                        NewsController.CreateNewForAll(user.Id, reservationID, 1, DateTime.Today);
-                        NewsController.CreateNewForAll(user.Id, transactionId, 2, DateTime.Today.AddDays(1));
+                        NewsController.CreateNewForAll(user.Id, reservationID, 1, reserveDeadlineDate);
+                        NewsController.CreateNewForAll(user.Id, transactionId, 2, depositDeadlineDate);
                     }
                     if (reservationType == 2)
                     {
@@ -468,13 +473,16 @@ namespace TimeShareProject.Controllers
         {
             return _context.Reservations.Any(e => e.Id == id);
         }
-        public PartialViewResult FilterReservation(int? propertyId, int? blockId, int? type)
+        public PartialViewResult FilterReservation(int? propertyId, int? blockId, int? type, int? status)
         {
             using (_4restContext context = new _4restContext())
             {
                 var query = context.Reservations.AsQueryable();
                 query = query.Include(r => r.Block).Include(r => r.Property).Include(r => r.User);
-
+                if (status != null)
+                {
+                    query = query.Where(r => r.Status == status);
+                }
                 if (propertyId != null)
                 {
                     query = query.Where(r => r.PropertyId == propertyId);

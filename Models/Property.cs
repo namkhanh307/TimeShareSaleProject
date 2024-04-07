@@ -9,8 +9,6 @@ public partial class Property
 
     public string? Name { get; set; }
 
-    public bool? SaleStatus { get; set; }
-
     public DateTime SaleDate { get; set; }
 
     public double? UnitPrice { get; set; }

@@ -23,23 +23,14 @@ namespace TimeShareProject.Controllers
             _context = context;
             _hostingEnvironment = hostingEnvironment;
         }
-        //public IActionResult GetProperty(int ID)
-        //{
-        //    using _4restContext context = new();
-        //    var property = context.Properties.FirstOrDefault(m => m.Id == ID);
-        //    if (property == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(property);
-        //}
 
+ 
         public IActionResult GetProperty(int ID)
         {
             using _4restContext context = new();
             if (!User.Identity.IsAuthenticated)
             {
-                var returnUrl = Url.Action("GetProperty", "Properties", new { ID });
+                var returnUrl = Url.Action("GetProperty", "Properties",  new { ID } );
                 return RedirectToAction("Login", "Login", new { returnUrl });
             }
             var property = context.Properties.FirstOrDefault(m => m.Id == ID);
@@ -120,7 +111,12 @@ namespace TimeShareProject.Controllers
             {
                 return RedirectToAction("Error");
             }
-
+            var existedName = _context.Properties.Where(r => r.Name == property.Name);
+            if (existedName.Any())
+            {
+                TempData["errorExistedName"] = "Property's name is already existed!!";
+                return RedirectToAction("Create");
+            }
             var newProperty = new Property
             {
                 Id = property.Id,
@@ -134,7 +130,6 @@ namespace TimeShareProject.Controllers
                 UniqueFeature = property.UniqueFeature,
                 Size = property.Size,
                 Status = property.Status,
-                SaleStatus = true,
                 ProjectId = property.ProjectId,
             };
             newProperty.ViewImage = SavePropertyImage(property, ViewImage).Result;
@@ -205,11 +200,17 @@ namespace TimeShareProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Property property, IFormFile ViewImage, IFormFile FrontImage, IFormFile InsideImage, IFormFile SideImage)
         {
+            var existedName = _context.Properties.Where(r => r.Name == property.Name);
+            if (existedName.Any())
+            {
+                TempData["errorExistedName"] = "Property's name is already existed!!";
+                return RedirectToAction("Create");
+            }
             var existingProperty = await _context.Properties.FindAsync(id);
             try
             {
                 existingProperty.Name = property.Name;
-                existingProperty.SaleStatus = true;
+               
                 existingProperty.Status = property.Status;
                 existingProperty.SaleDate = property.SaleDate;
                 existingProperty.UnitPrice = property.UnitPrice;
@@ -280,6 +281,7 @@ namespace TimeShareProject.Controllers
             }
 
             await _context.SaveChangesAsync();
+            Common.MinusProjectTotalUnit(@property.ProjectId);
             return RedirectToAction(nameof(Index));
         }
 
@@ -287,16 +289,12 @@ namespace TimeShareProject.Controllers
         {
             return _context.Properties.Any(e => e.Id == id);
         }
-        public PartialViewResult ManageProperties(int? saleStatus, int? status, int? project, int? bed, int? saleDate)
+        public PartialViewResult ManageProperties( int? status, int? project, int? bed, int? saleDate)
         {
             var query = _context.Properties.AsQueryable();
 
             // Apply filters based on user-selected parameters
-            if (saleStatus.HasValue)
-            {
-                bool saleStatusBool = saleStatus == 1;
-                query = query.Where(p => p.SaleStatus == saleStatusBool);
-            }
+     
 
             if (status.HasValue)
             {
@@ -428,11 +426,11 @@ namespace TimeShareProject.Controllers
                             _context.Update(property);
                         }
                     }
-                    // Save changes to the database
+                    
 
                     _context.SaveChanges();
-                    // Update all deadline dates to be one day before the new sale date
-                    var transactions = _context.Transactions.Include(r => r.Reservation).ThenInclude(r => r.Property).Where(r => r.Reservation.Property.SaleDate == saleDate && (r.Reservation.Status == 3 || r.Reservation.Status == 5));
+                    
+                    var transactions = _context.Transactions.Include(r => r.Reservation).ThenInclude(r => r.Property).Where(r => r.Reservation.Property.SaleDate == saleDate && (r.Reservation.Status ==3 || r.Reservation.Status == 5));
                     foreach (var item in transactions)
                     {
                         if (item.DeadlineDate.HasValue)
@@ -442,7 +440,7 @@ namespace TimeShareProject.Controllers
                         }
                     }
                     _context.SaveChanges();
-                    return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
+                    return RedirectToAction("Index", "Properties");
                 }
                 else
                 {
@@ -451,7 +449,7 @@ namespace TimeShareProject.Controllers
                 }
             }
 
-            // If ModelState is not valid or no properties are selected, return to the form
+            
             return RedirectToAction("Index", "Properties"); // Redirect to properties index or another suitable page
         }
 

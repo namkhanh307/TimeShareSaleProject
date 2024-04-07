@@ -8,7 +8,7 @@
 <h1>Accounts</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" style="font-weight:600; text-transform:uppercase">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -30,7 +30,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Username)
+                    @item.Username
                 </td>
                 <td>
                     ********
@@ -59,7 +59,7 @@
                 <td>
                     @if (item.Role != 1) // Only show delete link for non-admin accounts
                     {
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     }
                 </td>
             </tr>

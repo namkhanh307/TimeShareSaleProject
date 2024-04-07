@@ -80,31 +80,12 @@
                             }
                             @transactionType
                         </td>
-                        @*      @if (transaction.Status == true)
-                {
-                <td>You have paid this field!</td>
-                }
-                else if ((transaction.Type == -1 && transaction.DeadlineDate > DateTime.Today) || (DateTime.Today == transaction.ResolveDate && transaction.Reservation.Status == 3) || (transaction.Type == 1 || transaction.Type == 2 || transaction.Type == 3))
-                {
-                <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
-                }
-                else if (Common.CheckNotAvailable(transaction.Status, transaction.Type, transaction.DeadlineDate))
-                {
-                <td>Not available!</td>
-                }
-                else if (DateTime.Today < transaction.ResolveDate)
-                {
-                <td>Waiting until resolve date!</td>
-                }
-                else
-                {
-                <td>Not catch</td>
-                } *@
+                      
                         @if (transaction.Status == true)
                         {
                             <td>You have paid this field!</td>
                         }
-                        else if (Common.CheckNotAvailable(transaction.Status, transaction.Type, transaction.DeadlineDate, transaction.ResolveDate) || transaction.Reservation.Status != 3)
+                        else if (Common.CheckNotAvailable(transaction.Status, transaction.Type, transaction.DeadlineDate) || transaction.Reservation.Status != 3)
                         {
                             <td>Not available!</td>
                         }

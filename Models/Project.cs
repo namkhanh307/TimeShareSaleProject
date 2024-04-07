@@ -11,8 +11,6 @@ public partial class Project
 
     public string? Name { get; set; }
 
-    public string? AddressImage { get; set; }
-
     public string? Address { get; set; }
 
     public int? TotalUnit { get; set; }
@@ -28,8 +26,6 @@ public partial class Project
     public string? DetailDescription { get; set; }
 
     public bool? Status { get; set; }
-
-    public int? Star { get; set; }
 
     public int? Area { get; set; }
 

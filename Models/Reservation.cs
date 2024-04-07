@@ -21,7 +21,7 @@ public partial class Reservation
 
     public int? Status { get; set; }
 
-    public int Order { get; set; }
+    public int? Order { get; set; }
 
     public virtual Block Block { get; set; } = null!;
 

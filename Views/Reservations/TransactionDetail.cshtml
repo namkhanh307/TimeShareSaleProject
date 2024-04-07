@@ -28,8 +28,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Reservation)
             </th>
-
-            <th>Create Transaction</th>
             <th></th>
         </tr>
     </thead>
@@ -81,16 +79,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Reservation.Id)
                 </td>
-                @if (item.Reservation.Type == 1 && @ViewBag.Count <= 1)
-                {
-                    <td>
-                        <a class="btn btn-primary" href="@Url.Action("CreateTransaction", "Transactions", new{ id = item.Reservation.Id})">Create Transaction</a>
-                    </td>
-                }
-                else
-                {
-                    <td>Not Available!</td>
-                }
             </tr>
         }
     </tbody>

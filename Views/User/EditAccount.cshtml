@@ -35,6 +35,9 @@
                     <label asp-for="CurrentUsername">Current Username:</label>
                     <input asp-for="CurrentUsername" class="form-control" required/>
                     <span asp-validation-for="CurrentUsername" class="text-danger"></span>
+                    <span style="color:red">
+                        @TempData["errorCorrectUsername"]
+                    </span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CurrentPassword">Current Password:</label>
@@ -45,8 +48,7 @@
        
                 <div class="form-group">
                     <label>NewUsername</label>
-                    <input type="text" class="form-control p_input" name="NewUsername" pattern="(?=.*[A-Z]).{7,}" title="Username must contain at least one uppercase letter and be at least 7 characters long" required>
-
+                    <input type="text" class="form-control p_input" name="NewUsername" pattern="(?=.*[A-Z]).{5,}" title="Username must contain at least one uppercase letter and be at least 5 characters long" required>
                 </div>
                 <div class="form-group">
                     <label>NewPassword</label>

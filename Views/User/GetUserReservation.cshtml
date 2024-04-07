@@ -57,19 +57,14 @@
                         <a class="btn btn-dark" href="@Url.Action("GetUserTransactions", "User", new{ reservation.Id})">Transaction Detail</a>
                             @if ((reservation.Property.SaleDate > DateTime.Today && reservation.Type == 1 && reservation.Status == 3 && Common.GetDepositStatusByResevationID(reservation.Id)==false) 
                             || (reservation.Property.SaleDate <= DateTime.Today && Common.CheckDeposit(reservation.Id) && reservation.Status == 3))
-                        {
-                                <form asp-action="CancelReservation" asp-controller="Reservations" method="post">
+                            {
+                                <form id="confirmForm" asp-action="CancelReservation" asp-controller="Reservations" method="post">
                                     <input type="hidden" name="id" value="@reservation.Id" />
                                     <input type="hidden" name="userID" value="@reservation.UserId" />
-                                    <a>
-                                        <button type="submit" class="btn btn-dark">Cancel Reservation</button>
-                                    </a>
-                                   
+                                    <button type="button" onclick="showConfirmation()" class="btn btn-dark">Cancel Reservation</button>
                                 </form>
-
-                        }
+                            }
                     </td>
-                  
                 </tr>
             }
         </tbody>
@@ -85,3 +80,13 @@ else
               <button type="submit" class="btn btn-dark">Back</button>
     </form>
 </div>
+
+<script>
+    function showConfirmation() {
+        if (confirm("Are you sure?")) {
+            document.getElementById("confirmForm").submit();
+            
+        }
+    }
+</script>
+

@@ -20,14 +20,14 @@ namespace TimeShareProject.Controllers
         [HttpPost]
         public async Task<IActionResult> CompleteTransaction(int reservationId)
         {
-           
+
             var transactions = _context.Transactions.Where(t => t.ReservationId == reservationId);
 
             if (transactions.Any())
             {
                 foreach (var transaction in transactions)
                 {
-                    
+
                     transaction.Status = true;
                 }
 
@@ -167,6 +167,11 @@ namespace TimeShareProject.Controllers
                     case 17:
                         title = "Your reservation had been CANCELLED";
                         content = "Your third term fee payment has been cancelled";
+                        break;
+                    case 18:
+                        title = "Your reservation had been CANCELLED";
+                        content = "You met the violation in payment!";
+                      
                         break;
 
 

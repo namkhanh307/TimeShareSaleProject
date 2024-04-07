@@ -132,8 +132,8 @@ namespace TimeShareProject.Controllers
             var account = await _dbContext.Accounts.FirstOrDefaultAsync(a => a.Username == model.CurrentUsername && a.Password == model.CurrentPassword);
             if (account == null)
             {
-                ModelState.AddModelError(string.Empty, "Invalid current username or password.");
-                return View(model);
+                TempData["errorCorrectUsername"] = "Invalid current username or password!";
+                return RedirectToAction("EditAccount");
             }
 
             // Update username and password

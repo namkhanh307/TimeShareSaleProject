@@ -58,6 +58,7 @@ namespace TimeShareProject.Services
                 }
             }
         }
+
         public DateTime GetDeadlineDepositDate(int id)
         {
             using (_4restContext context = new _4restContext())
@@ -76,6 +77,16 @@ namespace TimeShareProject.Services
                 }
             }
         }
+
+        //public DateTime GetDeadlineDepositDate(int id)
+        //{
+        //    using _4restContext context = new();
+        //    // var property = context.Properties.Include(p => p.Reservations).Where(p => p.Id == )
+        //    var resrvation = context.Reservations.FirstOrDefault(r => r.Id == id);
+        //    var property = context.Properties.FirstOrDefault(p => p.Id == resrvation.PropertyId);
+        //    return (DateTime)property.SaleDate.AddDays(resrvation.Order -1);
+        //}
+
         public DateTime GetDeadlineFirstDate(int id)
         {
             using _4restContext context = new();

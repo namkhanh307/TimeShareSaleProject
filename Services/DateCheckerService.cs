@@ -107,71 +107,6 @@ public class DateCheckerService : BackgroundService
                     }
                 }
 
-                //foreach (var group in groupReservations) //list group reservation
-                //{
-                //    if (group.Count >= 1) //duplicate reservation
-                //    {
-                //        var first = group.FirstOrDefault(r => r.Order == 1); //lay dau tien order == 1
-                //        if (first != null)
-                //        {
-                //            if (scopeService.GetDeadlineReserveDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
-                //            {
-                //                var reserveTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == -1 && t.Status == true);//tra tien reserve chua
-                //                var DepositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == 0 && t.Status == true);//tra tien reserve chua
-                //                if (reserveTransaction == null && first.Status != 2)//thang dau chua tra
-                //                {
-                //                    first.Status = 2;// cancel
-                //                    context.Update(first);
-                //                    context.SaveChanges();
-                //                    NewsController.CreateNewForAll(first.UserId, reserveTransaction.Id, 8);
-                //                    foreach (var item in group) //list cua duplicate 10 thang
-                //                    {
-                //                        item.Order--;
-                //                        context.Update(item);
-                //                        context.SaveChanges();
-                //                    }
-                //                }if(DepositTransaction == null)
-                //                {
-
-
-                //                }
-                //            }
-
-                //            if (scopeService.GetDeadlineDepositDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
-                //            {
-                //                var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == 0);
-                //                var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == 0 && t.Status == true);
-
-                //                if (depositTransaction == null && first.Status != 2)//thang dau chua tra
-                //                {
-                //                    first.Status = 2;// cancel
-                //                    context.Update(first);
-                //                    context.SaveChanges();
-                //                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, 9);
-                //                    //foreach (var item in group) //list cua duplicate 10 thang
-                //                    //{
-                //                    //    item.Order--;
-                //                    //    context.Update(item);
-                //                    //    context.SaveChanges();
-                //                    //}
-                //                }
-                //                else
-                //                {
-                //                    foreach (var item in group)
-                //                    {
-                //                        if (item.Order > 1)
-                //                        {
-                //                            item.Status = 2;
-                //                            context.Update(item);
-                //                            context.SaveChanges();
-                //                        }
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
                 #endregion
 
                 #region Handle Buy now
@@ -187,6 +122,7 @@ public class DateCheckerService : BackgroundService
                         {
                             // If the entity is tracked, update its properties
                             existingItem.Status = 2;
+                            existingItem.Order = 0;
                             context.Entry(existingItem).State = EntityState.Modified;
                         }
                         else
@@ -208,104 +144,32 @@ public class DateCheckerService : BackgroundService
                                 if (existingItem != null)
                                 {
                                     existingItem.Status = 2;
+                                    existingItem.Order = 0;
                                     context.Entry(existingItem).State = EntityState.Modified;
                                 }
                                 else
                                 {
                                     context.Attach(item);
                                     item.Status = 2;
+                                    item.Order = 0;
                                     context.Entry(item).State = EntityState.Modified;
                                 }
 
                                 // Save changes to the database
                                 context.SaveChanges();
-                                NewsController.CreateNewForAll(exdepositTransaction.Reservation.UserId, exdepositTransaction.Id, 9,DateTime.Today);
+                                NewsController.CreateNewForAll(exdepositTransaction.Reservation.UserId, exdepositTransaction.Id, 9, DateTime.Today);
                             }
                         }
                     }
 
                 }
 
-                //var buyNowReservation = await scopeService.GetBuyNowReservation();
-                //if (buyNowReservation != null)
-                //{
-                //    foreach (var item in buyNowReservation)
-                //    {
-                //        //scopeService.GetDeadlineDepositDate(item.Id)
-                //        if (scopeService.GetDeadlineDepositDate(item.Id) == DateTime.Today)
-                //        {
-                //            var exdepositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0);
-                //            var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0 && t.Status == true);
-
-                //            if (depositTransaction == null && item.Status != 2)
-                //            {
-
-                //                item.Status = 2;
-
-                //                context.SaveChanges();
-                //                NewsController.CreateNewForAll(exdepositTransaction.Reservation.UserId, exdepositTransaction.Id, 9);
-                //            }
-                //        }
-                //    }
-                //}
                 #endregion
 
-                #region Update done reservation status
-                var finishedReservation = await scopeService.GetFinishedReservation();
-                if (finishedReservation != null)
-                {
-                    foreach (var item in finishedReservation)
-                    {
-                        // Check if the entity is already tracked
-                        var finishReservation = new Reservation();
-                
-
-                        // Check if all transactions are paid and the status is not already set to 4
-                        bool allTransactionIsPaid = item.Transactions.All(t => t.Status == true && item.Transactions.Count >= 4);
-                        if (allTransactionIsPaid && item.Status != 4)
-                        {
-                            var existingItem = context.Set<Reservation>().Local.FirstOrDefault(e => e.Id == item.Id);
-                            if (existingItem != null)
-                            {
-                                // If the entity is tracked, update its properties
-                                existingItem.Status = 4;
-                                context.Entry(existingItem).State = EntityState.Modified;
-                            }
-                            else
-                            {
-                                // If the entity is not tracked, attach it
-                                context.Attach(item);
-                                item.Status = 4;
-                                context.Entry(item).State = EntityState.Modified;
-                            }
-                            context.SaveChanges();
-                            NewsController.CreateFinishNews(item.UserId, Common.GetDepositIDByResevationID(item.Id));
-                        }
-                      
-                    }
-                }
-
-                ////update status for reservation if every field of transaction is done
-                //var finishedReservation = await scopeService.GetFinishedReservation();
-                //if (finishedReservation != null)
-                //{
-                //    foreach (var item in finishedReservation)
-                //    {
-                //        bool allTransactionIsPaid = item.Transactions.All(t => t.Status == true && item.Transactions.Count >= 5);
-                //        if (allTransactionIsPaid && item.Status != 4)
-                //        {
-
-                //            item.Status = 4;
-                //            context.Update(item);
-                //            context.SaveChanges();
-                //            NewsController.CreateFinishNews(item.UserId);
-                //        }
-                //    }
-                //}
-                #endregion
+          
             }
-            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
-
+            //await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+            await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
         }
     }
 }
