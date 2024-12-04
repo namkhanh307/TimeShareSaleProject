@@ -1,6 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using TimeShareProject.Controllers;
 using TimeShareProject.Models;
 using TimeShareProject.Services;
@@ -23,193 +22,152 @@ public class DateCheckerService : BackgroundService
         {
             Console.WriteLine("Check");
             await Console.Out.WriteLineAsync(DateTime.Today.ToString());
-            //using (var scope = _scopeFactory.CreateScope())
-            //{
-            //    var scopedServiceProvider = scope.ServiceProvider;
-            //    var context = scopedServiceProvider.GetRequiredService<_4restContext>();
-            //    var scopeService = scopedServiceProvider.GetRequiredService<IModelService>();
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var scopedServiceProvider = scope.ServiceProvider;
+                var context = scopedServiceProvider.GetRequiredService<_4restContext>();
+                var scopeService = scopedServiceProvider.GetRequiredService<IModelService>();
 
-            //    #region Handle Reserve
-            //    var groupReservations = await scopeService.GetGroupReservationsAsync(); // list list group reservation
+                #region Handle Reserve
+                var groupReservations = await scopeService.GetGroupReservationsAsync(); // list list group reservation
 
-            //    foreach (var group in groupReservations) //list group reservation
-            //    {
-            //        if (group.Count >= 1) //duplicate reservation
-            //        {
-            //            var first = group.FirstOrDefault(r => r.Order == 1); //lay dau tien order == 1
-            //            if (first != null)
-            //            {
-            //                if (scopeService.GetDeadlineReserveDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
-            //                {
-            //                    var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == -1);
-            //                    var reserveTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == -1 && t.Status == true);//tra tien reserve chua
-            //                    if (reserveTransaction == null && first.Status != 2)//thang dau chua tra
-            //                    {
-            //                        first.Status = 2;// cancel
-            //                        context.Update(first);
-            //                        context.SaveChanges();
-            //                        NewsController.CreateNewForAll(first.UserId, existTransaction.Id, DateTime.Today, 8);
-            //                        foreach (var item in group) //list cua duplicate 10 thang
-            //                        {
-            //                            item.Order--;
-            //                            context.Update(item);
-            //                            context.SaveChanges();
-            //                        }
-            //                    }
-            //                }
+                foreach (var group in groupReservations)
+                {
+                    if (group.Count >= 1)
+                    {
+                        var sortedReservations = group.Where(r => r.Order > 0).OrderBy(r => r.Order).ToList();
 
-<<<<<<< HEAD
-            //                if (scopeService.GetDeadlineDepositDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
-            //                {
-            //                    var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == 0);
-            //                    var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == 0 && t.Status == true);
-=======
-                                var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == -1);
-                                var reserveTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == -1 && t.Status == true);//tra tien reserve chua
-                                if (reserveTransaction == null && first.Status != 2)//thang dau chua tra
+                        for (int i = 0; i < sortedReservations.Count; i++)
+                        {
+                            var reservation = sortedReservations[i];
+
+                            if (reservation != null)
+                            {
+                                // Check reservation fee payment deadline
+                                if (scopeService.GetDeadlineReserveDate(reservation.Id) <= DateTime.Now)
                                 {
-                                    first.Status = 2;// cancel
-                                    context.Update(first);
-                                    context.SaveChanges();
-                                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, 8);
-                                    foreach (var item in group) //list cua duplicate 10 thang
+                                    // Check if the user paid the reservation fee
+                                    var reserveTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == reservation.Id && t.Type == -1 && t.Status == true);
+                                    if (reserveTransaction == null)
                                     {
-                                        item.Order--;
-                                        context.Update(item);
+
+
+                                        reservation.Status = 2; // cancel
+                                        reservation.Order = 0;
+                                        context.Update(reservation);
+
                                         context.SaveChanges();
+
                                     }
                                 }
-                                else {
->>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
 
-            //                    if (depositTransaction == null && first.Status != 2)//thang dau chua tra
-            //                    {
-            //                        first.Status = 2;// cancel
-            //                        context.Update(first);
-            //                        context.SaveChanges();
-            //                        NewsController.CreateNewForAll(first.UserId, existTransaction.Id, DateTime.Today, 9);
-            //                        foreach (var item in group) //list cua duplicate 10 thang
-            //                        {
-            //                            item.Order--;
-            //                            context.Update(item);
-            //                            context.SaveChanges();
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //    await context.SaveChangesAsync();
-            //    #endregion
 
-<<<<<<< HEAD
-            //    #region Handle Buy now
-            //    var buyNowReservation = await scopeService.GetBuyNowReservation();
-            //    foreach (var item in buyNowReservation)
-            //    {
-            //        if (scopeService.GetDeadlineDepositDate(item.Id) == DateTime.Today)
-            //        {
-            //            var exdepositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0);
-            //            var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0 && t.Status == true);
-
-            //            if (depositTransaction == null && item.Status != 2)
-            //            {
-            //                item.Status = 2;
-            //                context.Update(item);
-            //                context.SaveChanges();
-            //                NewsController.CreateNewForAll(exdepositTransaction.Reservation.UserId, exdepositTransaction.Id, DateTime.Today, 9);
-            //            }
-            //        }
-            //    }
-
-            //    #endregion
-            //    #region Update done reservation status
-            //    //update status for reservation if every field of transaction is done
-            //    var finishedReservation = await scopeService.GetFinishedReservation();
-            //    if (finishedReservation != null)
-            //    {
-            //        foreach (var item in finishedReservation)
-            //        {
-            //            bool allTransactionIsPaid = item.Transactions.All(t => t.Status == true && item.Transactions.Count >= 5);
-            //            if (allTransactionIsPaid && item.Status != 4)
-            //            {
-            //                item.Status = 4;
-            //                context.Update(item);
-            //                context.SaveChanges();
-            //                NewsController.CreateFinishNews(item.UserId);
-            //            }
-            //        }
-            //    }
-            //    #endregion
-            //}
-            await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken);
-=======
-                            if (scopeService.GetDeadlineDepositDate(first.Id) == DateTime.Today) //lay ngay deadline cua thang 1
-                            {
-                                var existTransaction = context.Transactions.FirstOrDefault(r => r.ReservationId == first.Id && r.Type == 0);
-                                var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == first.Id && t.Type == 0 && t.Status == true);
-                               
-                                if (depositTransaction == null && first.Status != 2)//thang dau chua tra
+                                if (scopeService.GetDeadlineDepositDate(reservation.Id) == DateTime.Today)
                                 {
-                                    first.Status = 2;// cancel
-                                    context.Update(first);
-                                    context.SaveChanges();
-                                    NewsController.CreateNewForAll(first.UserId, existTransaction.Id, 9);
-                                    foreach (var item in group) //list cua duplicate 10 thang
+                                    // Check if the user paid the deposit fee
+                                    var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == reservation.Id && t.Type == 0 && t.Status == true);
+                                    if (depositTransaction != null)
                                     {
-                                        item.Order--;
-                                        context.Update(item);
+
+                                        for (int j = i + 1; j < sortedReservations.Count; j++)
+                                        {
+                                            sortedReservations[j].Order = 0; // Cancelled
+                                            sortedReservations[j].Status = 2;// Cancelled
+                                            context.Update(sortedReservations[j]);
+                                            context.SaveChanges();
+                                        }
+
+
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        reservation.Status = 2;
+                                        reservation.Order = 0;
+                                        context.Update(reservation);
                                         context.SaveChanges();
                                     }
                                 }
                             }
+                            if (sortedReservations[i].Transactions.Any(r => r.Type == 0 && r.Status == true))
+                            {
+                                for (int j = i + 1; i < sortedReservations.Count; j++)
+                                {
+                                    sortedReservations[j].Status = 2;
+                                    context.Update(sortedReservations[i]);
+                                    context.SaveChanges();
+
+                                }
+                            }
+
                         }
+
                     }
                 }
-                await context.SaveChangesAsync();
+
                 #endregion
 
                 #region Handle Buy now
+
                 var buyNowReservation = await scopeService.GetBuyNowReservation();
-                foreach (var item in buyNowReservation)
+                if (buyNowReservation != null)
                 {
-                    if (scopeService.GetDeadlineDepositDate(item.Id) == DateTime.Today)
+                    foreach (var item in buyNowReservation)
                     {
-                        var exdepositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0);
-                        var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0 && t.Status == true);
-                       
-                        if (depositTransaction == null && item.Status != 2)
+                        // Check if the entity is already tracked
+                        var existingItem = context.Set<Reservation>().Local.FirstOrDefault(e => e.Id == item.Id);
+                        if (existingItem != null)
                         {
-                            item.Status = 2;
-                            context.Update(item);
-                            context.SaveChanges();
-                            NewsController.CreateNewForAll(exdepositTransaction.Reservation.UserId, exdepositTransaction.Id, 9);
+                            // If the entity is tracked, update its properties
+                            existingItem.Status = 2;
+                            existingItem.Order = 0;
+                            context.Entry(existingItem).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            // If the entity is not tracked, attach it
+                            context.Attach(item);
+                            context.Entry(item).State = EntityState.Modified;
+                        }
+
+                        // Check deadline deposit date
+                        if (scopeService.GetDeadlineDepositDate(item.Id) == DateTime.Today)
+                        {
+                            var exdepositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0);
+                            var depositTransaction = context.Transactions.FirstOrDefault(t => t.ReservationId == item.Id && t.Type == 0 && t.Status == true);
+
+                            if (depositTransaction == null && item.Status != 2)
+                            {
+                                // Update status to 2 (cancelled)
+                                if (existingItem != null)
+                                {
+                                    existingItem.Status = 2;
+                                    existingItem.Order = 0;
+                                    context.Entry(existingItem).State = EntityState.Modified;
+                                }
+                                else
+                                {
+                                    context.Attach(item);
+                                    item.Status = 2;
+                                    item.Order = 0;
+                                    context.Entry(item).State = EntityState.Modified;
+                                }
+
+                                // Save changes to the database
+                                context.SaveChanges();
+                                NewsController.CreateNewForAll(exdepositTransaction.Reservation.UserId, exdepositTransaction.Id, 9, DateTime.Today);
+                            }
                         }
                     }
+
                 }
 
                 #endregion
-                #region Update done reservation status
-                //update status for reservation if every field of transaction is done
-                var finishedReservation = await scopeService.GetFinishedReservation();
-                if (finishedReservation != null)
-                {
-                    foreach (var item in finishedReservation)
-                    {
-                        bool allTransactionIsPaid = item.Transactions.All(t => t.Status == true && item.Transactions.Count >= 5);
-                        if (allTransactionIsPaid && item.Status != 4)
-                        {
-                            item.Status = 4;
-                            context.Update(item);
-                            context.SaveChanges();
-                            NewsController.CreateFinishNews(item.UserId);
-                        }
-                    }
-                }
-                #endregion
+
             }
-          //  await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
->>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
+            //await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+
         }
     }
 }

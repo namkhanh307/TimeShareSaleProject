@@ -6,15 +6,15 @@ namespace TimeShareProject.ViewModels
     public class EditAccountViewModel
     {
         [Required]
-        public string CurrentUsername { get; set; }
+        public required string CurrentUsername { get; set; }
 
         [Required]
-        public string CurrentPassword { get; set; }
+        public required string CurrentPassword { get; set; }
 
         [Required]
-        public string NewUsername { get; set; }
+        public required string NewUsername { get; set; }
 
         [Required]
-        public string NewPassword { get; set; }
+        public required string NewPassword { get; set; }
     }
 }

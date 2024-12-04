@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CgIIGD1vT5FAJWnLBRhbqf7eNwUrnsLPuOgdz4q2k0UwiaSR5/Ug/IgaS0rv52RvZTJ0vTc6gZUu3e/SC/I08A==",
+  "dgSpecHash": "pYokjpaajjg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj",
+  "projectFilePath": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\TimeShareProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nobod\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\nobod\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TimeShareProject.Models;
+﻿namespace TimeShareProject.Models;
 
 public partial class Property
 {
     public int Id { get; set; }
 
     public string? Name { get; set; }
-
-    public bool? SaleStatus { get; set; }
 
     public DateTime SaleDate { get; set; }
 

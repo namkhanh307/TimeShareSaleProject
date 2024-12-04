@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TimeShareProject.Models;
 
@@ -46,7 +41,7 @@ namespace TimeShareProject.Controllers
         }
         public IActionResult AddBlock()
         {
-            
+
             using (var context = new _4restContext())
             {
                 DateTime startDate = new DateTime(DateTime.Now.Year, 1, 1); // Start from January 1st of the current year
@@ -73,7 +68,7 @@ namespace TimeShareProject.Controllers
 
                 context.SaveChanges();
             }
-            
+
             return RedirectToAction("Login");
         }
     }

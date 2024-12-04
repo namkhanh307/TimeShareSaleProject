@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TimeShareProject.Models;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Text.Json;
-using System;
 
 
 

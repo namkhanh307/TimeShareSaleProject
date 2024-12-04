@@ -39,10 +39,11 @@
         function updateProportion(id) {
             var proportionInput = document.getElementById("proportion_" + id);
             var proportion = proportionInput.value;
-            
+
             // Validate the input
             if (proportion < 50 || isNaN(proportion)) {
-                alert("Proportion must be a number and not below 50.");
+                //alert("Proportion must be a number and not below 50.");
+                Notiflix.Notify.failure('"Proportion must be a number and not below 50.');
                 proportionInput.value = 50; // Set default value to 50 if input is invalid
                 return;
             }
@@ -54,10 +55,12 @@
                 url: "/Blocks/UpdateProportion",
                 data: data,
                 success: function (response) {
-                    alert("Proportion updated successfully");
+                    //alert("Proportion updated successfully");
+                    Notiflix.Notify.success('Proportion updated successfully');
                 },
                 error: function () {
-                    alert("Error updating proportion");
+                    //alert("Error updating proportion");
+                    Notiflix.Notify.failure('Error updating proportion');
                 }
             });
         }

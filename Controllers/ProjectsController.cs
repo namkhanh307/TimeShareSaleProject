@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using TimeShareProject.Models;
@@ -25,14 +19,14 @@ namespace TimeShareProject.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        
+
         public IActionResult GetProject(int ID)
         {
             using _4restContext context = new _4restContext();
             List<int?> distinctBedTypes = @Common.GetDistinctBedTypes();
             ViewBag.DistinctBedTypes = distinctBedTypes;
             var items = context.Projects.FirstOrDefault(m => m.Id == ID);
-            
+
 
             if (items == null)
             {
@@ -76,8 +70,15 @@ namespace TimeShareProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Project model,  IFormFile Image1, IFormFile Image2, IFormFile Image3)
+        public IActionResult Create(Project model, IFormFile Image1, IFormFile Image2, IFormFile Image3)
         {
+
+            var existShortName = _context.Projects.Where(p => p.ShortName == model.ShortName);
+            if (existShortName.Any())
+            {
+                TempData["errorExistShortName"] = "Shortname already exists!";
+                return RedirectToAction("Create");
+            }
             var newProject = new Project
             {
                 Name = model.Name,
@@ -87,11 +88,10 @@ namespace TimeShareProject.Controllers
                 TotalUnit = 0,
                 GeneralDescription = model.GeneralDescription,
                 DetailDescription = model.DetailDescription,
-                Status = model.Status,
+                Status = model.Status
 
-            Star = 5
             };
-       
+
             newProject.Image1 = SaveProjectImage(newProject, Image1).Result;
             newProject.Image2 = SaveProjectImage(newProject, Image2).Result;
             newProject.Image3 = SaveProjectImage(newProject, Image3).Result;
@@ -146,8 +146,15 @@ namespace TimeShareProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Project project,  IFormFile Image1, IFormFile Image2, IFormFile Image3)
+        public async Task<IActionResult> Edit(int id, Project project, IFormFile Image1, IFormFile Image2, IFormFile Image3)
         {
+
+            var existShortName = _context.Projects.Where(p => p.ShortName == project.ShortName);
+            if (existShortName.Any())
+            {
+                TempData["errorExistShortName"] = "Shortname already exists!";
+                return RedirectToAction("Create");
+            }
             var existingProject = await _context.Projects.FindAsync(id);
             try
             {
@@ -155,13 +162,13 @@ namespace TimeShareProject.Controllers
                 existingProject.Name = project.Name;
                 existingProject.Address = project.Address;
                 existingProject.Area = project.Area;
-       
+
                 existingProject.GeneralDescription = project.GeneralDescription;
                 existingProject.DetailDescription = project.DetailDescription;
                 existingProject.Status = project.Status;
-                existingProject.Star = project.Star;
 
-           
+
+
                 if (Image1 != null)
                 {
                     existingProject.Image1 = await SaveProjectImage(project, Image1);
@@ -222,7 +229,7 @@ namespace TimeShareProject.Controllers
             .ToListAsync();
                 _context.Rates.RemoveRange(rateToDelete);
 
-               
+
                 _context.Projects.Remove(project);
             }
 
@@ -238,7 +245,7 @@ namespace TimeShareProject.Controllers
 
         public IActionResult GetFeedback(int projectId)
         {
-            
+
             var rates = _context.Rates.Where(r => r.ProjectId == projectId).ToList();
             return PartialView("_FeedbackPartial", rates);
         }
@@ -246,8 +253,8 @@ namespace TimeShareProject.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                var returnUrl = Url.Action("Rates", "Projects", new { Id, detailRate, starRate});
-                return RedirectToAction("Login", "Login", new {returnUrl});
+                var returnUrl = Url.Action("Rates", "Projects", new { Id, detailRate, starRate });
+                return RedirectToAction("Login", "Login", new { returnUrl });
             }
 
             string username = User.Identity.Name;
@@ -255,20 +262,20 @@ namespace TimeShareProject.Controllers
 
             if (user != null)
             {
-                
+
                 int userId = user.Id;
 
-            
+
                 var existingVote = _context.Rates.FirstOrDefault(r => r.ProjectId == Id && r.UserId == userId);
 
                 if (existingVote != null)
                 {
-                  
+
                     existingVote.DetailRate = detailRate;
                     existingVote.StarRate = starRate;
                     _context.SaveChanges();
 
-                    return RedirectToAction("GetProject", "Projects", new {Id});
+                    return RedirectToAction("GetProject", "Projects", new { Id });
                 }
                 else
                 {
@@ -289,7 +296,7 @@ namespace TimeShareProject.Controllers
             }
             else
             {
-                
+
                 return RedirectToAction("Login", "Login");
             }
         }

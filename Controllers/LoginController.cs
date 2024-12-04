@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TimeShareProject.Models;
@@ -24,7 +24,7 @@ namespace TimeShareProject.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password, string returnUrl = null)
         {
-
+            //Common.CreateBlock();
             var user = _dbContext.Accounts.SingleOrDefault(u => u.Username == username && u.Password == password);
 
             if (user != null)
@@ -65,10 +65,10 @@ namespace TimeShareProject.Controllers
                     }
                 }
             }
-            
-            
-                TempData["error"] = "Invalid username or password";
-            
+
+
+            TempData["error"] = "Invalid username or password";
+
 
 
 

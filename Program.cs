@@ -1,10 +1,6 @@
 
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 using TimeShareProject.Models;
 using TimeShareProject.Services;
@@ -52,8 +48,14 @@ namespace TimeShareProject
         {
             services.AddControllers();
             services.AddControllersWithViews();
-
             var connectionString = configuration.GetConnectionString("DefaultConnection");
+            //services.AddDbContext<_4restContext>(options =>
+            //{
+            //    options.UseSqlServer(connectionString, sqlServerOptions =>
+            //    {
+            //        sqlServerOptions.EnableRetryOnFailure();
+            //    });
+            //});
             services.AddDbContext<_4restContext>(options => options.UseSqlServer(connectionString));
 
             services.AddHttpContextAccessor();

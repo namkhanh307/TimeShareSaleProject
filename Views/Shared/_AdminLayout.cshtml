@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="~/css/templatemo-villa-agency.css">
     <link rel="stylesheet" href="~/css/owl.css">
     <link rel="stylesheet" href="~/css/animate.css">
-    <link rel="stylesheet" href="~/notiflix/dist/notiflix-3.2.7.min.css"/>
+    <link rel="stylesheet" href="~/notiflix/dist/notiflix-3.2.7.min.css" />
     <style>
 
         .dropdown-toggle {
@@ -82,10 +82,7 @@
                                     <li><a class="dropdown-item" href="@Url.Action("Logout", "Login")">Logout</a></li>
                                 </ul>
                             </div>
-                           
                         </div>
-                    
-                       
                     }
                     else
                     {
@@ -93,14 +90,12 @@
                             <a asp-controller="SignUp" asp-action="SignUp"><small class="me-3 text-dark"><i class="fa fa-user me-2"></i>Sign up</small></a>
                             <a asp-controller="Login" asp-action="Login"><small class="me-3 text-dark"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
                         </div>
-                    
+
                     }
                 </div>
             </div>
         </div>
     </div>
-
-
 
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
@@ -180,8 +175,6 @@
             @RenderBody()
         </main>
     </div>
-    
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -216,7 +209,7 @@
     <script src="~/js/counter.js"></script>
     <script src="~/js/custom.js"></script>
     <script src="~/notiflix/dist/notiflix-3.2.7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/notiflix@2.7.0/dist/notiflix.min.js"></script>
+    <script src="~/notiflix/dist/notiflix-aio-3.2.7.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

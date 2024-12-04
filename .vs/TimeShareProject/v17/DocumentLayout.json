@@ -1,22 +1,66 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\",
+  "WorkspaceRootPath": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\documents\\github\\timeshareproject\\controllers\\reservationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\reservationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\models\\common.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\services\\modelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:services\\modelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\services\\imodelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:services\\imodelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\services\\datecheckerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:services\\datecheckerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\services\\vnpayservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:services\\vnpayservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\services\\paypalclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:services\\paypalclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\viewmodels\\viewuserprofilemodel .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:viewmodels\\viewuserprofilemodel .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\viewmodels\\editaccountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:viewmodels\\editaccountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\models\\vnpaylibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:models\\vnpaylibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\models\\_4restcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:models\\_4restcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\models\\project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:models\\project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|c:\\users\\nobod\\desktop\\timeshareproject (2)\\timeshareproject\\models\\common.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:models\\common.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\views\\reservations\\selectroom.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\reservations\\selectroom.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\views\\user\\getusertransactions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BA6806C2-0B86-461A-8554-1F43C6ECABEE}|TimeShareProject.csproj|solutionrelative:views\\user\\getusertransactions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,68 +69,202 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 164,
-          "SelectedChildIndex": 6,
+          "DockedWidth": 200,
+          "SelectedChildIndex": 13,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SelectRoom.cshtml",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Reservations\\SelectRoom.cshtml",
-              "RelativeDocumentMoniker": "Views\\Reservations\\SelectRoom.cshtml",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\Reservations\\SelectRoom.cshtml",
-              "RelativeToolTip": "Views\\Reservations\\SelectRoom.cshtml",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAACsAAABiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-01T08:25:12.608Z"
+              "Title": "IModelService.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\IModelService.cs",
+              "RelativeDocumentMoniker": "Services\\IModelService.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\IModelService.cs",
+              "RelativeToolTip": "Services\\IModelService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T07:28:17.35Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GetUserTransactions.cshtml",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\User\\GetUserTransactions.cshtml",
-              "RelativeDocumentMoniker": "Views\\User\\GetUserTransactions.cshtml",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Views\\User\\GetUserTransactions.cshtml",
-              "RelativeToolTip": "Views\\User\\GetUserTransactions.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-01T08:23:22.671Z"
+              "DocumentIndex": 4,
+              "Title": "VnPayService.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\VnPayService.cs",
+              "RelativeDocumentMoniker": "Services\\VnPayService.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\VnPayService.cs",
+              "RelativeToolTip": "Services\\VnPayService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T07:28:15.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PaypalClient.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\PaypalClient.cs",
+              "RelativeDocumentMoniker": "Services\\PaypalClient.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\PaypalClient.cs",
+              "RelativeToolTip": "Services\\PaypalClient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T07:28:15.237Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ViewUserProfileModel .cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\ViewModels\\ViewUserProfileModel .cs",
+              "RelativeDocumentMoniker": "ViewModels\\ViewUserProfileModel .cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\ViewModels\\ViewUserProfileModel .cs",
+              "RelativeToolTip": "ViewModels\\ViewUserProfileModel .cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T07:27:31.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EditAccountViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\ViewModels\\EditAccountViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\EditAccountViewModel.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\ViewModels\\EditAccountViewModel.cs",
+              "RelativeToolTip": "ViewModels\\EditAccountViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T07:26:59.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "VnPayLibrary.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Models\\VnPayLibrary.cs",
+              "RelativeDocumentMoniker": "Models\\VnPayLibrary.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Models\\VnPayLibrary.cs",
+              "RelativeToolTip": "Models\\VnPayLibrary.cs",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T07:25:44.066Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-04T07:25:08.71Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_4restContext.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Models\\_4restContext.cs",
+              "RelativeDocumentMoniker": "Models\\_4restContext.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Models\\_4restContext.cs",
+              "RelativeToolTip": "Models\\_4restContext.cs",
+              "ViewState": "AgIAAO4AAAAAAAAAAAAiwAoBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T07:24:32.071Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAowBUAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T12:06:28.218Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Common.cs",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Models\\Common.cs",
-              "RelativeDocumentMoniker": "Models\\Common.cs",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Models\\Common.cs",
-              "RelativeToolTip": "Models\\Common.cs",
-              "ViewState": "AQIAAOoAAAAAAAAAAIAwwAcBAAAhAAAA",
+              "Title": "ModelService.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\ModelService.cs",
+              "RelativeDocumentMoniker": "Services\\ModelService.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\ModelService.cs",
+              "RelativeToolTip": "Services\\ModelService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T08:08:54.258Z"
+              "WhenOpened": "2024-12-02T11:50:24.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DateCheckerService.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\DateCheckerService.cs",
+              "RelativeDocumentMoniker": "Services\\DateCheckerService.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Services\\DateCheckerService.cs",
+              "RelativeToolTip": "Services\\DateCheckerService.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAowKkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T11:49:08.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Project.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Models\\Project.cs",
+              "RelativeDocumentMoniker": "Models\\Project.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Models\\Project.cs",
+              "RelativeToolTip": "Models\\Project.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T11:49:03.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Controllers\\LoginController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAwwBoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T02:55:23.197Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ReservationsController.cs",
-              "DocumentMoniker": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ReservationsController.cs",
-              "ToolTip": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\Controllers\\ReservationsController.cs*",
-              "RelativeToolTip": "Controllers\\ReservationsController.cs*",
-              "ViewState": "AQIAACwBAAAAAAAAAAAmwDYBAABQAAAA",
+              "Title": "AccountsController.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Controllers\\AccountsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountsController.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Controllers\\AccountsController.cs",
+              "RelativeToolTip": "Controllers\\AccountsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T02:43:27.055Z",
+              "WhenOpened": "2024-12-02T02:55:10.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Common.cs",
+              "DocumentMoniker": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Models\\Common.cs",
+              "RelativeDocumentMoniker": "Models\\Common.cs",
+              "ToolTip": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\Models\\Common.cs",
+              "RelativeToolTip": "Models\\Common.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T02:47:32.865Z",
               "EditorCaption": ""
             }
           ]

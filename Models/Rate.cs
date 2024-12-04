@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TimeShareProject.Models;
+﻿namespace TimeShareProject.Models;
 
 public partial class Rate
 {

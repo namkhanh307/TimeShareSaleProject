@@ -9,53 +9,53 @@
 
 @if (Model != null && Model.Any())
 {
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.RegisterDate)</th>
-            <th>@Html.DisplayNameFor(model => model.YearQuantity)</th>
-            <th>@Html.DisplayNameFor(model => model.Type)</th>
-            <th>@Html.DisplayNameFor(model => model.Block)</th>
-            <th>From date</th>
-            <th>End date</th>
-            <th>@Html.DisplayNameFor(model => model.Property)</th>
-            <th>@Html.DisplayNameFor(model => model.User)</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.RegisterDate)</td>
-                <td>@Html.DisplayFor(modelItem => item.YearQuantity)</td>
-                <td>
-                    @if (item.Type.Value == 1)
-                    {
-                        <span>Reserve</span>
-                    }
-                    else
-                    {
-                        <span>Buy now</span>
-                    }
-                </td>
-                <td>@Html.DisplayFor(modelItem => item.Block.BlockNumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.Block.StartDay)/@Html.DisplayFor(modelItem => item.Block.StartMonth)</td>
-                <td>@Html.DisplayFor(modelItem => item.Block.EndDay)/@Html.DisplayFor(modelItem => item.Block.EndMonth)</td>
-                <td>@Html.DisplayFor(modelItem => item.Property.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
-                <td>
-                    <a class="btn btn-dark" href="@Url.Action("ViewAllDuplicates", "Reservations", new { propertyId = item.PropertyId, blockId = item.BlockId })">View All Duplicates</a>
-                </td>
+                <th>@Html.DisplayNameFor(model => model.RegisterDate)</th>
+                <th>@Html.DisplayNameFor(model => model.YearQuantity)</th>
+                <th>@Html.DisplayNameFor(model => model.Type)</th>
+                <th>@Html.DisplayNameFor(model => model.Block)</th>
+                <th>From date</th>
+                <th>End date</th>
+                <th>@Html.DisplayNameFor(model => model.Property)</th>
+                <th>@Html.DisplayNameFor(model => model.User)</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.RegisterDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.YearQuantity)</td>
+                    <td>
+                        @if (item.Type.Value == 1)
+                        {
+                            <span>Reserve</span>
+                        }
+                        else
+                        {
+                            <span>Buy now</span>
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.BlockNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.StartDay)/@Html.DisplayFor(modelItem => item.Block.StartMonth)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Block.EndDay)/@Html.DisplayFor(modelItem => item.Block.EndMonth)</td>
+                    <td><a asp-action="GetProperty" asp-controller="Properties" asp-route-id="@item.PropertyId">@Html.DisplayFor(modelItem => item.Property.Name)</a></td>
+                    <td><a asp-action="Index" asp-controller="User" asp-route-id="@item.UserId">@Html.DisplayFor(modelItem => item.User.Name)</a></td>
+                    <td>
+                        <a class="btn btn-dark" href="@Url.Action("ViewAllDuplicates", "Reservations", new { propertyId = item.PropertyId, blockId = item.BlockId })">View All Duplicates</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {
-<p>No reservations found.</p>
+    <p>No reservations found.</p>
 }
 
 @section Scripts {
@@ -70,10 +70,12 @@ else
                 url: "/Reservations/UpdateReservationStatus",
                 data: data,
                 success: function (response) {
-                    alert("Status updated successfully");
+                    //alert("Status updated successfully");
+                    Notiflix.Notify.success('Status updated successfully');
                 },
                 error: function () {
-                    alert("Error updating status");
+                    //alert("Error updating status");
+                    Notiflix.Notify.failure('Error updating status');
                 }
             });
         }

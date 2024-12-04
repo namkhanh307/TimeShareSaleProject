@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\notiflix-Notiflix-78ca6fa\.dev\.eslintrc.json" />
-    <Content Include="wwwroot\notiflix\.dev\.eslintrc.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -28,25 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\notiflix-Notiflix-78ca6fa\.dev\.eslintrc.js" />
-    <None Include="wwwroot\notiflix-Notiflix-78ca6fa\.dev\notiflix-dev-builder.js" />
-    <None Include="wwwroot\notiflix-Notiflix-78ca6fa\.dev\notiflix-dev-constants.js" />
-    <None Include="wwwroot\notiflix-Notiflix-78ca6fa\.dev\notiflix-dev-minifier.js" />
-    <None Include="wwwroot\notiflix-Notiflix-78ca6fa\.github\FUNDING.yml" />
-    <None Include="wwwroot\notiflix-Notiflix-78ca6fa\.github\ISSUE_TEMPLATE\bugreport.md" />
-    <None Include="wwwroot\notiflix-Notiflix-78ca6fa\.github\ISSUE_TEMPLATE\featurerequest.md" />
-    <None Include="wwwroot\notiflix-Notiflix-78ca6fa\.github\workflows\dependency-review.yml" />
-    <None Include="wwwroot\notiflix\.dev\.eslintrc.js" />
-    <None Include="wwwroot\notiflix\.dev\notiflix-dev-builder.js" />
-    <None Include="wwwroot\notiflix\.dev\notiflix-dev-constants.js" />
-    <None Include="wwwroot\notiflix\.dev\notiflix-dev-minifier.js" />
-    <None Include="wwwroot\notiflix\.github\FUNDING.yml" />
-    <None Include="wwwroot\notiflix\.github\ISSUE_TEMPLATE\bugreport.md" />
-    <None Include="wwwroot\notiflix\.github\ISSUE_TEMPLATE\featurerequest.md" />
-    <None Include="wwwroot\notiflix\.github\workflows\dependency-review.yml" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>

@@ -29,159 +29,113 @@
 <br />
 <h2>Your Transactions</h2>
 <div class="text-center" style="margin-top: 20px">
-@if (Model != null && Model.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Register Date</th>
-                <th>Amount</th>
-                <th>Payment status</th>
-                <th>Transaction Code</th>
-                <th>Type</th>
-                <th>Pay</th>
-                <th>Deadline</th>
-                <th>Transaction status</th>
-               @*  <th>Resolve Date</th> *@
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var transaction in Model)
-            {
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@transaction.Date</td>
-                    <td>@transaction.Amount</td>
-                    <td>@(transaction.Status == true ? "Paid" : "Not Paid")</td>
-                    <td>@transaction.TransactionCode</td>
-                    <td>
-                        @{
-                            string transactionType = "";
-                            switch (transaction.Type)
-                            {
-                                case -1:
-                                    transactionType = "Reserve";
-                                    break;
-                                case 0:
-                                    transactionType = "Deposit";
-                                    break;
-                                case 1:
-                                    transactionType = "First Payment";
-                                    break;
-                                case 2:
-                                    transactionType = "Second Payment";
-                                    break;
-                                case 3:
-                                    transactionType = "Third Payment";
-                                    break;
-                                default:
-                                    transactionType = "Unknown";
-                                    break;
-                            }
-                        }
-                        @transactionType
-                    </td>
-               @*      @if (transaction.Status == true)
-                    {
-                        <td>You have paid this field!</td>
-                    }
-                    else if ((transaction.Type == -1 && transaction.DeadlineDate > DateTime.Today) || (DateTime.Today == transaction.ResolveDate && transaction.Reservation.Status == 3) || (transaction.Type == 1 || transaction.Type == 2 || transaction.Type == 3))
-                    {
-                        <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
-                    }
-                    else if (Common.CheckNotAvailable(transaction.Status, transaction.Type, transaction.DeadlineDate))
-                    {
-                        <td>Not available!</td>
-                    }
-                    else if (DateTime.Today < transaction.ResolveDate)
-                    {
-                        <td>Waiting until resolve date!</td>
-                    }
-                    else
-                    {
-                        <td>Not catch</td>
-                    } *@
-                    @if (transaction.Status == true)
-                    {
-                        <td>You have paid this field!</td>
-                    }
-                    else if (Common.CheckNotAvailable(transaction.Status, transaction.Type, transaction.DeadlineDate, transaction.ResolveDate) || transaction.Reservation.Status != 3)
-                    {
-                        <td>Not available!</td>
-                    }
-<<<<<<< HEAD
-                    else if (DateTime.Today < transaction.ResolveDate && transaction.Type == 0)
-                    {
-=======
-                        else if (DateTime.Today < Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId) && transaction.Type == 0 || (transaction.Type == 0 && transaction.Reservation.Order > 1))
-                        {
->>>>>>> e3198606b022648766b066fe24d25a0643bacd8f
-                        <td>Waiting until resolve date!</td>
-                    }
-                    else 
-                    {
-                        <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
-                    }
-                    <td>
+                    <th>Register Date</th>
+                    <th>Amount</th>
+                    <th>Payment status</th>
+                    <th>Transaction Code</th>
+                    <th>Type</th>
+                    <th>Pay</th>
+                    <th>Deadline</th>
+                    <th>Transaction status</th>
+                    @*  <th>Resolve Date</th> *@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transaction in Model)
+                {
+                    <tr>
+                        <td>@transaction.Date</td>
+                        <td>@transaction.Amount</td>
+                        <td>@(transaction.Status == true ? "Paid" : "Not Paid")</td>
+                        <td>@transaction.TransactionCode</td>
+                        <td>
                             @{
-                                DateTime Date = Common.GetSaleDateofPropertyDByPropertyID(transaction.Reservation.PropertyId);
-                                int AddOrderDate = transaction.Reservation.Order;
-                                int Adddate = 0;
-                                if (AddOrderDate > 0) Adddate = AddOrderDate - 1;
-                                switch (@transaction.Type)
+                                string transactionType = "";
+                                switch (transaction.Type)
                                 {
                                     case -1:
-                                      
+                                        transactionType = "Reserve";
                                         break;
                                     case 0:
-                                        Date = Date.AddDays(1 + Adddate);
+                                        transactionType = "Deposit";
                                         break;
                                     case 1:
-                                        Date = Date.AddDays(7 + Adddate);
+                                        transactionType = "First Payment";
                                         break;
                                     case 2:
-                                        Date = Date.AddDays(365 + Adddate);
+                                        transactionType = "Second Payment";
+                                        break;
+                                    case 3:
+                                        transactionType = "Third Payment";
                                         break;
                                     default:
-                                        Date = Date.AddDays(730 + Adddate);
+                                        transactionType = "Unknown";
                                         break;
                                 }
                             }
-                            You should pay this field before @Date
+                            @transactionType
                         </td>
-                    <td>
-                        @{
-                            string status = "";
-                            switch (@transaction.Reservation.Status)
-                            {
-                                case 1:
-                                    status = "Violation";
-                                    break;
-                                case 2:
-                                    status = "Cancel";
-                                    break;
-                                case 3:
-                                    status = "Pending";
-                                    break;
-                                case 4:
-                                    status = "Finished";
-                                    break;
-                                default:
-                                    status = "Unknown";
-                                    break;
-                            }
+                      
+                        @if (transaction.Status == true)
+                        {
+                            <td>You have paid this field!</td>
                         }
-                        @status
-                    </td>
-                   @*  <td>@transaction.ResolveDate</td> *@
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No transactions found for this user.</p>
-}
+                        else if (Common.CheckNotAvailable(transaction.Status, transaction.Type, transaction.DeadlineDate) || transaction.Reservation.Status != 3)
+                        {
+                            <td>Not available!</td>
+                        }
+                        else if (transaction.DeadlineDate != null && DateTime.Today < transaction.DeadlineDate.Value.AddDays(-1) && transaction.Type == 0)
+                        {
+
+                            <td>Not available!!</td>
+
+
+                        }
+                        else
+                        {
+                            <td id="paypal-button-container-@transaction.Id" style="max-width:1000px;"></td>
+                        }
+
+                        <td>You should pay this field before @transaction.DeadlineDate</td>
+                        <td>
+                            @{
+                                string status = "";
+                                switch (@transaction.Reservation.Status)
+                                {
+                                    case 1:
+                                        status = "Violation";
+                                        break;
+                                    case 2:
+                                        status = "Cancel";
+                                        break;
+                                    case 3:
+                                        status = "Pending";
+                                        break;
+                                    case 4:
+                                        status = "Finished";
+                                        break;
+                                    default:
+                                        status = "Unknown";
+                                        break;
+                                }
+                            }
+                            @status
+                        </td>
+                        @*  <td>@transaction.ResolveDate</td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No transactions found for this user.</p>
+    }
 </div>
 <div>
     <form asp-action="GetUserReservation" asp-controller="User">
@@ -244,6 +198,6 @@ else
                     renderPayPalButton('paypal-button-container-@transaction.Id', @Html.Raw(Json.Serialize(transaction)));
             </text>
         }
-                                                });
+                                                                });
     </script>
 }

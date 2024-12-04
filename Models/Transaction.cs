@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TimeShareProject.Models;
+﻿namespace TimeShareProject.Models;
 
 public partial class Transaction
 {
@@ -21,9 +18,7 @@ public partial class Transaction
 
     public DateTime? DeadlineDate { get; set; }
 
-    public DateTime? ResolveDate { get; set; }
-
     public virtual ICollection<New> News { get; set; } = new List<New>();
 
-    public virtual Reservation Reservation { get; set; }
+    public virtual Reservation? Reservation { get; set; }
 }

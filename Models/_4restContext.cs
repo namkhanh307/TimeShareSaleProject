@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace TimeShareProject.Models;
 
@@ -37,7 +35,7 @@ public partial class _4restContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=tcp:swp4rest.database.windows.net,1433;Initial Catalog=4rest;Persist Security Info=False;User ID=swp4rest;Password=swpswp@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
+        => optionsBuilder.UseSqlServer("Server=(local);database=TimeShareProject;uid=sa;pwd=12345678;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;Connection Timeout=60;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -114,7 +112,6 @@ public partial class _4restContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Address).HasColumnName("address");
-            entity.Property(e => e.AddressImage).HasColumnName("addressImage");
             entity.Property(e => e.Area).HasColumnName("area");
             entity.Property(e => e.DetailDescription).HasColumnName("detailDescription");
             entity.Property(e => e.GeneralDescription).HasColumnName("generalDescription");
@@ -123,7 +120,6 @@ public partial class _4restContext : DbContext
             entity.Property(e => e.Image3).HasColumnName("image3");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.ShortName).HasColumnName("shortName");
-            entity.Property(e => e.Star).HasColumnName("star");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalUnit).HasColumnName("totalUnit");
         });
@@ -145,7 +141,6 @@ public partial class _4restContext : DbContext
             entity.Property(e => e.SaleDate)
                 .HasColumnType("datetime")
                 .HasColumnName("saleDate");
-            entity.Property(e => e.SaleStatus).HasColumnName("saleStatus");
             entity.Property(e => e.SideImage).HasColumnName("sideImage");
             entity.Property(e => e.Size).HasColumnName("size");
             entity.Property(e => e.Status).HasColumnName("status");
@@ -228,9 +223,6 @@ public partial class _4restContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("deadlineDate");
             entity.Property(e => e.ReservationId).HasColumnName("reservationID");
-            entity.Property(e => e.ResolveDate)
-                .HasColumnType("datetime")
-                .HasColumnName("resolveDate");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TransactionCode).HasColumnName("transactionCode");
             entity.Property(e => e.Type).HasColumnName("type");

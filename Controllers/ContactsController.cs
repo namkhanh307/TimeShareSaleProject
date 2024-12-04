@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TimeShareProject.Models;
 
@@ -23,12 +18,12 @@ namespace TimeShareProject.Controllers
         [Authorize(Roles = "1,2")]
         public async Task<IActionResult> Index()
         {
-              return _context.Contacts != null ? 
-                          View(await _context.Contacts.ToListAsync()) :
-                          Problem("Entity set 'TimeShareProjectContext.Contacts'  is null.");
+            return _context.Contacts != null ?
+                        View(await _context.Contacts.ToListAsync()) :
+                        Problem("Entity set 'TimeShareProjectContext.Contacts'  is null.");
         }
 
-       
+
         public async Task<IActionResult> UpdateContactStatus(int id, bool status)
         {
             var contact = await _context.Contacts.FindAsync(id);
@@ -44,9 +39,9 @@ namespace TimeShareProject.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        
-       
-       
+
+
+
 
         // GET: Contacts/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -80,14 +75,14 @@ namespace TimeShareProject.Controllers
             {
                 _context.Contacts.Remove(contact);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ContactExists(int id)
         {
-          return (_context.Contacts?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Contacts?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

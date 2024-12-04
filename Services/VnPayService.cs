@@ -63,7 +63,8 @@ namespace TimeShareWebProject.Services
                     TransactionCode = Convert.ToString(vnp_orderId)
                 };
             }
-            return new Transaction {
+            return new Transaction
+            {
                 Date = DateTime.Now,
                 Amount = amount,
                 Status = true,

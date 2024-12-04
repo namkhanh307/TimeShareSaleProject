@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TimeShareProject.Models;
 
 namespace TimeShareProject.Controllers
@@ -160,76 +155,73 @@ namespace TimeShareProject.Controllers
         {
             return _context.Transactions.Any(e => e.Id == id);
         }
-        public IActionResult CreateTransaction(int id)
-        {
-            var reservation = Common.GetPropertyFromReservation(id);
-            try
-            {
-                using var transaction = _context.Database.BeginTransaction();
-                var newDepositTransaction = new Transaction()
-                {
-                    Date = DateTime.Now,
-                    Amount = reservation.Property.UnitPrice * reservation.Block.Proportion,
-                    Status = false,
-                    TransactionCode = null,
-                    ReservationId = id,
-                    Type = 0,
-                    
-
-                };
-                _context.Transactions.Add(newDepositTransaction);
-
-                var newFirstTermTransaction = new Transaction()
-                {
-                    Date = DateTime.Now,
-                    Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion,
-                    Status = false,
-                    TransactionCode = null,
-                    ReservationId = id,
-                    Type = 1,
-                   
-
-                };
-                _context.Transactions.Add(newFirstTermTransaction);
-
-                var newSecondTermTransaction = new Transaction()
-                {
-                    Date = DateTime.Now,
-                    Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion,
-                    Status = false,
-                    TransactionCode = null,
-                    ReservationId = id,
-                    Type = 2,
-                   
-                };
-                _context.Transactions.Add(newSecondTermTransaction);
+        //public IActionResult CreateTransaction(int id)
+        //{
+        //    var reservation = Common.GetPropertyFromReservation(id);
+        //    try
+        //    {
+        //        using var transaction = _context.Database.BeginTransaction();
+        //        var newDepositTransaction = new Transaction()
+        //        {
+        //            Date = DateTime.Now,
+        //            Amount = reservation.Property.UnitPrice * reservation.Block.Proportion,
+        //            Status = false,
+        //            TransactionCode = null,
+        //            ReservationId = id,
+        //            Type = 0,
 
 
-                var newThirdTermTransaction = new Transaction()
-                {
-                    Date = DateTime.Now,
-                    Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion ,
-                    Status = false,
-                    TransactionCode = null,
-                    ReservationId = id,
-                    Type = 3,
-                  
-                };
-                _context.Transactions.Add(newThirdTermTransaction);
-                _context.SaveChanges();
-                transaction.Commit();
-                TempData["Message"] = "Reservation confirmed successfully!";
+        //        };
+        //        _context.Transactions.Add(newDepositTransaction);
 
-                
-                
-                    NewsController.CreateNewForAll(reservation.UserId, reservation.Property.Id, 1);
-                
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "An error occurred while confirming the reservation.";
-            }
-            return RedirectToAction("Index", "Reservations");
-        }
+        //        var newFirstTermTransaction = new Transaction()
+        //        {
+        //            Date = DateTime.Now,
+        //            Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion,
+        //            Status = false,
+        //            TransactionCode = null,
+        //            ReservationId = id,
+        //            Type = 1,
+
+
+        //        };
+        //        _context.Transactions.Add(newFirstTermTransaction);
+
+        //        var newSecondTermTransaction = new Transaction()
+        //        {
+        //            Date = DateTime.Now,
+        //            Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion,
+        //            Status = false,
+        //            TransactionCode = null,
+        //            ReservationId = id,
+        //            Type = 2,
+
+        //        };
+        //        _context.Transactions.Add(newSecondTermTransaction);
+
+
+        //        var newThirdTermTransaction = new Transaction()
+        //        {
+        //            Date = DateTime.Now,
+        //            Amount = reservation.Property.UnitPrice * 3 * reservation.Block.Proportion ,
+        //            Status = false,
+        //            TransactionCode = null,
+        //            ReservationId = id,
+        //            Type = 3,
+
+        //        };
+        //        _context.Transactions.Add(newThirdTermTransaction);
+        //        _context.SaveChanges();
+        //        transaction.Commit();
+        //        TempData["Message"] = "Reservation confirmed successfully!";
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["ErrorMessage"] = "An error occurred while confirming the reservation.";
+        //    }
+        //    return RedirectToAction("Index", "Reservations");
+        //}
     }
 }

@@ -38,49 +38,39 @@
                     <td>@Html.DisplayFor(modelItem => item.Block.BlockNumber)</td>
                     <td>@Html.DisplayFor(modelItem => item.Block.StartDay)/@Html.DisplayFor(modelItem => item.Block.StartMonth)</td>
                     <td>@Html.DisplayFor(modelItem => item.Block.EndDay)/@Html.DisplayFor(modelItem => item.Block.EndMonth)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Property.Name)</td>
+                    <td><a asp-action="GetProperty" asp-controller="Properties" asp-route-id="@item.PropertyId">@Html.DisplayFor(modelItem => item.Property.Name)</a></td>
                     <td><a asp-action="Index" asp-controller="User" asp-route-id="@item.UserId">@Html.DisplayFor(modelItem => item.User.Name)</a></td>
                     <td>
                         @*                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                        <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         <a asp-action="TransactionDetail" asp-route-id="@item.Id" class="btn btn-dark">Transaction Detail</a>
                         <a class="btn btn-dark" href="@Url.Action("ViewAllDuplicates", "Reservations", new { propertyId = item.PropertyId, blockId = item.BlockId })">View All Duplicates</a>
                         <select class="status-select" id="status_@item.Id">
                             @if (item.Status == 1)
                             {
                                 <option value="1" selected>Violation</option>
-                                <option value="2">Cancel</option>
-                                <option value="3">Pending</option>
-                                <option value="4">Finished</option>
+                               
                             }
                             else if (item.Status == 2)
                             {
-                                <option value="1">Violation</option>
+                                
                                 <option value="2" selected>Cancel</option>
-                                <option value="3">Pending</option>
-                                <option value="4">Finished</option>
+                               
                             }
                             else if (item.Status == 3)
                             {
                                 <option value="1">Violation</option>
-                                <option value="2">Cancel</option>
                                 <option value="3" selected>Pending</option>
-                                <option value="4">Finished</option>
+                             
                             }
                             else if (item.Status == 4)
                             {
-                                <option value="1">Violation</option>
-                                <option value="2">Cancel</option>
-                                <option value="3">Pending</option>
+                           
                                 <option value="4" selected>Finished</option>
                             }
                             else
                             {
-                                <option value="1">Violation</option>
-                                <option value="2">Cancel</option>
-                                <option value="3">Pending</option>
-                                <option value="4">Finished</option>
+                              
                                 <option value="" selected>Unknown</option>
                             }
                         </select>
@@ -110,10 +100,12 @@ else
                 url: "/Reservations/UpdateReservationStatus",
                 data: data,
                 success: function (response) {
-                    alert("Status updated successfully");
+                    //alert("Status updated successfully");
+                    Notiflix.Notify.success('Status updated successfully');
                 },
                 error: function () {
-                    alert("Error updating status");
+                    //alert("Error updating status");
+                    Notiflix.Notify.failure('Error updating status');
                 }
             });
         }

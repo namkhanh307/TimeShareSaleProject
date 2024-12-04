@@ -1,14 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TimeShareProject.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace TimeShareProject.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        
+
 
         public IActionResult Index()
         {
@@ -26,7 +26,10 @@ namespace TimeShareProject.Controllers
         {
             return View();
         }
-
+        public IActionResult TermsAndPolicies()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

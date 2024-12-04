@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj": {}
+    "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\TimeShareProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj": {
+    "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\TimeShareProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj",
+        "projectUniqueName": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\TimeShareProject.csproj",
         "projectName": "TimeShareProject",
-        "projectPath": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\TimeShareProject.csproj",
+        "projectPath": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\TimeShareProject.csproj",
         "packagesPath": "C:\\Users\\nobod\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nobod\\Documents\\GitHub\\TimeShareProject\\obj\\",
+        "outputPath": "C:\\Users\\nobod\\Desktop\\TimeShareProject (2)\\TimeShareProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -94,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

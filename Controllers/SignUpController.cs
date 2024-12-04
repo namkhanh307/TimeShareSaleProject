@@ -22,12 +22,12 @@ namespace TimeShareProject.Controllers
                 TempData["errorExistUsername"] = "Username already exists!";
                 return RedirectToAction("SignUp");
             }
-            if(username.Contains(" "))
+            if (username.Contains(" "))
             {
                 TempData["errorSpace"] = "User name can not contain space!";
                 return RedirectToAction("SignUp");
             }
-            if(dateOfBirth >= DateTime.Today)
+            if (dateOfBirth >= DateTime.Today)
             {
                 TempData["errorBirthday"] = "Birthday can not exceed today!";
                 return RedirectToAction("SignUp");

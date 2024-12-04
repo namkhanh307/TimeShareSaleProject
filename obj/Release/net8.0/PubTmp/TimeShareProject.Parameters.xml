@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="4REST" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\sem5\\SWP\\New\ folder\\TimeShareProject\\TimeShareProject\\obj\\Release\\net8\.0\\PubTmp\\Out\\$" />
+  <parameter name="IIS Web Application Name" description="" value="4restwebsite" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\sem5\\SWP\\New\ folder\\New\ folder\\TimeShareProject\\obj\\Release\\net8\.0\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>
